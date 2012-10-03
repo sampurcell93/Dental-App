@@ -14,15 +14,13 @@
 		 <div data-role="content"> 
 		 	<ul data-role="listview" data-theme="b" class="choice">
 		 		<li>Choose a type of crown:</li>
-<<<<<<< HEAD
+
 		 		<li><a href="parse.php?c=fixed&lev=1" >Fixed</a></li>
 		 		<li><a href="parse.php?c=removable&lev=1">Removable</a></li>
 		 	</ul>
 		  </div>
 
-		 
-=======
-		 		<li><a href="#fixed" >Fixed</a></li>
+		<li><a href="#fixed" >Fixed</a></li>
 		 		<li><a href="#removable" >Removable</a></li>
 		 	</ul>
 		  </div>
@@ -53,7 +51,6 @@
 		 		<li><a  class="bottomLevel" >Multiple</a></li>
 		 	</ul>
 		</div>
->>>>>>> upstream/master
 
 </body>
 </html>
