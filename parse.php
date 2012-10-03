@@ -61,7 +61,7 @@
 
 		<?php } 
 
-		else if ($results->num_rows == 1) {
+			else if ($results->num_rows == 1) {
 
 				$row = $results->fetch_assoc();
 
@@ -69,9 +69,9 @@
 
 				echo $table;
 
-				$results = $mysqli->query("select * from `$table`") ;
+				$results = $mysqli->query("select * from `info` where name = `$table`") ;
 
-				//$row = $results->fetch_assoc();
+				$row = $results->fetch_assoc();
 
 				foreach ($row as $key => $value) { 
 
