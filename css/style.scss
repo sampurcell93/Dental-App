@@ -1,0 +1,18 @@
+@import "bourbon/bourbon";
+
+[data-role="page"] { background: url(retina_wood.png); }
+[data-role="header"] { background: rgb(204,170,126); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(204,170,126,1) 0%, rgba(150,119,69,1) 47%, rgba(96,65,41,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,170,126,1)), color-stop(47%,rgba(150,119,69,1)), color-stop(100%,rgba(96,65,41,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(204,170,126,1) 0%,rgba(150,119,69,1) 47%,rgba(96,65,41,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(204,170,126,1) 0%,rgba(150,119,69,1) 47%,rgba(96,65,41,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(204,170,126,1) 0%,rgba(150,119,69,1) 47%,rgba(96,65,41,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(204,170,126,1) 0%,rgba(150,119,69,1) 47%,rgba(96,65,41,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccaa7e', endColorstr='#604129',GradientType=0 ); /* IE6-9 */
+}
+
+[data-collapsible] p, [data-collapsible] ul { display: none; }
+
+ul[data-role="listview"] { @include box-shadow(0px 0px 10px #000);}
+
+video { width: 100%; }
