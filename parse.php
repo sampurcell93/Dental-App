@@ -5,7 +5,7 @@
 	$top_level = $_GET['t'];
 	$spec = $_GET['s'];
 
-	$mysqli = new mysqli('localhost','sampurce','kamehameha1','sampurce_dental');
+	$mysqli = new mysqli('localhost','root','','dental_info');
 
 	if($mysqli->connect_errno) { 
 
