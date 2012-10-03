@@ -20,7 +20,11 @@ $(document).ready(function() {
 
 	});
 
+<<<<<<< HEAD
 	$("h1, li a").text(function(i, text) {
+=======
+	$("h2").text(function(i, text) {
+>>>>>>> upstream/master
 
    		return text.substr(0,1).toUpperCase() + text.substr(1);
 
