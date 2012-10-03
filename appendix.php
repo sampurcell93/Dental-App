@@ -2,7 +2,7 @@
 	
 	require_once("header.php");
 
-	$mysqli = new mysqli('localhost','sampurce','kamehameha1','sampurce_dental');
+	$mysqli = new mysqli('localhost','root','','dental_info');
 
 	if($mysqli->connect_errno) { 
 
@@ -32,7 +32,7 @@
 
 					if ($key != "id") { 
 
-						if ($key == "name"){ 
+						if ($key == "term"){ 
 						
 							echo "<strong>" . $value . ":</strong> ";
 						
