@@ -14,10 +14,10 @@
 
 	}
 
-	$results = $mysqli->query("SELECT h1.spec_name AS lev1, h2.spec_name AS lev2
-	FROM hierarchy AS h1
-LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
-WHERE h1.spec_name =  '$choice'");
+	$results = $mysqli->query("SELECT h1.spec_name AS lev1, h2.spec_name AS lev2, h1.id as parent
+								FROM hierarchy AS h1
+								LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
+								WHERE h1.spec_name =  '$choice'");
 	
 ?>
 
@@ -29,20 +29,22 @@ WHERE h1.spec_name =  '$choice'");
 				</div>
 
 				<div data-role="content">
-<?php
+
+			<?php
 	
-		if($results->num_rows > 1) {
+				if($results->num_rows > 1) {
 
 			?>
 
 				<ul data-role="listview" data-theme="b" class="choice">
+
 		 		<?php 
 
 		 		while($row = $results->fetch_assoc()) { 
 
 					foreach ($row as $key => $value) { 
 
-						if ($key == "lev2") {
+						if ($key == "lev2" && $value != NULL) {
 							echo "<li><a href='parse.php?&c=" . $value . "' >" . $value . "</a></li>";
 						}
 					}
@@ -54,17 +56,26 @@ WHERE h1.spec_name =  '$choice'");
 
 		<?php } 
 
-		if ($results->num_rows > 0) {
+		if ($results->num_rows == 1) {
 
-			while($row = $results->fetch_assoc()) { 
+				$row = $results->fetch_assoc();
+
+				$table = $row['lev1'];
+
+				$results = $mysqli->query("select * from `$table`") ;
+
+				$row = $results->fetch_assoc();
 
 				foreach ($row as $key => $value) { 
 
-				echo $key . ": " . $value; 
+					if($key != "id"){
 
+						echo "<h2>" . $key . "</h2>";
+						echo "<p>" . $value . "</p>";
+
+					}
 				}
 
-			}
 		}
 
 ?>		

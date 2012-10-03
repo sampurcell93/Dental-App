@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 	});
 
-	$(".dynamic").children("li").text(function(i, text) {
+	$("h1, li a").text(function(i, text) {
 
    		return text.substr(0,1).toUpperCase() + text.substr(1);
 
