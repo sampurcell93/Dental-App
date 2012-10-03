@@ -9,9 +9,7 @@
 
       		<script type="text/javascript" src="main.js"></script>
 			<script src="http://code.jquery.com/mobile/1.2.0-rc.2/jquery.mobile-1.2.0-rc.2.min.js"></script>
-
-			<script src="http://code.jquery.com/mobile/1.2.0-rc.2/jquery.mobile-1.2.0-rc.2.min.js"></script>
-      		<script type="text/javascript" src="main.js"></script>
+   
 
 		</head>
 

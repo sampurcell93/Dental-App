@@ -6,9 +6,6 @@
 	$choice = $_GET['c'];
 	$level = $_GET['lev'];
 
-	$top_level = $_GET['t'];
-	$spec = $_GET['s'];
-
 	$mysqli = new mysqli('localhost','root','','dental_info');
 
 	if($mysqli->connect_errno) { 
@@ -23,8 +20,6 @@
 								LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
 								WHERE h1.spec_name =  '$choice'");
 
-	$results = $mysqli->query("select * from $top_level where specs='$spec'");
-
 	
 ?>
 
@@ -33,8 +28,6 @@
 
 
 					<h1><?php echo $choice; ?></h1>
-
-					<h1><?php echo $top_level . ", " . $spec; ?></h1>
 
 
 				</div>
@@ -68,15 +61,17 @@
 
 		<?php } 
 
-		if ($results->num_rows == 1) {
+		else if ($results->num_rows == 1) {
 
 				$row = $results->fetch_assoc();
 
 				$table = $row['lev1'];
 
+				echo $table;
+
 				$results = $mysqli->query("select * from `$table`") ;
 
-				$row = $results->fetch_assoc();
+				//$row = $results->fetch_assoc();
 
 				foreach ($row as $key => $value) { 
 
@@ -90,40 +85,7 @@
 
 		}
 
-?>		
-
-<?php
-	
-		if ($results->num_rows > 0) { 
-
-			while($row = $results->fetch_assoc()) { 
-
-				foreach ($row as $key => $value) { 
-
-					if (!$key) { $key = "NULL"; }
-				
-					else if($key == "maintenance" ||  $key == "general_info") { 
-
-						echo "<h2 data-role ='collapsible'>" . $key . " </h2>";
-						echo "<p>" . $value . "</p>";
-
-					}
-
-					else if ($key == "procedures") { 
-
-						echo "<h2>" . $key . " </h2>";
-						echo $value;
-
-					}
-
-				
-
-				}
-
-			}
-		}
-
-?>
+?>	
 
 				</div>
 			</div>
