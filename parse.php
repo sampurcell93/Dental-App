@@ -68,6 +68,10 @@
 				$procedure_name = $row['lev1'];
 				$id = $row['id'];
 
+				echo $id;
+
+				echo $procedure_name;
+
 				$results = $mysqli->query("select * from `info` where id = $id") ;
 
 				$row = $results->fetch_assoc();
