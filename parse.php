@@ -37,7 +37,6 @@
 	
 	//gets the choice selected from a certain level of hierarchy
 	$choice = $_GET['c'];
-	$level = $_GET['lev'];
 
 	//open db connection: insecure on dev server. pass will be set when deployed
 	$mysqli = new mysqli('localhost','root','','dental_info');
@@ -61,23 +60,16 @@
 
 			<div data-role="page" data-add-back-btn="true" data-collapsible>
 				<div data-role="header" data-theme="a" data-add-back-btn="true">
-
-
 					<h1><?php echo $choice; ?></h1>
-
-
 				</div>
 
 				<div data-role="content">
-
-
 			<?php
 
 				//if a hierarchy is present (IE, more than one child), present a list of choices.
 				if($results->num_rows > 1) {
 
 			?>
-
 				<ul data-role="listview" data-theme="b" class="choice">
 
 		 		<?php 
@@ -139,9 +131,9 @@
 
 					}
 				
-			}
+				}
 
-		}
+			}
 
 
 
