@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Single Tooth`
+--
+
+DROP TABLE IF EXISTS `Single Tooth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Single Tooth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Procedures` text,
+  `Maintenance` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Single Tooth`
+--
+
+LOCK TABLES `Single Tooth` WRITE;
+/*!40000 ALTER TABLE `Single Tooth` DISABLE KEYS */;
+INSERT INTO `Single Tooth` VALUES (1,'Lipsum','Maint');
+/*!40000 ALTER TABLE `Single Tooth` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `appendix`
 --
 
@@ -62,8 +87,60 @@ CREATE TABLE `hierarchy` (
 
 LOCK TABLES `hierarchy` WRITE;
 /*!40000 ALTER TABLE `hierarchy` DISABLE KEYS */;
-INSERT INTO `hierarchy` VALUES (1,'fixed',NULL,NULL),(2,'partial',1,NULL),(3,'complete',1,NULL),(4,'removable',NULL,NULL),(5,'partial',4,1),(6,'complete',4,1),(7,'Single Tooth',2,1),(8,'Multiple Teeth',2,1);
+INSERT INTO `hierarchy` VALUES (1,'fixed',NULL,NULL),(2,'Fixed partial',1,NULL),(3,'Fixed complete',1,1),(4,'removable',NULL,NULL),(5,'Removable partial',4,1),(6,'Removable complete',4,1),(7,'Single Tooth',2,1),(8,'Multiple Teeth',2,1);
 /*!40000 ALTER TABLE `hierarchy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `info`
+--
+
+DROP TABLE IF EXISTS `info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `info` (
+  `name` varchar(100) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `general_info` text,
+  `procedures` text,
+  `maintenance` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `info`
+--
+
+LOCK TABLES `info` WRITE;
+/*!40000 ALTER TABLE `info` DISABLE KEYS */;
+INSERT INTO `info` VALUES ('Single Tooth',7,'General info tsxt here.','Procedures here','maintenance here'),('Multiple Teeth',8,'General text lipsum','Procedures lipsum','maint lipsum'),('Fixed Complete',3,'Lipsum fixed complete general','FC Proecdures','FC Maint'),('Removable Partial',5,'Lipsum removable partial general','Rp Proecdures','Rp Maint'),('Removable Complete',6,'Lipsum removable complete general','RC Proecdures','RC Maint');
+/*!40000 ALTER TABLE `info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `multiple teeth`
+--
+
+DROP TABLE IF EXISTS `multiple teeth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `multiple teeth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Procedures` text,
+  `Maintenance` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `multiple teeth`
+--
+
+LOCK TABLES `multiple teeth` WRITE;
+/*!40000 ALTER TABLE `multiple teeth` DISABLE KEYS */;
+INSERT INTO `multiple teeth` VALUES (1,'Lipsum','Maint');
+/*!40000 ALTER TABLE `multiple teeth` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -75,4 +152,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-03 11:34:00
+-- Dump completed on 2012-10-04 16:19:56
