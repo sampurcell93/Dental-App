@@ -19,7 +19,8 @@
 		 		<li><a href="parse.php?c=removable&lev=1">Removable</a></li>
 		 	</ul>
 		  </div>
-
+<!-- The first list can be as long as it needs to... as long as hierarchy is preserved as content is added, this
+	this should work. Now, the current bug is: what if Fixed has a partial, and so does removable? Working on that now -->
 		
 </body>
 </html>
