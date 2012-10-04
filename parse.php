@@ -15,7 +15,7 @@
 
 	}
 
-	$results = $mysqli->query("SELECT h1.spec_name AS lev1, h2.spec_name AS lev2, h1.id as parent
+	$results = $mysqli->query("SELECT h1.spec_name AS lev1, h2.spec_name AS lev2, h1.id as id
 								FROM hierarchy AS h1
 								LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
 								WHERE h1.spec_name =  '$choice'");
@@ -65,11 +65,10 @@
 
 				$row = $results->fetch_assoc();
 
-				$table = $row['lev1'];
+				$procedure_name = $row['lev1'];
+				$id = $row['id'];
 
-				echo $table;
-
-				$results = $mysqli->query("select * from `info` where name = `$table`") ;
+				$results = $mysqli->query("select * from `info` where id = $id") ;
 
 				$row = $results->fetch_assoc();
 
