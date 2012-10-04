@@ -22,8 +22,6 @@ $(document).ready(function() {
 
 	$("h1, li a").text(function(i, text) {
 
-	$("h2").text(function(i, text) {
-
    		return text.substr(0,1).toUpperCase() + text.substr(1);
 
 	});
