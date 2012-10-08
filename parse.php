@@ -2,6 +2,9 @@
 	
 	require_once("header.php");
 
+//so, a sample call of this function would be parse_words("tom,joe,dan",",")
+//this would parse each comma delimeted word into a separate array cell.
+
 	function parse_words($string,$delimeter) { 
 
 		$words = array();
@@ -23,10 +26,17 @@
 
 				}
 			}
+			
+			if ($position >= strlen($string)) { 
+
+					break;
+
+			}
 
 				$wordnum++;
 				$words[$wordnum] = "";
 				$position++;
+
 
 		}
 
@@ -37,7 +47,7 @@
 	
 	//gets the choice selected from a certain level of hierarchy
 	$choice = $_GET['c'];
-
+	$first;
 	//open db connection: insecure on dev server. pass will be set when deployed
 	$mysqli = new mysqli('localhost','root','','dental_info');
 
@@ -76,6 +86,8 @@
 
 		 		while($row = $results->fetch_assoc()) { 
 
+
+		 			$first =json_encode($row);
 					foreach ($row as $key => $value) { 
 
 						//send the choices back to this page, except the query above will produce a different results table
@@ -109,29 +121,50 @@
 				foreach ($row as $key => $value) { 
 
 					//echo a header and the content of the cell
-					if($key != "id" && $key != "miscellaneous"){
+					if($key != "id"){
 
-						echo "<h2>" . $key . "</h2>";
-						echo "<p>" . $value . "</p>";
+						if($key == "general_info") { 
 
-					}
+							//ugly col name, so print out something better
+						echo "<h2> General Info </h2>";
 
-					else if ($key == "miscellaneous") { 
+						}	
+
+						else if ($key == "miscellaneous") { 
 
 						echo $value;
 						$the_words = parse_words($value,",");
 						echo " <br />";
 
-						for ($i = 0; $i < count($the_words); $i++) { 
+							for ($i = 0; $i < count($the_words); $i++) { 
 
-							echo $the_words[$i] . "<br />";
+								echo $the_words[$i] . "<br />";
+								echo $i;
+							}
+
+
+						}
+						else if ($key == "name") { 
+
+							echo "<h1 class='header'>" . $value . "</h1>";
+							continue;
 
 						}
 
+						else {
+
+							//print out the column name, capitalized
+							echo "<h2>" . ucfirst($key) . "</h2>";
+
+						}
+						echo "<p>" . $value . "</p>";
 
 					}
+
+					
 				
 				}
+
 
 			}
 
