@@ -11,6 +11,9 @@
 		</head>
 
 		<body>
+
+			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("d/m/y") ?> . Add some stuff.</div>
+
 			<aside>
 				<a class="help">Close</a>
 					<h3>Tips:</h3>
@@ -52,7 +55,13 @@
 				</div>
 			</div>
 
-			<div id="previewBox"></div>
+			<div id="previewBox"><a class="close"></a>
+
+				<div id="previewContent"></div>
+
+				<a class="button submitInfo" type="submit">Submit (for real)</a>
+
+			</div>
 
 		</body>
 

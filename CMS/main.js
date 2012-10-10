@@ -1,10 +1,7 @@
-
-
 $(document).ready(function() { 
 
 			//tie consoles to textareas to allow for GUI style editing,
 			var index_count = 0;
-			var textboxes = [];
 
 		//begin with a console and a header in content
 
@@ -19,12 +16,7 @@ $(document).ready(function() {
 		//click on the add header button to add what will become a new column in that node's sql table.
 		$("#addHeader").on("click",function() {
 
-			console.log(newHeader(index_count));
-			console.log(newConsole(index_count));
 			$(".content").append(newHeader(index_count));
-
-			textboxes[index_count] = $("#text" + index_count).attr("value");
-			console.log(textboxes[index_count]);
 			$(".content").append(newConsole(index_count));
 			index_count++;
 
@@ -45,23 +37,42 @@ $(document).ready(function() {
 		//when they click the preview button, their text inputs are aggregated. 
 		$("#preview").live("click",function() { 
  
-			$("#previewBox").empty();
+ 		//empty the preview content of their old inputs
+			$("#previewContent").empty();
+		//show the wrapper box
+			$("#previewBox").show();
 
-			for (var i = 0; i < textboxes.length; i++) {
-
-				var curr = $("#previewBox").html();
 				var title = "<h1>" + $("#node_title").val() + "</h1>";
-				var header = "<h2>" + $("#head" + i).val() + "</h2> \n";
+				$("#previewContent").html(title);
+
+		//add each header followed by its text in order.
+			for (var i = 0; i < $("textarea").length; i++) {
+
+				var curr = $("#previewContent").html();
+				var header = "<h2>" + $("#head" + i).val() + "</h2><br />";
 				var text = $("#text" + i).val() + "<br />";
 
 				if(header != "" && title != "" && text != "") {
 
-					$("#previewBox").html(curr + title + header + text);
+					$("#previewContent").html(curr + header + text);
 			}
 		}
 
 
 		});
+		
+		//close function
+		$(".close").live("click",function() { 
+
+			$("#previewBox").hide();
+
+		});
+
+		$(".submitInfo").live("click",function() { 
+
+			aggregate();
+
+		})
 
 
 
@@ -84,10 +95,31 @@ function newConsole(the_index) {
 	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
 	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='createSub'>SubHead</li>";
 	var console = "<ul class='console' data-rel='text" + the_index + "'>"
-
-		console +=  list + subheader + link + bold + "</ul>";
+	console +=  list + subheader + link + bold + "</ul>";
 
 		return console;
+}
+
+function aggregate() { 
+
+	var textboxes = [];
+	var headers = [];
+
+	for (var i = 0; i < $("textarea").length; i++) { 
+
+
+		textboxes[i] = $("#text" + i).val();
+		console.log('text: ' + textboxes[i]);
+
+
+	}
+
+	for (var i = 0; i < $("input[type=text]").length - 1; i++) { 
+
+		headers[i] = $("#head" + i).val();
+		console.log('header: ' + headers[i]);
+
+	}
 
 
 }
