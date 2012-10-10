@@ -14,23 +14,26 @@
 
 			<div id="lander_wrap">
 				<div id="lander">
+
 					<h1>Add Content</h1>
 					<p>This app was designed so that it could be added to easily by non-programmers (dentists).
-						Here you go.</p>
+						Here you go. Add content to a specification (EG Single Tooth is a specification of 
+						Fixed > Partial.</p>
 
-					<h3>Add a top level: (e.g. "Fixed")</h3>
-					<input type="text" placeholder="Top-level specifier" class="main" />
-					<p>Does this have subselections asociated? (e.g. "partial", "complete").
-					 <a href="#" class="yes">Yes</a> | <a href="#" class="no">No</a></p>
+					<p>Use the sidebar at the side to easily format your content. Make sure it's formatted right here, 
+						so it displays correctly in the app.</p>
 
 
-					 <div id="content">
-					 	<p>Enter the content for this type of procedure. </p>
-					 	<a class="button" href="#">Add new heading</a>
+						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
+						
+						<a class="button addHeader">Add Content</a>
 
-					 	<h4>Heading: <input type="text" /></h4>
+						<div class="content"></div>
 
-					 </div>
+						<input type="submit" class="button" value="Submit (see preview)"/>
+					
+
+						<div style="clear: both;"></div>
 				</div>
 			</div>
 
