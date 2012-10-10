@@ -1,5 +1,5 @@
 <?php
-	
+
 	require_once("header.php");
 
 //so, a sample call of this function would be parse_words("tom,joe,dan",",")
@@ -26,7 +26,7 @@
 
 				}
 			}
-			
+
 			if ($position >= strlen($string)) { 
 
 					break;
@@ -44,7 +44,7 @@
 
 	}
 
-	
+
 	//gets the choice selected from a certain level of hierarchy
 	$choice = $_GET['c'];
 	$first;
@@ -65,7 +65,7 @@
 								LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
 								WHERE h1.spec_name =  '$choice'");
 
-	
+
 ?>
 
 			<div data-role="page" data-add-back-btn="true" data-collapsible>
@@ -86,8 +86,6 @@
 
 		 		while($row = $results->fetch_assoc()) { 
 
-
-		 			$first =json_encode($row);
 					foreach ($row as $key => $value) { 
 
 						//send the choices back to this page, except the query above will produce a different results table
@@ -114,7 +112,7 @@
 				$id = $row['lev1_id'];
 
 				//go to info table to get the data related to this procedure
-				$results = $mysqli->query("select * from `info` where id = $id") ;
+				$results = $mysqli->query("select * from `$procedure_name`") ;
 
 				$row = $results->fetch_assoc();
 
@@ -161,8 +159,8 @@
 
 					}
 
-					
-				
+
+
 				}
 
 

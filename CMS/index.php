@@ -41,19 +41,53 @@
 
 						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
 						
-						<a class="button addHeader">Add Content</a>
+						<a class="button" id="addHeader" >Add Content</a>
 
 						<div class="content"></div>
 
-						<input type="submit" class="button" value="Submit (see preview)"/>
+						<input type="submit" class="button" value="Submit (see preview)" id="preview"/>
 					
 
 						<div style="clear: both;"></div>
 				</div>
 			</div>
 
+			<div id="previewBox"></div>
 
 		</body>
 
 	</html>
+
+	<!--
+
+		Each input block is dynamically generated, so it may be hard to follow.
+
+		The format for a single editing block is thus (where this is the fourth such block):
+
+		<hr />
+		<input type='text' id='head3' placeholder='Put a header here.' />
+
+		<textarea id='text3' placeholder='This is where the content for this header goes.'></textarea> 
+		<ul class='console' data-rel='text3'>
+
+			<li data-content='
+				<ul>
+					<li>List item</li>
+					<li>List item</li>
+					<li>List item</li>
+				</ul>' 
+				class='createList'>List</li>
+
+			<li data-content='<h3>Your subheader here</h3>' class='createSub'>SubHead</li>
+
+			<li data-content='<a href="http://yourlinkhere.com" >Name your link</a>' class='createLink'>Link</li>
+
+			<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>
+
+		</ul> 
+
+		This allows for one javascript function to generate text for all button types, as opposed
+		to a separate click function for each type.
+
+	-->
 

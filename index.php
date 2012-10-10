@@ -22,5 +22,10 @@
 <!-- The first list can be as long as it needs to... as long as hierarchy is preserved as content is added, this
 	this should work. Now, the current bug is: what if Fixed has a partial, and so does removable? Working on that now -->
 		
+		  <div data-role="footer" data-position="fixed">
+		    <h4><a href="appendix.php">Appendix</a></h4>
+		  </div>
+
+
 </body>
 </html>
