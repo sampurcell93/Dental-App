@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 	<html lang="en">
 		<head>
-			<meta charset="utf-8">
+			<meta http-equiv="Content-Type"
+ content="text/html; charset=utf-8">
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 			<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
@@ -34,12 +35,15 @@
 
 
 					<h1>Add Content</h1>
+
+					<hr />
+
 					<p>This app was designed so that it could be added to easily by non-programmers (dentists).
-						Here you go. Add content to a specification (EG Single Tooth is a specification of 
-						Fixed > Partial.</p>
+						Here you go. </p> 
 
 					<p>Use the sidebar at the side to easily format your content. Make sure it's formatted right here, 
 						so it displays correctly in the app.</p>
+
 
 
 						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
@@ -59,7 +63,11 @@
 
 				<div id="previewContent"></div>
 
-				<a class="button submitInfo" type="submit">Submit (for real)</a>
+				<form action="insert.php" method="POST">
+						<input type = "text" name="info" id="passtext" style="visibility: hidden; pointer-events: none;" />
+						<input type = "hidden" value="" name="title" id="passtitle" />
+						<input class="button submitInfo" type="submit" value="Submit (for real)" />
+				</form>
 
 			</div>
 

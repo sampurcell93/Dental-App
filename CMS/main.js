@@ -28,8 +28,8 @@ $(document).ready(function() {
 			//get pairing of console to textarea
 			var pair = $(this).parent().attr("data-rel");
 			var pairVal = $("#" + pair).attr("value");
-			//append list item to textarea
-			insertAtCaret(pair, $(this).attr("data-content"));
+			//append list item to textarea at cursor
+			insertAtCaret(pair, $(this).attr("data-content") + "\n");
 		});
 
 
@@ -41,6 +41,7 @@ $(document).ready(function() {
 		//show the wrapper box
 			$("#previewBox").show();
 
+			//put the title outside the content, once. 
 				var title = "<h1>" + $("#node_title").val() + "</h1>";
 				$("#previewContent").html(title);
 
@@ -67,6 +68,7 @@ $(document).ready(function() {
 
 		});
 
+		//get the content of previewContent, put it into a hidden input, and pass to php for insertion.
 		$(".submitInfo").live("click",function() { 
 
 			aggregate();
@@ -102,7 +104,7 @@ function newConsole(the_index) {
 function aggregate() { 
 
 	console.log($("#previewContent").html());
-	$("#passtext").attr("value",$("#previewContent").html());
+	$("#passtext").val($("#previewContent").html());
 	$("#passtitle").attr("value",$("#node_title").val());
 
 }
