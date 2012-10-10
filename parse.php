@@ -47,7 +47,7 @@
 
 	//gets the choice selected from a certain level of hierarchy
 	$choice = $_GET['c'];
-	$first;
+
 	//open db connection: insecure on dev server. pass will be set when deployed
 	$mysqli = new mysqli('localhost','root','','dental_info');
 
@@ -112,59 +112,21 @@
 				$id = $row['lev1_id'];
 
 				//go to info table to get the data related to this procedure
-				$results = $mysqli->query("select * from `$procedure_name`") ;
+				$results = $mysqli->query("select * from info where spec = '$choice'") ;
 
-				$row = $results->fetch_assoc();
+				while($row = $results->fetch_assoc()) { 
 
-				foreach ($row as $key => $value) { 
+					foreach ($row as $key => $value) { 	
 
-					//echo a header and the content of the cell
-					if($key != "id"){
+						if($key == "info") { 
 
-						if($key == "general_info") { 
-
-							//ugly col name, so print out something better
-						echo "<h2> General Info </h2>";
-
-						}	
-
-						else if ($key == "miscellaneous") { 
-
-						echo $value;
-						$the_words = parse_words($value,",");
-						echo " <br />";
-
-							for ($i = 0; $i < count($the_words); $i++) { 
-
-								echo $the_words[$i] . "<br />";
-								echo $i;
-							}
-
+							echo $value;
 
 						}
-						else if ($key == "name") { 
-
-							echo "<h1 class='header'>" . $value . "</h1>";
-							continue;
-
-						}
-
-						else {
-
-							//print out the column name, capitalized
-							echo "<h2>" . ucfirst($key) . "</h2>";
-
-						}
-						echo "<p>" . $value . "</p>";
 
 					}
-
-
-
 				}
-
-
-			}
+			}	
 
 
 
