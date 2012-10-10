@@ -87,13 +87,13 @@ textarea, input[type="text"] {
 	outline: none;
 	margin: 20px;
 	border: none;	
-	max-width: 90%;
+	max-width: 80%;
 	height: 400px;
 	float: left;
 
 	&:focus { 
 
-		@include box-shadow(0px 0px 10px #313131);
+		@include box-shadow(0px 0px 6px 0px #313131);
 
 	}
 }
@@ -174,7 +174,7 @@ hr {
 	background: rgba(0,0,0,.7);
 	@include border-radius(4px);
 
-	.createList {
+	li {
 
 		cursor: pointer;
 		background: #d9d9d9; /* Old browsers */
@@ -190,7 +190,7 @@ hr {
 		border-bottom: 1px solid #999;
 		display: block;
 		width: 80%;
-		margin: 4px auto;
+		margin: 9px auto;
 		@include border-radius(2px);
 		height: 60px;
 		background: #fff;
@@ -200,10 +200,54 @@ hr {
 
 	}
 
-	.createSub {}
+	.createSub { font-size: 100%; }
+}
 
+.help { 
+
+	position: absolute;
+	top: 7px;
+	right: 17px;
+	background: url(../gear.png) no-repeat 0px 0px ;
+	cursor: pointer;	
+	overflow: visible;
+	padding-left: 30px;
 
 }
+
+aside {
+
+	z-index: 1000;
+	position: fixed;
+	pointer-events: none;
+	width: 500px;
+	display: block;
+	left: 50%;
+	padding: 17px 17px 17px 20px;
+	top: 100px;
+	display: none;
+	margin-left: -250px;
+	background: #d9d9d9; /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	@include box-shadow( 0px 0px 20px #000,inset 0px 0px 0px 1px #fff, 0px 0px 1003px 1000px #313131);
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #999;
+	@include border-radius(2px);	
+
+	ul { 
+		font-size: 80%; 
+		padding-left: 20px;
+	}
+
+}
+
+.pointers { pointer-events: auto; }
 
 
 

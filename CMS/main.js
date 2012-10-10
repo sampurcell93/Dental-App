@@ -3,13 +3,21 @@
 
 $(document).ready(function() { 
 
-			//tie consoles to textareas to allow for GUI style editing
+			//tie consoles to textareas to allow for GUI style editing,
 			var index_count = 1;
 
-			//begin with a console and a header
+		//begin with a console and a header in content
 		$(".content").append(newHeader(0)).append(newConsole(0));
 
-		$(".addHeader").click(function() {
+		$(".help").click(function(e) { 
+
+			e.preventDefault();
+			$("aside").fadeToggle("fast").toggleClass("pointers");
+
+
+		});
+
+		$(".addHeader").on("click",function() {
 
 			console.log(newHeader(index_count));
 			console.log(newConsole(index_count));
@@ -17,8 +25,20 @@ $(document).ready(function() {
 			$(".content").append(newConsole(index_count));
 			index_count++;
 
-
 		});
+
+		//when they click the a list button, denoted by the create subclass, the proper text is 
+		//inserted into the box
+		$("[class*=create]").live("click",function() {
+			//get pairing of console to textarea
+			var pair = $(this).parent().attr("data-rel");
+			var pairVal = $("#" + pair).attr("value");
+			//append list item to textarea
+			$("#" + pair).attr("value", pairVal + 
+				$(this).attr("data-content") + "\n");
+		});
+
+
 
 });
 
@@ -34,11 +54,13 @@ function newHeader(the_index) {
 
 		}
 
-//same as header, but with a console.
+//same as header, but with a console for easy text editing.
 function newConsole(the_index) { 
-
-	var list = "<li class='createList'>List</li>";
-	var console = "<ul class='console' data-rel='head" + the_index + "'>" + list + "</ul>";
+	var bold = "<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>";
+	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
+	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
+	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='createSub'>SubHead</li>";
+	var console = "<ul class='console' data-rel='text" + the_index + "'>" + list + subheader + link + bold + "</ul>";
 
 		consoles[the_index] = console;
 

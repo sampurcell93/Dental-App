@@ -78,12 +78,12 @@ textarea, input[type="text"] {
   outline: none;
   margin: 20px;
   border: none;
-  max-width: 90%;
+  max-width: 80%;
   height: 400px;
   float: left; }
   textarea:focus, input[type="text"]:focus {
-    -webkit-box-shadow: 0px 0px 10px #313131;
-    box-shadow: 0px 0px 10px #313131; }
+    -webkit-box-shadow: 0px 0px 6px 0px #313131;
+    box-shadow: 0px 0px 6px 0px #313131; }
 
 input[type="text"] {
   float: none;
@@ -147,7 +147,7 @@ hr {
   background: rgba(0, 0, 0, 0.7);
   -webkit-border-radius: 4px;
   border-radius: 4px; }
-  .console .createList {
+  .console li {
     cursor: pointer;
     background: #d9d9d9;
     /* Old browsers */
@@ -171,7 +171,7 @@ hr {
     border-bottom: 1px solid #999;
     display: block;
     width: 80%;
-    margin: 4px auto;
+    margin: 9px auto;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     height: 60px;
@@ -179,3 +179,54 @@ hr {
     text-align: center;
     line-height: 60px;
     font-size: 120%; }
+  .console .createSub {
+    font-size: 100%; }
+
+.help {
+  position: absolute;
+  top: 7px;
+  right: 17px;
+  background: url(../gear.png) no-repeat 0px 0px;
+  cursor: pointer;
+  overflow: visible;
+  padding-left: 30px; }
+
+aside {
+  z-index: 1000;
+  position: fixed;
+  pointer-events: none;
+  width: 500px;
+  display: block;
+  left: 50%;
+  padding: 17px 17px 17px 20px;
+  top: 100px;
+  display: none;
+  margin-left: -250px;
+  background: #d9d9d9;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* IE10+ */
+  background: linear, to bottom, white 0%, #e5e5e5 100%;
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+  /* IE6-9 */
+  -webkit-box-shadow: 0px 0px 20px black, inset 0px 0px 0px 1px white, 0px 0px 1003px 1000px #313131;
+  box-shadow: 0px 0px 20px black, inset 0px 0px 0px 1px white, 0px 0px 1003px 1000px #313131;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #999;
+  -webkit-border-radius: 2px;
+  border-radius: 2px; }
+  aside ul {
+    font-size: 80%;
+    padding-left: 20px; }
+
+.pointers {
+  pointer-events: auto; }
