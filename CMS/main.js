@@ -57,9 +57,6 @@ $(document).ready(function() {
 				if(header != "" && title != "" && text != "") {
 
 					$("#previewBox").html(curr + title + header + text);
-
-
-
 			}
 		}
 
