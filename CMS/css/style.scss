@@ -60,6 +60,7 @@ body {
 	position: relative;
 	@include box-shadow(inset 0px 1px 2px #fff, 0px 0px 7px #999);
 	padding-bottom: 20px;
+	z-index: 0;
 
  }
 
@@ -228,7 +229,7 @@ hr {
 
 aside {
 
-	z-index: 1000;
+	z-index: 100011;
 	position: fixed;
 	pointer-events: none;
 	width: 500px;
@@ -242,6 +243,7 @@ aside {
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #999;
 	@include border-radius(2px);	
+	@include whiteGradient();
 
 	ul { 
 		font-size: 80%; 
@@ -288,6 +290,7 @@ aside {
 		padding: 10px;
 		text-align: center;
 		z-index: 0;
+		font-size: 1em;
 	}
  }
 
