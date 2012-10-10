@@ -6,7 +6,7 @@
   padding: 0; }
 
 body {
-  background: url(../blue.png);
+  background: url(../images/blue.png);
   font-family: 'Source Sans Pro', sans-serif;
   color: #444;
   font-size: 20px;
@@ -33,7 +33,7 @@ body {
   height: 100%;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: url(../brushedalum.png);
+  background: url(../images/brushedalum.png);
   position: relative;
   -webkit-box-shadow: inset 0px 1px 2px white, 0px 0px 7px #999999;
   box-shadow: inset 0px 1px 2px white, 0px 0px 7px #999999;
@@ -186,7 +186,7 @@ hr {
   position: absolute;
   top: 7px;
   right: 17px;
-  background: url(../gear.png) no-repeat 0px 0px;
+  background: url(../images/gear.png) no-repeat 0px 0px;
   cursor: pointer;
   overflow: visible;
   padding-left: 30px; }
@@ -233,7 +233,7 @@ aside {
 
 #previewBox {
   position: relative;
-  display: block;
+  display: none;
   margin: 0 auto;
   padding: 30px;
   width: 700px;
