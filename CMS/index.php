@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 	<html lang="en">
 		<head>
-			<meta http-equiv="Content-Type"
- content="text/html; charset=utf-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 			<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
@@ -16,18 +15,22 @@
 			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("d/m/y") ?> . Add some stuff.</div>
 
 			<aside>
+
 				<a class="help">Close</a>
+
 					<h3>Tips:</h3>
 
-						<ul>
-							<li>Use the console at right of each textbox to add headers, lists of items, links, and pictures.</li>
-							<li>This system is still new, so make sure that when you enter your information, it's correct.
-							 It can be changed after the fact, but not by you.</li>
-							 <li>Feedback always helps! <a href="mailto:samuel.purcell@tufts.edu">Samuel.Purcell@tufts.edu</a></li>
-						</ul>
+					<ul>
+						<li>Use the console at right of each textbox to add headers, lists of items, links, and pictures.</li>
+						<li>This system is still new, so make sure that when you enter your information, it's correct.
+						 It can be changed after the fact, but not by you.</li>
+						 <li>Feedback always helps! <a href="mailto:samuel.purcell@tufts.edu">Samuel.Purcell@tufts.edu</a></li>
+					</ul>
 
-					</aside>
+			</aside>
+
 			<div id="lander_wrap">
+
 				<div id="lander">
 
 					<a class="help" title="help" >Help</a>

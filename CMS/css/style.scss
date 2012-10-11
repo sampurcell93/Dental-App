@@ -207,12 +207,18 @@ hr {
 		text-align: center;
 		line-height: 60px;
 		font-size: 120%;
+		position: relative;
 
 		&:hover { text-decoration: underline; }
 
 	}
 
-	.createSub { font-size: 100%; }
+	.subList { 
+		font-size: 100%;
+
+		&:hover #headers { display: block;  }
+
+	}
 }
 
 .help { 
@@ -317,6 +323,31 @@ aside {
 	font-size: 80%;
 	z-index: 1000;
 	border-bottom: 2px solid #888;
+
+}
+
+#headers { 
+
+	display: none;
+	font-size: 70%;
+	position: absolute;
+	left: -95%;
+	top: -35px;
+	width: 100px;
+	padding: 15px 0;
+	z-index: 100;
+
+	li { 
+		width: 70px;
+		margin: 0px auto;
+		color: #e1e1e1;
+		background: rgba(0,0,0,.7);
+		height: 30px;
+		line-height: 30px;
+	@include box-shadow(0px 0px 4px #777);
+
+		&:hover{ color: #fff; }
+		 }
 
 }
 

@@ -49,7 +49,7 @@ $(document).ready(function() {
 			for (var i = 0; i < $("textarea").length; i++) {
 
 				var curr = $("#previewContent").html();
-				var header = "<h2>" + $("#head" + i).val() + "</h2><br />";
+				var header = "<h2>" + $("#head" + i).val() + "</h2>";
 				var text = $("#text" + i).val() + "<br />";
 
 				if(header != "" && title != "" && text != "") {
@@ -90,11 +90,11 @@ function newHeader(the_index) {
 		}
 
 //same as header, but with a console for easy text editing.
-function newConsole(the_index) { 
+function newConsole(the_index) {
 	var bold = "<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>";
 	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
 	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
-	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='createSub'>SubHead</li>";
+	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>SubHead<ul data-rel='text" + the_index + "' id='headers'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createMed' data-content='<h4>Header</h4>'>Medium</li><li class='createSmall' data-content='<h5>Header</h5>'>Small</li></ul></li>";
 	var console = "<ul class='console' data-rel='text" + the_index + "'>"
 	console +=  list + subheader + link + bold + "</ul>";
 

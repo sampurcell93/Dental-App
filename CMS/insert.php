@@ -1,8 +1,7 @@
 <!doctype html>
 	<html>
 		<head>
-			 <meta http-equiv="Content-Type"
- content="text/html; charset=utf-8">
+			 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
  	</head>
 
@@ -13,7 +12,7 @@
 	$title = $_POST['title'];
 	$title = utf8_encode($title);
 	$info = $_POST['info'];
-	$info = utf8_encode($info);
+	$info = str_replace("<br>","","$info");
 
 	$mysqli = new mysqli("localhost","root","","dental_info");
 
