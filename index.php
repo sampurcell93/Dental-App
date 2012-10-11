@@ -15,8 +15,8 @@
 		 	<ul data-role="listview" data-theme="b" class="choice">
 		 		<li>Choose a type of crown:</li>
 
-		 		<li><a href="parse.php?c=fixed&lev=1" >Fixed</a></li>
-		 		<li><a href="parse.php?c=removable&lev=1">Removable</a></li>
+		 		<li><a href="parse.php?c=fixed&id=1" >Fixed</a></li>
+		 		<li><a href="parse.php?c=removable&id=5">Removable</a></li>
 		 	</ul>
 		  </div>
 <!-- The first list can be as long as it needs to... as long as hierarchy is preserved as content is added, this

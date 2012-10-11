@@ -14,9 +14,9 @@
 
 			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("d/m/y") ?> . Add some stuff.</div>
 
-			<aside>
+			<aside id="helpBox">
 
-				<a class="help">Close</a>
+				<a class="close"></a>
 
 					<h3>Tips:</h3>
 
@@ -29,12 +29,28 @@
 
 			</aside>
 
+			<aside id="appendixAdd">
+				<a class="close"></a>
+
+				<form method="POST" action="appendix.php">
+
+					<label for="term">Enter a term:
+						<input type="text" name="term" id="term" placeholder="Term name here." />
+					</label>
+
+						<textarea id="definition" name="definition" placeholder="Enter the definition here."></textarea>
+
+ 					<input type="submit" class="button" name="submit" value="Submit" />
+ 				</form>
+
+			</aside>
+
 			<div id="lander_wrap">
 
 				<div id="lander">
 
 					<a class="help" title="help" >Help</a>
-
+					<a id="appendix" title="Edit Appendix">Add to Appendix</a>
 
 
 					<h1>Add Content</h1>
@@ -62,7 +78,9 @@
 				</div>
 			</div>
 
-			<div id="previewBox"><a class="close"></a>
+			<div id="previewBox">
+
+				<a class="close"></a>
 
 				<div id="previewContent"></div>
 

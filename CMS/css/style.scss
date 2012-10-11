@@ -226,10 +226,10 @@ hr {
 	position: absolute;
 	top: 7px;
 	right: 17px;
-	background: url(../images/gear.png) no-repeat 0px 0px ;
+	background: url(../images/gear.png) no-repeat 100% 0px ;
 	cursor: pointer;	
 	overflow: visible;
-	padding-left: 30px;
+	padding-right: 30px;
 
 }
 
@@ -239,7 +239,6 @@ aside {
 	position: fixed;
 	pointer-events: none;
 	width: 500px;
-	display: block;
 	left: 50%;
 	padding: 17px 17px 17px 20px;
 	top: 100px;
@@ -256,6 +255,9 @@ aside {
 		padding-left: 20px;
 	}
 
+	.close { 
+		height: 47px;
+		top: 10px; }
 }
 
 .pointers { pointer-events: auto; }
@@ -344,12 +346,29 @@ aside {
 		background: rgba(0,0,0,.7);
 		height: 30px;
 		line-height: 30px;
-	@include box-shadow(0px 0px 4px #777);
+		@include box-shadow(0px 0px 4px #777);
 
 		&:hover{ color: #fff; }
 		 }
 
 }
 
+#appendix { 
+
+	@extend .help;
+	top: 34px;
+
+}
+
+#definition { 
+
+	height: 200px;
+	width: 100%;
+	float: none;
+	margin: 20px auto;
 
 
+
+}
+
+#appendixAdd { top: 50px; }

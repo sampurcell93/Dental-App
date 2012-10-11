@@ -70,7 +70,7 @@
 
 			<div data-role="page" data-add-back-btn="true" data-collapsible>
 				<div data-role="header" data-theme="a" data-add-back-btn="true">
-					<h1><?php echo $choice; ?></h1>
+					<h1><?php echo ucfirst($choice); ?></h1>
 				</div>
 
 				<div data-role="content">
@@ -90,7 +90,7 @@
 
 						//send the choices back to this page, except the query above will produce a different results table
 						if ($key == "lev2" && $value != NULL) {
-							echo "<li><a href='parse.php?&c=" . $value . "&id=" . $row['lev1_id'] ."' >" . $value . "</a></li>";
+							echo "<li><a href='parse.php?&c=" . $value . "&id=" . $_GET['id'] ."' >" . $value . "</a></li>";
 						}
 					}
 				}
@@ -106,10 +106,6 @@
 			else if ($results->num_rows == 1) {
 
 				$row = $results->fetch_assoc();
-
-				$procedure_name = $row['lev1'];
-
-				$id = $row['lev1_id'];
 
 				//go to info table to get the data related to this procedure
 				$results = $mysqli->query("select * from info where spec = '$choice'") ;

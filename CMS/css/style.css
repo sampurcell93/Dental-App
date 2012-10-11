@@ -189,21 +189,20 @@ hr {
     .console .subList:hover #headers {
       display: block; }
 
-.help {
+.help, #appendix {
   position: absolute;
   top: 7px;
   right: 17px;
-  background: url(../images/gear.png) no-repeat 0px 0px;
+  background: url(../images/gear.png) no-repeat 100% 0px;
   cursor: pointer;
   overflow: visible;
-  padding-left: 30px; }
+  padding-right: 30px; }
 
 aside {
   z-index: 100011;
   position: fixed;
   pointer-events: none;
   width: 500px;
-  display: block;
   left: 50%;
   padding: 17px 17px 17px 20px;
   top: 100px;
@@ -234,6 +233,9 @@ aside {
   aside ul {
     font-size: 80%;
     padding-left: 20px; }
+  aside .close {
+    height: 47px;
+    top: 10px; }
 
 .pointers {
   pointer-events: auto; }
@@ -348,3 +350,15 @@ aside {
     box-shadow: 0px 0px 4px #777777; }
     #headers li:hover {
       color: #fff; }
+
+#appendix {
+  top: 34px; }
+
+#definition {
+  height: 200px;
+  width: 100%;
+  float: none;
+  margin: 20px auto; }
+
+#appendixAdd {
+  top: 50px; }

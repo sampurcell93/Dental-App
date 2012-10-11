@@ -5,13 +5,22 @@ $(document).ready(function() {
 
 		//begin with a console and a header in content
 
-		$(".help").click(function(e) { 
+		$(".help").on("click",function(e) { 
 
 			e.preventDefault();
-			$("aside").fadeToggle("fast").toggleClass("pointers");
+			$("#helpBox").fadeToggle("fast").toggleClass("pointers");
 
 
 		});
+
+		$("#appendix").on("click",function(e) {
+
+			e.preventDefault();
+			$("#appendixAdd").fadeToggle("fast").toggleClass("pointers");
+
+
+
+		 });
 
 		//click on the add header button to add what will become a new column in that node's sql table.
 		$("#addHeader").on("click",function() {
@@ -43,16 +52,20 @@ $(document).ready(function() {
 
 			//put the title outside the content, once. 
 				var title = "<h1>" + $("#node_title").val() + "</h1>";
+				console.log(title);
 				$("#previewContent").html(title);
 
 		//add each header followed by its text in order.
-			for (var i = 0; i < $("textarea").length; i++) {
+			for (var i = 0; i < $("textarea").length - 1; i++) {
 
 				var curr = $("#previewContent").html();
+				console.log(curr);
 				var header = "<h2>" + $("#head" + i).val() + "</h2>";
+				console.log(header);
 				var text = $("#text" + i).val() + "<br />";
+				console.log(text);
 
-				if(header != "" && title != "" && text != "") {
+				if(header && title && text ) {
 
 					$("#previewContent").html(curr + header + text);
 			}
@@ -64,7 +77,7 @@ $(document).ready(function() {
 		//close function
 		$(".close").live("click",function() { 
 
-			$("#previewBox").hide();
+			$(this).parent().hide().toggleClass("pointers");
 
 		});
 
