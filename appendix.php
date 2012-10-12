@@ -15,13 +15,10 @@
 	
 ?>
 
-			<div data-role="page">
-				<div data-role="header" data-theme="a">
-					<a data-rel="back">Back</a>
-					<h1>Appendix</h1>
-				</div>
+			
 
 				<div data-role="content">
+							<h1 style="text-align: center;" >Appendix</h1>
 <?php
 	
 		if ($results->num_rows > 0) { 
@@ -34,11 +31,11 @@
 
 						if ($key == "term"){ 
 						
-							echo "<strong>" . $value . ":</strong> ";
+							echo "<h4 class='term'>" . $value . ":</h4> ";
 						
 						}
 
-						else { echo $value . ". <br /><br />"; }
+						else { echo "<p class='definition'>" . ucfirst($value) . ".</p>"; }
 				
 					}
 
