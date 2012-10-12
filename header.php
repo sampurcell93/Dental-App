@@ -20,10 +20,12 @@
 				<div data-role="header" data-theme="b">
 
 					<h1>Beginner's Guide to Dental Implant Prosthodontics</h1> 
-		            
-		            <select name="select-choice-1" id="select-choice-1"  data-icon="menu" class="ui-btn-right"   data-mini="true"  data-iconpos="notext"    >
-		 					<option value="1">Procedures</option>
-							<option value="2">Appendix</option>
+
+		            <select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext">
+
+		            		<option value=""></option>
+		 					<option value="index.php">Procedures</option>
+							<option value="appendix.php">Appendix</option>
 							 
 					</select> 
 
