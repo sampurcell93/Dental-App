@@ -2,11 +2,6 @@
 
 	require_once("header.php");
 
-//so, a sample call of this function would be parse_words("tom,joe,dan",",")
-//this would parse each comma delimeted word into a separate array cell.
-//now, i realize i just rewrote explode(). well done samuel.
-	
-
 
 	//gets the choice selected from a certain level of hierarchy
 	$choice = $_GET['c'];
@@ -22,76 +17,34 @@
 
 	}
 
-	//query hierarchy table for the selection and its direct child(ren).
-	$results = $mysqli->query("SELECT h1.spec_name AS lev1, h2.spec_name AS lev2, h1.id as lev1_id
-								FROM hierarchy AS h1
-								LEFT JOIN hierarchy AS h2 ON h2.parent_id = h1.id
-								WHERE h1.spec_name =  '$choice'");
-
-
 ?>
 
-			<div data-role="page" data-add-back-btn="true" data-collapsible>
-				<div data-role="header" data-theme="a" data-add-back-btn="true">
-					<h1><?php echo ucfirst($choice); ?></h1>
-				</div>
+	<div data-role="content">
 
-				<div data-role="content">
-			<?php
+	 		<form method="GET" action="step2.php">
 
-				//if a hierarchy is present (IE, more than one child), present a list of choices.
-				if($results->num_rows > 1) {
+	 			<h3>Case:</h3>
 
-			?>
-				<ul data-role="listview" data-theme="b" class="choice">
+	 			<fieldset data-role="controlgroup">
+<?php
 
-		 		<?php 
+	$condition = $_GET['condition'];
 
-		 		while($row = $results->fetch_assoc()) { 
+	$results = $mysqli->query("select * from $condition where parent_id IS NULL");
 
-					foreach ($row as $key => $value) { 
+		while($row = $results->fetch_assoc()) { 
 
-						//send the choices back to this page, except the query above will produce a different results table
-						if ($key == "lev2" && $value != NULL) {
-							echo "<li><a href='parse.php?&c=" . $value . "&id=" . $_GET['id'] ."' >" . $value . "</a></li>";
-						}
-					}
-				}
+	 				foreach($row as $k=>$v) { 
 
-				?>
+	 					if($k == "name") { 
+	 						echo "<input type = 'radio' name = 'condition' id = '" 
+	 							. str_replace(" ","_",$v) . "' value = '" . $v . "' />";
 
-				</ul>
+							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>";
+	 					}
 
-		<?php } 
+	 				}
 
-			//if there was only one child, then there is no choice for the user to make, 
-			//and we must display the information instead of another choice
-			else if ($results->num_rows == 1) {
+	 		}
 
-				$row = $results->fetch_assoc();
-
-				//go to info table to get the data related to this procedure
-				$results = $mysqli->query("select * from info where spec = '$choice'") ;
-
-				while($row = $results->fetch_assoc()) { 
-
-					foreach ($row as $key => $value) { 	
-
-						if($key == "info") { 
-
-							echo $value;
-
-						}
-
-					}
-				}
-			}	
-
-
-
-?>	
-
-				</div>
-			</div>
-		</body>
-	</html>
+	 ?>

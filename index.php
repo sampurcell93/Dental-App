@@ -1,31 +1,47 @@
-
 <?php
+	
+	$mysqli = new mysqli("localhost","root","","dental_info");
 
-	require_once( "header.php");
+	if($mysqli->connect_errno) { 
+
+		echo $mysqli->connect_error;
+		exit();
+
+	}
+
+	require_once("header.php");
 
 	?>
+        
+	 	<div data-role="content">
 
-		<div data-role="page" id="home" >
- 
-		  <div data-role="header">
-		    <h1>Dental App</h1>
-		  </div>
-		 
-		 <div data-role="content"> 
-		 	<ul data-role="listview" data-theme="b" class="choice">
-		 		<li>Choose a type of crown:</li>
+	 		<form method="GET" action="parse.php">
 
-		 		<li><a href="parse.php?c=fixed&id=1" >Fixed</a></li>
-		 		<li><a href="parse.php?c=removable&id=5">Removable</a></li>
-		 	</ul>
-		  </div>
-<!-- The first list can be as long as it needs to... as long as hierarchy is preserved as content is added, this
-	this should work. Now, the current bug is: what if Fixed has a partial, and so does removable? Working on that now -->
-		
-		  <div data-role="footer" data-position="fixed">
-		    <h4><a href="appendix.php">Appendix</a></h4>
-		  </div>
+	 			<h3>Select a Condition</h3>
 
+	 			<fieldset data-role="controlgroup">
 
-</body>
+	 	<?php
+
+	 			$results = $mysqli->query("SELECT * FROM conditions");
+
+	 			while($row = $results->fetch_assoc()) { 
+
+	 				foreach($row as $k=>$v) { 
+
+	 					if ($k == "name") {
+	 						echo "<input type = 'radio' name = 'condition' id = '" 
+	 							. str_replace(" ","_",$v) . "' value = '" . $v . "' />";
+
+							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>";
+	 					}
+	 				}
+
+	 			}
+	 	?>
+
+	 			</fieldset>
+	 		</form>
+	 	</div>
+	 </body>
 </html>

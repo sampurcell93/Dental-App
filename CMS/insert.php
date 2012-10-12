@@ -60,6 +60,15 @@
 
 	$mysqli = new mysqli("localhost","root","","dental_info");
 
+	
+	if($mysqli->connect_errno) { 
+
+		echo $mysqli->connect_error;
+		exit();
+
+	}
+
+
 	$mysqli->query($content_addition);
 
 	$query = "SELECT * from $title";

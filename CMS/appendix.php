@@ -25,6 +25,13 @@
 		$mysqli->query("INSERT INTO appendix VALUES ('','$term','$def')");
 
 
+		if($mysqli->connect_errno) { 
+
+			echo $mysqli->connect_error;
+			exit();
+
+		}
+
 			echo "<div id='lander_wrap'><p style='text-align:center'>Your submission of term <strong>" . $term . "</strong> <br />";
 			echo "<em>'" . $def . "'</em> was successful. Appendix updated!</p>";
 			echo "<a href='index.php' class='button'>Go back</a></div>";
