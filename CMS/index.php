@@ -67,7 +67,7 @@
 
 						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
 						
-						<a class="button" id="addHeader" >Add Content</a>
+						<a class="button" id="addHeader" >Add A Section</a>
 
 						<div class="content"></div>
 
@@ -86,6 +86,7 @@
 
 				<form action="insert.php" method="POST">
 						<input type = "text" name="info" id="passtext" style="visibility: hidden; pointer-events: none;" />
+						<input type = "text" name="headers" id="passheads" style="visibility: hidden; pointer-events: none;" />
 						<input type = "hidden" value="" name="title" id="passtitle" />
 						<input class="button submitInfo" type="submit" value="Submit (for real)" />
 				</form>

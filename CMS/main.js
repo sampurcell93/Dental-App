@@ -52,18 +52,18 @@ $(document).ready(function() {
 
 			//put the title outside the content, once. 
 				var title = "<h1>" + $("#node_title").val() + "</h1>";
-				console.log(title);
+			
 				$("#previewContent").html(title);
 
 		//add each header followed by its text in order.
 			for (var i = 0; i < $("textarea").length - 1; i++) {
 
 				var curr = $("#previewContent").html();
-				console.log(curr);
+			
 				var header = "<h2>" + $("#head" + i).val() + "</h2>";
-				console.log(header);
+				
 				var text = $("#text" + i).val() + "<br />";
-				console.log(text);
+				
 
 				if(header && title && text ) {
 
@@ -82,7 +82,7 @@ $(document).ready(function() {
 		});
 
 		//get the content of previewContent, put it into a hidden input, and pass to php for insertion.
-		$(".submitInfo").live("click",function() { 
+		$(".submitInfo").live("click",function(e) { 
 
 			aggregate();
 
@@ -107,7 +107,7 @@ function newConsole(the_index) {
 	var bold = "<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>";
 	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
 	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
-	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>SubHead<ul data-rel='text" + the_index + "' id='headers'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createMed' data-content='<h4>Header</h4>'>Medium</li><li class='createSmall' data-content='<h5>Header</h5>'>Small</li></ul></li>";
+	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>SubHead<ul data-rel='text" + the_index + "' id='H4s'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createMed' data-content='<h4>Header</h4>'>Medium</li><li class='createSmall' data-content='<h5>Header</h5>'>Small</li></ul></li>";
 	var console = "<ul class='console' data-rel='text" + the_index + "'>"
 	console +=  list + subheader + link + bold + "</ul>";
 
@@ -116,8 +116,27 @@ function newConsole(the_index) {
 
 function aggregate() { 
 
-	console.log($("#previewContent").html());
-	$("#passtext").val($("#previewContent").html());
+	var headers = [];
+	var textboxes = [];
+	var compiledHeaders = "";
+	var compiledText = "";
+
+	console.log($("[id*=head]").length);
+
+	for (var i = 0; i < $("[id*=head]").length - 1; i++) { 
+
+		headers[i] = $("#head" + i).val();
+		textboxes[i] = $("#text" + i).val();
+		compiledHeaders += headers[i] + "| ";
+		compiledText += textboxes[i] + "| ";
+
+	}
+
+	compiledText = compiledText.substring(0,compiledText.length - 2);
+	compiledHeaders = compiledHeaders.substring(0, compiledHeaders.length - 2);
+	console.log(compiledText);
+	$("#passheads").val(compiledHeaders);
+	$("#passtext").val(compiledText);
 	$("#passtitle").attr("value",$("#node_title").val());
 
 }

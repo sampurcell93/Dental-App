@@ -186,7 +186,7 @@ hr {
       text-decoration: underline; }
   .console .subList {
     font-size: 100%; }
-    .console .subList:hover #headers {
+    .console .subList:hover #H4s {
       display: block; }
 
 .help, #appendix {
@@ -330,7 +330,7 @@ aside {
   z-index: 1000;
   border-bottom: 2px solid #888; }
 
-#headers {
+#H4s {
   display: none;
   font-size: 70%;
   position: absolute;
@@ -339,7 +339,7 @@ aside {
   width: 100px;
   padding: 15px 0;
   z-index: 100; }
-  #headers li {
+  #H4s li {
     width: 70px;
     margin: 0px auto;
     color: #e1e1e1;
@@ -348,7 +348,7 @@ aside {
     line-height: 30px;
     -webkit-box-shadow: 0px 0px 4px #777777;
     box-shadow: 0px 0px 4px #777777; }
-    #headers li:hover {
+    #H4s li:hover {
       color: #fff; }
 
 #appendix {

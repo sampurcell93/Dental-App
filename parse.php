@@ -4,45 +4,8 @@
 
 //so, a sample call of this function would be parse_words("tom,joe,dan",",")
 //this would parse each comma delimeted word into a separate array cell.
-
-	function parse_words($string,$delimeter) { 
-
-		$words = array();
-		$position = 0;
-		$wordnum = 0;
-		$words[$wordnum] = " ";
-
-		while($position < strlen($string)) { 
-
-			while($string[$position] != $delimeter) {
-
-
-				$words[$wordnum] .= $string[$position];
-				$position++;
-
-				if ($position >= strlen($string)) { 
-
-					break;
-
-				}
-			}
-
-			if ($position >= strlen($string)) { 
-
-					break;
-
-			}
-
-				$wordnum++;
-				$words[$wordnum] = "";
-				$position++;
-
-
-		}
-
-		return $words;
-
-	}
+//now, i realize i just rewrote explode(). well done samuel.
+	
 
 
 	//gets the choice selected from a certain level of hierarchy
