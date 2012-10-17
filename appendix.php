@@ -15,10 +15,8 @@
 	
 ?>
 
-			
-
-				<div data-role="content">
-							<h1 style="text-align: center;" >Appendix</h1>
+			<div data-role="content">
+				<h1 style="text-align: center;" >Appendix</h1>
 <?php
 	
 		if ($results->num_rows > 0) { 
@@ -38,14 +36,11 @@
 						else { echo "<p class='definition'>" . ucfirst($value) . ".</p>"; }
 				
 					}
-
 				}
 			}
 		}	
 
 ?>				</div>
 			</div>
-				
 		</body>
-
-		</html>
+	</html>

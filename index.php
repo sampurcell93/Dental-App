@@ -15,11 +15,11 @@
         
 	 	<div data-role="content">
 
-	 		<form method="GET" action="parse.php">
+	 		<form method="GET" action="step1.php">
 
 	 			<h3>Select a Condition</h3>
 
-	 			<fieldset data-role="controlgroup">
+	 			<fieldset data-role="controlgroup" id="conditionList">
 
 	 	<?php
 
@@ -30,10 +30,11 @@
 	 				foreach($row as $k=>$v) { 
 
 	 					if ($k == "name") {
-	 						echo "<input type = 'radio' name = 'condition' id = '" 
+
+	 						echo "\t\t\t<input type = 'radio' name = 'condition' id = '" 
 	 							. str_replace(" ","_",$v) . "' value = '" . $v . "' />";
 
-							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>";
+							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>\n";
 	 					}
 	 				}
 
@@ -42,6 +43,7 @@
 
 	 			</fieldset>
 	 		</form>
-	 	</div>
-	 </body>
-</html>
+<?php
+
+	require_once("footer.php");
+?>

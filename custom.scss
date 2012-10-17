@@ -19,7 +19,7 @@
 }
 
 .ui-icon-menu {
-	background-image: url("media/menu_icon.png");
+	background-image: url("images/menu_icon.png");
 }
 
 .subtitle{  font-size: 14px; color: #666; margin-left: 13px }
@@ -86,5 +86,6 @@
 			border: 1px solid #fff;
 			padding: 10px;
 
-
 		}
+
+		.ajaxContent { display: none; }

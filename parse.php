@@ -37,14 +37,17 @@
 	 				foreach($row as $k=>$v) { 
 
 	 					if($k == "name") { 
+
 	 						echo "<input type = 'radio' name = 'condition' id = '" 
 	 							. str_replace(" ","_",$v) . "' value = '" . $v . "' />";
 
 							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>";
+							
 	 					}
 
 	 				}
 
 	 		}
 
-	 ?>
+?>
+
