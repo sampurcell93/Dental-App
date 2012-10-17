@@ -74,7 +74,7 @@
 			margin-left: 10px;
 			margin-bottom: 8px;
 			font-weight: bold;
-			}
+		}
 
 		.definition { 
 			margin: 3px 10px 20px 10px ;
@@ -86,6 +86,20 @@
 			border: 1px solid #fff;
 			padding: 10px;
 
+			ul { 
+				padding: 0;
+				margin: 0;
+				display: block;
+				width: 90%; 
+				list-style: none; 
+
+				li { 
+
+					margin: 5px 0;
+
+
+				}
+			}
 		}
 
 		.ajaxContent { display: none; }

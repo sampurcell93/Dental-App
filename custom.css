@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* CSS Document */
 .ui-icon-menu {
   background-image: url("images/menu_icon.png"); }
@@ -160,6 +161,14 @@ p {
   display: block;
   border: 1px solid #fff;
   padding: 10px; }
+  .definition ul {
+    padding: 0;
+    margin: 0;
+    display: block;
+    width: 90%;
+    list-style: none; }
+    .definition ul li {
+      margin: 5px 0; }
 
 .ajaxContent {
   display: none; }

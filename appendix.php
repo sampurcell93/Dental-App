@@ -33,7 +33,7 @@
 						
 						}
 
-						else { echo "<p class='definition'>" . ucfirst($value) . ".</p>"; }
+						else { echo "<div class='definition'>" . ucfirst($value) . "</div>"; }
 				
 					}
 				}

@@ -24,6 +24,7 @@
 	 			<h3>Case:</h3>
 
 	 			<fieldset data-role="controlgroup" data-submission="step2.php" data-condition=<?php echo "'" . $condition . "'"; ?>>
+	 				<input type="hidden" value=<?php echo "'" . $condition . "'" ?> name="condition" />
 <?php
 
 	$results = $mysqli->query("select * from $condition where parent_id IS NULL");

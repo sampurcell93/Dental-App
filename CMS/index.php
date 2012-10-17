@@ -12,7 +12,9 @@
 
 		<body>
 
-			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("d/m/y") ?> . Add some stuff.</div>
+
+
+			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("m/d/y") ?> . Add some stuff.</div>
 
 			<aside id="helpBox">
 

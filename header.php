@@ -19,7 +19,16 @@
 			<div data-role="page" >
 				<div data-role="header" data-theme="b">
 
-					<h1>Beginner's Guide to Dental Implant Prosthodontics</h1> 
+					<a data-rel="back" data-iconpos="notext" data-icon="back" ></a>
+
+					<?php if (!isset($header)) {
+
+							echo "<h1>Beginner's Guide to Dental Implant Prosthodontics</h1>";
+
+						}
+
+						else { echo "<h1>". $header . "</h1>"; }
+					?>
 
 		            <select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext">
 
