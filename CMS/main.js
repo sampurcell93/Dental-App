@@ -23,10 +23,15 @@ $(document).ready(function() {
 		 });
 
 		//click on the add header button to add what will become a new column in that node's sql table.
-		$("#addHeader").on("click",function() {
+		$("#addHeader").live("click",function() {
 
-			$(".content").append(newHeader(index_count));
-			$(".content").append(newConsole(index_count));
+			$(".content").append("<div id='wrap" + index_count + "'></div>");
+			var wrapper = $("#wrap" + index_count);
+			wrapper.append(newContent(index_count));
+			wrapper.append(newConsole(index_count));
+			wrapper.append(newRemove(index_count));
+			wrapper.height(530);
+			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 			index_count++;
 
 		});
@@ -40,6 +45,16 @@ $(document).ready(function() {
 			//append list item to textarea at cursor
 			insertAtCaret(pair, $(this).attr("data-content") + "\n");
 		});
+
+		$(".remove").live("click",function() { 
+
+			var pair = $(this).attr("data-rel");
+			$("#wrap" + pair).empty().remove();
+			$(this).remove();
+			index_count--;
+
+		});
+
 
 
 		//when they click the preview button, their text inputs are aggregated. 
@@ -60,7 +75,7 @@ $(document).ready(function() {
 
 				var curr = $("#previewContent").html();
 			
-				var header = "<h2>" + $("#head" + i).val() + "</h2>";
+				var header = "<h2>" + $("#head" + i).val() + "</h2>\n";
 				
 				var text = $("#text" + i).val() + "<br />";
 				
@@ -111,7 +126,7 @@ $(document).ready(function() {
 });
 
 //instantiates a new header, whose attributes are based on the number already in play
-function newHeader(the_index) { 
+function newContent(the_index) { 
 	
 		var header = "<hr /><input type='text' id='head" + the_index + "' placeholder='Put a header here.' />";
 		var text = "<textarea id='text" + the_index + "' placeholder='This is where the content for this header goes.'></textarea>";
@@ -126,10 +141,16 @@ function newConsole(the_index) {
 	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
 	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
 	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>SubHead<ul data-rel='text" + the_index + "' id='H4s'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createMed' data-content='<h4>Header</h4>'>Medium</li><li class='createSmall' data-content='<h5>Header</h5>'>Small</li></ul></li>";
-	var console = "<ul class='console' data-rel='text" + the_index + "'>"
+	var console = "<ul class='console' id='console" + the_index + "' data-rel='text" + the_index + "'>"
 	console +=  list + subheader + link + bold + "</ul>";
 
 		return console;
+}
+
+function newRemove(the_index) { 
+
+	return "<a class='button remove' data-rel='" + the_index + "' >Remove This</a>";
+
 }
 
 function aggregate() { 
