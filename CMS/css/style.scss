@@ -75,8 +75,23 @@ h1 {
 	display: block;
 	width: 100%;
 }
+h2 { 
+	margin: 15px 10px 15px 0px;
+	padding-left: 30px;
+	display: block;
+	width: 100%;
+	font-family: 'Source Sans Pro', sans-serif;
+	border-bottom: 1px dotted #313131;
 
-h3 { padding: 3px 14px; }
+}
+
+h3 { padding: 3px 14px; margin: 15px 10px; }
+
+h4 { 
+
+	margin: 10px 6px;
+
+}
 
 p {  
 	font-size: 80%;
@@ -85,12 +100,6 @@ p {
 
 }
 
-h2 { 
-	display: inline-block;
-	 margin: 20px 0;
-	font-family: 'Source Sans Pro', sans-serif;
-	border-bottom: 1px dotted #313131;
-	}
 
 textarea, input[type="text"] { 
 	display: block;
@@ -324,20 +333,6 @@ aside {
 
 }
 
-#admin { 
-
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 24px;
-	width: 100%;
-	@include whiteGradient();
-	font-size: 80%;
-	z-index: 1000;
-	border-bottom: 2px solid #888;
-
-}
-
 #H4s { 
 
 	display: none;
@@ -391,3 +386,12 @@ aside {
 }
 
 #appendixAdd { top: 50px; }
+
+.fixed { 
+
+	position: fixed; 
+	top: 0px;
+	left: 50%;
+	margin-left: -150px;
+	z-index: 1000;
+}

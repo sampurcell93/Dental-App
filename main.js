@@ -1,10 +1,12 @@
 //first line lets things work on first page load, no need for refresh.
-$(document).delegate('.ui-page', 'pageshow', function () {
+$(document).delegate('.ui-page', 'pagecreate', function () {
 
+$("#bar").live("pagecreate", function(){ console.log( "called!" ); });
 //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 
 
 		$(this).closest("form").submit();
+    return false;
 
 	});
 
@@ -12,6 +14,7 @@ $(document).delegate('.ui-page', 'pageshow', function () {
 	$("#nav").live("change",function() {
 	    var page = $(this).val();
 	    window.location = page;
+      return false;
 	});
 
 //goes to ajax call, submits step2.php, the condition name (edentulism in the first case), and the id of the subsection of edentulism
@@ -20,15 +23,24 @@ $(document).delegate('.ui-page', 'pageshow', function () {
 		var fieldset = $(this).closest("fieldset"); 
 		console.log(fieldset.attr("data-submission"));
 		makeRequest(fieldset.attr("data-submission"),fieldset.attr("data-condition"), $(this).attr("id"));
+    return false;
 
 	});
 
 //the button formatting given by the designer did not allow input type = submit for some reason. Workaround
-	$("#continue").on("tap",function() { 
+	$("#continue").die("tap").live("tap",function() { 
 
 		$(this).closest("form").submit();
+    return false;
 
 	});
+
+  $("h4").each(function() { 
+
+    console.log($(this).text());
+
+
+  });
 
 //Thanks to MDN for all the browser specifics
 function makeRequest(url, condition,toothCase) { 
@@ -82,6 +94,3 @@ function alertContents() {
 
 });
 
- 
-
- 

@@ -44,8 +44,16 @@
 
 			$headers[$i] = str_replace(" ","_",$headers[$i]);
 
+
 			if($i > 0) { 
 				$headers[$i] = substr($headers[$i], 1, strlen($headers[$i]));
+			}
+
+
+			if($headers[$i] == "Procedure" || $headers[$i] == "procedure") { 
+
+				$headers[$i] = "Procedures";
+
 			}
 
 			$table_create_string .= $headers[$i] . " text, ";
@@ -69,8 +77,8 @@
 
 	$content_addition  = substr($content_addition, 0, -2);
 	$content_addition .= ")";
-	//$content_addition  = htmlspecialchars($content_addition);
-	
+	$content_addition  = htmlentities($content_addition);
+
 	if($mysqli->connect_errno) { 
 
 		echo $mysqli->connect_error;
@@ -85,7 +93,8 @@
 
 	$results = $mysqli->query($query);
 
-	mail("spurcell93@gmail.com","prof mufte added a node!","Get it!");
+
+	mail("spurcell93@gmail.com","prof muftu added a node!","Get it!");
 
 	echo "<div id='lander_wrap'><p style='text-align:center'>Your submission was successful! <br />";
 	echo "<a href='index.php' class='button'>Go back</a>";
@@ -101,12 +110,11 @@
 
 			while ($row = $results->fetch_assoc()) { 
 
-
 				foreach($row as $k=>$v) { 
 
 
 					echo "<h2>" . str_replace("_"," ",$k) . "</h2>";
-					echo $v;
+					echo html_entity_decode(str_replace("\n"," ",$v));
 
 
 				}

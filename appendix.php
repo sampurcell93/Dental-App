@@ -11,7 +11,7 @@
 
 	}
 
-	$results = $mysqli->query("select * from appendix");
+	$results = $mysqli->query("select * from appendix ORDER BY term");
 	
 ?>
 

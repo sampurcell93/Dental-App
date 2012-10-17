@@ -17,7 +17,7 @@
 
 	<h3>Type of Procedure</h3>
 
-	<fieldset data-role="controlgroup" >
+	<fieldset data-role="controlgroup">
 
 <?php
 	

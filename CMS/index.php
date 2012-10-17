@@ -11,11 +11,7 @@
 		</head>
 
 		<body>
-
-
-
-			<div id="admin">Hello, Professor Mufte. Today is <?php echo date("m/d/y") ?> . Add some stuff.</div>
-
+			
 			<aside id="helpBox">
 
 				<a class="close"></a>
