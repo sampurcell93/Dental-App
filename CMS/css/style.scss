@@ -194,7 +194,14 @@ hr {
 	li {
 
 		cursor: pointer;
-		@include whiteGradient();
+		background: #ebf1f6; /* Old browsers */
+		background: -moz-linear-gradient(top,  #ebf1f6 0%, #abd3ee 50%, #89c3eb 51%, #d5ebfb 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ); /* IE6-9 */
 		@include box-shadow(inset 0px 0px 0px 1px #fff, 0px 0px 3px #aeaeae);
 		border-top: 1px solid #fff;
 		border-bottom: 1px solid #999;
@@ -203,11 +210,11 @@ hr {
 		margin: 9px auto;
 		@include border-radius(2px);
 		height: 60px;
-		background: #fff;
 		text-align: center;
 		line-height: 60px;
 		font-size: 120%;
 		position: relative;
+		text-shadow: 0px 1px 0px #fff;
 
 		&:hover { text-decoration: underline; }
 
@@ -215,6 +222,9 @@ hr {
 
 	.subList { 
 		font-size: 100%;
+		li {
+			text-shadow: 0px 1px 0px #000;
+		}
 
 		&:hover #H4s { display: block;  }
 
@@ -367,8 +377,17 @@ aside {
 	float: none;
 	margin: 20px auto;
 
+}
 
+[id*="wrap"] { position: relative; }
 
+.remove { 
+
+		position: absolute;
+		right: 10px;
+		top: 9px;
+		width: 140px;
+		padding: 7px 8px;
 }
 
 #appendixAdd { top: 50px; }
