@@ -86,6 +86,24 @@ $(document).ready(function() {
 
 			aggregate();
 
+		});
+
+		$("#showPreview").on("click",function() {
+
+			$("#dbPreview").slideToggle();
+
+			var show = "See what you created, as it exists in our databases.";
+			var hide = "Hide"
+
+			if ($(this).text() == show) { 
+
+				$(this).text(hide);
+
+			}
+
+			else { $(this).text(show); }
+
+
 		})
 
 
