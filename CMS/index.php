@@ -2,6 +2,7 @@
 	<html lang="en">
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 			<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
@@ -86,7 +87,7 @@
 						<input type = "text" name="info" id="passtext" style="visibility: hidden; pointer-events: none;" />
 						<input type = "text" name="headers" id="passheads" style="visibility: hidden; pointer-events: none;" />
 						<input type = "hidden" value="" name="title" id="passtitle" />
-						<input class="button submitInfo" type="submit" value="Submit (for real)" />
+						<input class="button submitInfo" type="submit" name="submit" value="Submit (for real)" />
 				</form>
 
 			</div>

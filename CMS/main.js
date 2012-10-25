@@ -138,7 +138,7 @@ function newConsole(the_index) {
 	var bold = "<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>";
 	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
 	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
-	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>Header<ul data-rel='text" + the_index + "' id='H4s'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createMed' data-content='<h4>Header</h4>'>Medium</li><li class='createSmall' data-content='<h5>Header</h5>'>Small</li></ul></li>";
+	var subheader = "<li data-content='<h3>Your subheader here</h3>' class='subList'>Header<ul data-rel='text" + the_index + "' id='H4s'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createSmall' data-content='<h4>Header</h4>'>Small</li></ul></li>";
 	var console = "<ul class='console' id='console" + the_index + "' data-rel='text" + the_index + "'>"
 	console +=  list + subheader + link + bold + "</ul>";
 

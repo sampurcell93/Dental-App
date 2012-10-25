@@ -23,6 +23,8 @@
 
 	}
 
+	if (isset($_POST['submit'])) { 
+
 	//get title of table
 	$title = $_POST['title'];
 	$title = utf8_encode($title);
@@ -121,9 +123,17 @@
 
 			}
 
+		}
+
+		else { ?>
 
 
-			?>
+		<div id='lander_wrap'><p style='text-align:center'>Your submission was a failure. You did not click the submit button! <br />
+		<a href='index.php' class='button'>Go back</a>
+
+
+		<?php } ?>
+
 
 	</div>
 

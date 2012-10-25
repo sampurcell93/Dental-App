@@ -30,7 +30,7 @@
 ?>
 	
 	
-					<div data-role="content">
+		<div data-role="content">
 
 <?php
 
@@ -88,39 +88,33 @@
 
 			while($row = $results->fetch_assoc()) { 
 
-					echo "\t\t\t\t<div data-role='collapsible' data-collapsed='false' data-theme='a' data-content-theme='d'>\n";
+				$count = 0;
 
 				foreach($row as $k=>$v) { 
 					
+
 					$v =  html_entity_decode($v);
-					$v = str_replace("h3", "h4", $v); //temporary hack, I messed up input
-					$v = str_replace("<h4>", '<li><a href="#"  class="subtitle">', $v);
-					$v = str_replace("</h4>", "</a></li>\n",$v);
+					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-d'><a>", $v);
+					$v = str_replace("</h3>", "</a></li>\n\t\t\t\t\t<div class='hidden content'>",$v);
+					//$v = str_replace("</li>", "</li>\n", $v);
+					$v = str_replace("www", "http://www", $v);
 
+					echo "\t\t\t<div data-role='collapsible' data-collapsed='false' data-theme='a' data-content-theme='d'>\n";
+					echo "\t\t\t\t<h2>" . str_replace("_"," ",$k) ."</h2>\n";
+            		//echo "\t\t\t<div data-role='collapsible'>\n";
 
-					echo "<h3>" . str_replace("_"," ",$k) ."</h3>\n";
-
-					echo '<ul data-role="listview" data-inset="true" data-theme="d">';
-
-					echo $v;
+					echo "\t\t\t\t<ul data-role='listview' class='subtitle' data-inset='true' data-theme='d'>\n";
+					echo "\t\t\t\t\t<div>"; // so first li element doesn't close list
+					echo $v . "</div>\n\t\t\t\t</ul>\n\t\t\t</div>\n";
+					$count++;
 				}
-
-					echo "</ul>\n</div>";
-
-
 			}
 		}
 	
 
 ?>
-				</div>
-			</fieldset>
 
-
-				<div data-role="controlgroup" data-type="horizontal" style="text-align:right" >
-					<a data-role="button" data-theme="b" style="display: none;" id="continue" >Continue</a>  
-
-	</div>
+		</div>
 <?php 
 	
 	require_once("footer.php");

@@ -170,8 +170,105 @@ p {
     .definition ul li {
       margin: 5px 0; }
 
-.ajaxContent {
+.content {
+  width: 100%;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3%;
+  background: #f8f8f8;
+  line-height: 24px;
+  -webkit-box-shadow: inset 0px 0px 6px 0px #555555, 0px 0.5px 1px 0px #454545;
+  box-shadow: inset 0px 0px 6px 0px #555555, 0px 0.5px 1px 0px #454545;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
+  .content h4 {
+    margin-left: 6%;
+    word-wrap: break-word;
+    margin-top: 16px;
+    margin-bottom: 16px; }
+  .content li {
+    line-height: 20px; }
+  .content ul {
+    margin-bottom: 30px; }
+
+.subtitle > li {
+  cursor: pointer;
+  background: #d9d9d9;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
+  /* IE10+ */
+  background: linear, to bottom, white 0%, #e5e5e5 100%;
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+  /* IE6-9 */ }
+  .subtitle > li:hover {
+    background: white;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
+    /* IE10+ */
+    background: linear, to bottom, white 0%, #f6f6f6 47%, #ededed 100%;
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+    /* IE6-9 */ }
+
+.hidden, .ajaxContent {
   display: none; }
 
-.hidden {
-  display: none; }
+[data-role="header"] {
+  background: url("images/tooth_home.jpeg") left top no-repeat, url("images/header_bg.jpeg") top repeat-x;
+  height: 109px;
+  border-bottom: none;
+  overflow: visible;
+  display: block;
+  width: 100%;
+  position: relative;
+  padding: 0; }
+  [data-role="header"] [role="heading"], [data-role="header"] h1 {
+    text-align: left;
+    width: 100%;
+    margin: 0; }
+    [data-role="header"] [role="heading"] span, [data-role="header"] h1 span {
+      display: inline-block;
+      width: 100%;
+      margin-left: 90px; }
+    [data-role="header"] [role="heading"] span:first-child, [data-role="header"] h1 span:first-child {
+      color: #f8f8f8;
+      font-family: "Franklin ITC Pro Light", sans-serif;
+      font-size: 1.6em;
+      margin-bottom: -20px;
+      margin-top: 25px; }
+    [data-role="header"] [role="heading"] span:last-child, [data-role="header"] h1 span:last-child {
+      font-family: "Franklin ITC Pro Cond Med", sans-serif;
+      margin-top: 4px;
+      color: #300f00;
+      font-size: 1.4em; }
+
+@font-face {
+  font-family: "Franklin ITC Pro Cond Med";
+  src: url("http://wac.6a25.edgecastcdn.net/006A25/webtype/ff/3/e5266b79-c3d1-4bc0-bb97-104edbaa3368") format("woff");
+  font-style: normal;
+  font-weight: normal; }
+
+@font-face {
+  font-family: "Franklin ITC Pro Light";
+  src: url("http://wac.6a25.edgecastcdn.net/006A25/webtype/ff/3/7a2e74f8-9187-4643-81f6-d907bd5e84db") format("woff");
+  font-style: normal;
+  font-weight: normal; }

@@ -1,7 +1,6 @@
 //first line lets things work on first page load, no need for refresh.
 $(document).delegate('.ui-page', 'pagecreate', function () {
 
-$("#bar").live("pagecreate", function(){ console.log( "called!" ); });
 //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 
 
@@ -21,7 +20,6 @@ $("#bar").live("pagecreate", function(){ console.log( "called!" ); });
 	$("[name=case]").bind("click",function() { 
 
 		var fieldset = $(this).closest("fieldset"); 
-		console.log(fieldset.attr("data-submission"));
 		makeRequest(fieldset.attr("data-submission"),fieldset.attr("data-condition"), $(this).attr("id"));
     return false;
 
@@ -35,12 +33,12 @@ $("#bar").live("pagecreate", function(){ console.log( "called!" ); });
 
 	});
 
-  $("h4").each(function() { 
+  $(".subtitle li ").on("click",function() { 
 
-    console.log($(this).text());
+      $(this).closest("li").next(".hidden").slideToggle();
 
 
-  });
+  })
 
 //Thanks to MDN for all the browser specifics
 function makeRequest(url, condition,toothCase) { 

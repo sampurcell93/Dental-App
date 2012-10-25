@@ -19,19 +19,13 @@
 			<div data-role="page" id="bar">
 				<div data-role="header" data-theme="b">
 
-					<a data-rel="back" data-iconpos="notext" data-icon="back" ></a>
-
-			<?php if (!isset($header)) {
-
-					echo "<h1>Beginner's Guide to Dental Implant Prosthodontics</h1>";
-
-				}
-
-				else { echo "<h1>". $header . "</h1>"; }
-					?>
-
-		           	 <select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext">
-
+					<h1>
+						<span>Beginner's Guide to</span>
+						<br /> 
+						<span>Dental Implant Prosthodontics</span>
+					</h1>
+				
+		           	 <select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="a">
 		            		<option value=""></option>
 		 					<option value="index.php">Procedures</option>
 							<option value="appendix.php">Appendix</option>
