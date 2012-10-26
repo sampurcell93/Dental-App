@@ -3,6 +3,10 @@ $(document).ready(function() {
 			//tie consoles to textareas to allow for GUI style editing,
 			var index_count = 0;
 
+		$.ajaxSetup ({  
+        	cache: false  
+    	}); 
+
 		//begin with a console and a header in content
 
 		$(".help").on("click",function(e) { 
@@ -117,10 +121,47 @@ $(document).ready(function() {
 			else { $(this).text(show); }
 
 
-		})
+		});
+
+		var hierarchy = $("#browseHierarchy");
+
+		$("#existingHierarchy").one("click",function() { 
+
+			hierarchy.append("<div class='block'>");
+
+			$.getJSON('existinghierarchy.php', function(data) { 
+
+				for (var i = 0; i < data.conditions.length; i++) { 
+
+					hierarchy.append("<span id='" + data.conditions[i].id + "' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</span>");
+
+				}
+			});
+			
+				hierarchy.append("</div>");
+
+		});
+
+		hierarchy.delegate("span","click",function() { 
+
+			$(this).addClass("selected").siblings().removeClass("selected");
+
+			hierarchy.append("<div class='block'>");
+			
+			$.getJSON('existinghierarchy.php?id=' + $(this).attr("id") + "&condition=" + $(this).attr("data-condition") , function(data) { 
+
+				for (var i = 0; i < data.children.length; i++) { 
+
+					hierarchy.append("<span id='" + data.children[i][0] + "' data-condition='" + data.name + "'>" + data.children[i][1] + "</span>").trigger("create");
 
 
+				}	
+			
+			});
 
+			hierarchy.append("</div>");
+
+		});
 });
 
 //instantiates a new header, whose attributes are based on the number already in play
@@ -227,14 +268,3 @@ $(window).scroll(function(e){
   		$el.removeClass("fixed");
   	 }
 });
-
-function getOffset( el ) {
-    var _x = 0;
-    var _y = 0;
-    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-        _x += el.offsetLeft - el.scrollLeft;
-        _y += el.offsetTop - el.scrollTop;
-        el = el.offsetParent;
-    }
-    return { top: _y, left: _x };
-}

@@ -98,10 +98,17 @@ p {
 	padding: 15px;
 	text-shadow: 0px 1px 0px #fff;
 
+	.button{  
+
+		width: 100px;
+		display: inline-block;
+
+	}
 }
 
 
 textarea, input[type="text"] { 
+
 	display: block;
 	width: 80%;
 	@include border-radius(4px);
@@ -129,15 +136,16 @@ input[type="text"] {
 	width: 60%;
 	height: 30px;
 	margin: 20px auto 0;
-
-
 }
 
 [type="submit"] { 
+
 	border: none;
-	cursor: pointer; }
+	cursor: pointer; 
+}
 
 .button {
+
    border-top: 1px solid #f1d2fc;
    background: #472b47;
    background: -webkit-gradient(linear, left top, left bottom, from(#6e5770), to(#472b47));
@@ -163,8 +171,10 @@ input[type="text"] {
    cursor: pointer;
 
 	&:active {
+
    border-top-color: #3b2040;
    background: #3b2040;
+
    }
 
    &:hover { color: #fff; }
@@ -227,6 +237,7 @@ hr {
 		position: relative;
 
 		&:hover { 
+
 			text-decoration: underline;
 			color: #fff; 
 		}
@@ -234,7 +245,9 @@ hr {
 	}
 
 	.subList { 
+
 		font-size: 100%;
+
 		li {
 			text-shadow: 0px 1px 0px #000;
 		}
@@ -274,13 +287,16 @@ aside {
 	@include whiteGradient();
 
 	ul { 
+
 		font-size: 80%; 
 		padding-left: 20px;
 	}
 
 	.close { 
+
 		height: 47px;
-		top: 10px; }
+		top: 10px; 
+	}
 }
 
 .pointers { pointer-events: auto; }
@@ -398,4 +414,50 @@ aside {
 	left: 50%;
 	margin-left: -150px;
 	z-index: 1000;
+}
+
+.fl { float: left; }
+.fR { float: right; }
+.hidden { display: none; }
+
+#browseHierarchy{ 
+
+
+	width: 90%;
+	margin: 0 auto;
+	display: block;
+		@include box-shadow(0px 0px 10px #aeaeae, inset 0px 0px 3px 1px #fff);
+
+
+	span {
+
+		@include transition(all .2s ease-in-out);
+		text-shadow: 0px 1px 0px #fff;
+		cursor: pointer;
+		display: inline-block;
+		padding: 7px;
+		background: #e1e1e1;
+		@include box-shadow(0px 0px 10px #aeaeae, inset 0px 0px 3px 1px #fff);
+	}
+
+	.selected { 
+
+		background: rgb(169,228,247); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(169,228,247,1) 0%, rgba(15,180,231,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(169,228,247,1)), color-stop(100%,rgba(15,180,231,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(169,228,247,1) 0%,rgba(15,180,231,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(169,228,247,1) 0%,rgba(15,180,231,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(169,228,247,1) 0%,rgba(15,180,231,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(169,228,247,1) 0%,rgba(15,180,231,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9e4f7', endColorstr='#0fb4e7',GradientType=0 ); /* IE6-9 */
+
+
+	}
+}
+
+
+.block { 
+
+	width: 100%%;
+	display: block;
 }

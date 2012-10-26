@@ -106,7 +106,7 @@
 		width: 100% ;
 		display: block;
 		@include box-sizing(border-box);
-		padding: 3%;	
+		padding: 10px 3%;	
 		background: #f8f8f8;
 		line-height: 24px;
 		@include box-shadow(inset 0px 0px 6px 0px #555, 0px .5px 1px 0px #454545);

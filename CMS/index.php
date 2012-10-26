@@ -29,6 +29,7 @@
 			</aside>
 
 			<aside id="appendixAdd">
+
 				<a class="close"></a>
 
 				<form method="POST" action="appendix.php">
@@ -62,8 +63,11 @@
 					<p>Use the sidebar at the side to easily format your content. Make sure it's formatted right here, 
 						so it displays correctly in the app.</p>
 
+					<p>Do you want to make a new hierarchy, or add to an existing one? <span class="button" id="newHierarchy">New Hierarchy</span>
+					 | <span class="button" id="existingHierarchy">Add to Existing</span></p>
 
-
+					 <div id="browseHierarchy"></div>
+					 
 						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
 						
 						<a class="button" id="addHeader" >Add A Section</a>
