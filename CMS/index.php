@@ -5,83 +5,98 @@
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-			<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
-			<script src="main.js"></script>
-
-			<title>Add Dental Content</title>
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+			<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+			<script src="fupload/js/vendor/jquery.ui.widget.js"></script>
+			<script src="fupload/js/jquery.iframe-transport.js"></script>
+			<script src="fupload/js/jquery.fileupload.js"></script>
+			<script src="main.js" type="text/javascript"></script>		
+			<title>Add Dental Content - Tufts Dental</title>
 		</head>
 
 		<body>
 			
-			<aside id="helpBox">
+			<div class="box" id="helpBox">
 
 				<a class="close"></a>
 
 					<h3>Tips:</h3>
 
 					<ul>
-						<li>Use the console at right of each textbox to add headers, lists of items, links, and pictures.</li>
-						<li>This system is still new, so make sure that when you enter your information, it's correct.
-						 It can be changed after the fact, but not by you.</li>
-						 <li>Feedback always helps! <a href="mailto:samuel.purcell@tufts.edu">Samuel.Purcell@tufts.edu</a></li>
+						<li>If you want to add information to a section that does not exist yet, click "New Hierarchy." Create your new hierarchy
+							, and the page will refresh. Then, click "Add to Existing" and you can add content to your new hierarchy.</li>
+						<li>Use the console at right of each textbox to add headers, lists of items, links, and media.</li>
+						<li>You probably have media to upload. You can upload pictures (.jpg, .png, .gif) and videos (.mp4, .mpeg, .avi)
+							using the upload tool.</li>
+						<li>The appendix can be updated easily. Just add a term name, followed by its definition. 
+							If you make a mistake, you can remove that term.</li>
+						<li>Feedback always helps! <a href="mailto:samuel.purcell@tufts.edu">Samuel.Purcell@tufts.edu</a></li>
 					</ul>
 
-			</aside>
+			</div>
 
-			<aside id="appendixAdd">
+			<div class="box" id="fileUploadBox">
 
 				<a class="close"></a>
 
-				<form method="POST" action="appendix.php">
+				<h2>File Uploader</h2>
 
-					<label for="term">Enter a term:
-						<input type="text" name="term" id="term" placeholder="Term name here." />
-					</label>
+				<p>Your files will appear in the console, so you can add them to each section as you please.</p>
+				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
 
-						<textarea id="definition" name="definition" placeholder="Enter the definition here."></textarea>
-
- 					<input type="submit" class="button" name="submit" value="Submit" />
- 				</form>
-
-			</aside>
+			<!-- the below script calls the file uploader and appends a list of names to the upload box -->
+				<script>
+				$(function () {
+				    $('#fileupload').fileupload({
+				        dataType: 'json',
+				        done: function (e, data) {
+				            $.each(data.result, function (index, file) {
+				                $('<p/>').text(file.name).appendTo(document.body);
+				            });
+				        }
+				    });
+				});
+				</script>
+			</div>
 
 			<div id="lander_wrap">
 
 				<div id="lander">
 
-					<a class="help" title="help" >Help</a>
-					<a id="appendix" title="Edit Appendix">Add to Appendix</a>
+					<header>
+						<h1>Add Content<span> - Tufts Dental School</span></h1>
+						<nav>
+							<ul>
+								<li><a class="help" data-icon="*"  data-rel="helpBox">Help</a></li>
+								<li><a href="add_appendix.php" data-icon="$"  target="_blank">Appendix</a></li>
+								<li><a class="fUpload" data-icon="&" data-rel="fileUploadBox">Upload</a></li>
+							</ul>
+						</nav>
+					</header>
 
+					<p>Do you want to make a new hierarchy, or add to an existing one?<br> 
+					 	<span class="button" id="newHierarchy" rel="#makeHierarchy">New Hierarchy</span>
+					 	<span class="button" id="existingHierarchy" rel="#browseHierarchy">Add to Existing</span>
+					</p>
 
-					<h1>Add Content</h1>
-
-					<hr />
-
-					<p>This app was designed so that it could be added to easily by non-programmers (dentists).
-						Here you go. </p> 
-
-					<p>Use the sidebar at the side to easily format your content. Make sure it's formatted right here, 
-						so it displays correctly in the app.</p>
-
-					<p>Do you want to make a new hierarchy, or add to an existing one? <span class="button" id="newHierarchy">New Hierarchy</span>
-					 | <span class="button" id="existingHierarchy">Add to Existing</span></p>
-
-					 <div id="browseHierarchy"></div>
+					 <div id="browseHierarchy" class="hidden relative hierarchy"></div>
+					 <div id="makeHierarchy" class="hidden relative hierarchy"></div>
 					 
-						<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>
+					 <div class="hidden" id="addContent">
+						<!--<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>-->
 						
-						<a class="button" id="addHeader" >Add A Section</a>
+						<a class="button medShadow" id="addHeader" >Add A Section</a>
 
 						<div class="content"></div>
 
 						<input type="submit" class="button" value="Submit (see preview)" id="preview"/>
 					
-
 						<div style="clear: both;"></div>
+					</div>
 				</div>
 			</div>
 
-			<div id="previewBox">
+			<div class="box" id="previewBox">
 
 				<a class="close"></a>
 
@@ -99,37 +114,3 @@
 		</body>
 
 	</html>
-
-	<!--
-
-		Each input block is dynamically generated, so it may be hard to follow.
-
-		The format for a single editing block is thus (where this is the fourth such block):
-
-		<hr />
-		<input type='text' id='head3' placeholder='Put a header here.' />
-
-		<textarea id='text3' placeholder='This is where the content for this header goes.'></textarea> 
-		<ul class='console' data-rel='text3'>
-
-			<li data-content='
-				<ul>
-					<li>List item</li>
-					<li>List item</li>
-					<li>List item</li>
-				</ul>' 
-				class='createList'>List</li>
-
-			<li data-content='<h3>Your subheader here</h3>' class='createSub'>SubHead</li>
-
-			<li data-content='<a href="http://yourlinkhere.com" >Name your link</a>' class='createLink'>Link</li>
-
-			<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>
-
-		</ul> 
-
-		This allows for one javascript function to generate text for all button types, as opposed
-		to a separate click function for each type.
-
-	-->
-
