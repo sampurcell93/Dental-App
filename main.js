@@ -41,7 +41,7 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
   })
 
 //Thanks to MDN for all the browser specifics
-function makeRequest(url, condition,toothCase) { 
+function makeRequest(url, condition,id) { 
 
   		//make sure ajax works in all browsers...mdn
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...  
@@ -67,7 +67,7 @@ function makeRequest(url, condition,toothCase) {
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	//send the data, which is interpreted by php. no matter what, the form is sent, even if incomplete. In this case, 
 	//php decides what to do with the info. If incomplete, it does nothing.
-    httpRequest.send("&case=" + encodeURIComponent(toothCase) + "&condition=" + encodeURIComponent(condition) );
+    httpRequest.send("&case=" + encodeURIComponent(id) + "&condition=" + encodeURIComponent(condition));
 
   }  
 //insert response text into ajaxcontent box, and show the continue button, cause now we're ready to GO!

@@ -43,7 +43,7 @@
 	 					else if ($k == "name") { 
 
 	 						$name = $v;
-							echo  "' value = '" . $v . "' />";
+							echo  "' value = '" . $id . "' />";
 						
 	 					}
 

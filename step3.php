@@ -7,12 +7,7 @@
 	$case = $_GET['case'];
 	$extent = $_GET['extent'];
 	$header = $type . ", " . $case;
-
-	if(isset($extent)) { 
-
-		$header .= ": " . $extent;
-
-	}
+	$table = $case . "_" . $type . "_" . $extent;
 
 	require_once("header.php");
 
@@ -27,6 +22,28 @@
 
 	}
 
+	function table_exists($table_name) { 
+
+		$query = "select table_name FROM information_schema.tables
+		WHERE table_schema = 'dental_info' AND table_name = '$table_name'";
+
+		$mysqli = new mysqli('localhost','root','','dental_info');
+
+		$results = $mysqli->query($query);
+
+		if(!$results->num_rows) { 
+
+			return true;
+
+		}
+
+		return false;
+
+
+
+	}
+
+
 ?>
 	
 	
@@ -34,14 +51,14 @@
 
 <?php
 
-	$query = "SELECT h1.name AS lev1, h2.name AS lev2, h1.id AS lev1_id
+	$query = "SELECT h1.name AS lev1, h2.id as lev2_id,  h2.name AS lev2, h1.id AS lev1_id
 		FROM $condition AS h1
 		LEFT JOIN $condition AS h2 ON h2.parent_id = h1.id
-		WHERE h1.name = '$type'";
+		WHERE h1.id = '$type'";
 
 	$results = $mysqli->query($query);
 
-		if (!isset($extent)) { ?>
+		 if (!table_exists($table) || !isset($extent)){ ?>
 
 			<h3>Extent</h3>
 
@@ -59,9 +76,15 @@
 
 			foreach($row as $key=>$val) { 
 
+				if($key == "lev2_id") { 
+
+					$id = $val;
+
+				}
+
 				if($key == "lev2" && $val) { 
 
-					echo "\t\t\t\t\t<input type = 'radio' name = 'extent' id = '" . $val . "' value = '" . $val . "' />";
+					echo "\t\t\t\t\t<input type = 'radio' name = 'extent' id = '" . $val . "' value = '" . $id . "' />";
 					echo "<label for='" . $val ."'>" . $val ."</label>";
 				}
 
@@ -79,11 +102,9 @@
 
 		else {
 
-			$table = $type . " " . $case . " " . $extent;
-			$table = str_replace(" ", "_", $table);
-
+			$table = $type . "_" . $case . "_" . $extent;
 			$query = "select * from $table";
-
+			
 			$results = $mysqli->query($query);
 
 			while($row = $results->fetch_assoc()) { 
@@ -110,8 +131,8 @@
 				}
 			}
 		}
-	
 
+	
 ?>
 
 		</div>

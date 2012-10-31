@@ -21,7 +21,7 @@
 
 <?php
 	
-	$query = "SELECT h1.name AS lev1, h2.name AS lev2, h1.id AS lev1_id
+	$query = "SELECT h1.name AS lev1, h2.name as lev2_name, h2.id AS lev2, h1.id AS lev1_id
 			FROM $condition AS h1
 			LEFT JOIN $condition AS h2 ON h2.parent_id = h1.id
 			WHERE h1.id =  '$case'";
@@ -32,10 +32,16 @@
 
 		foreach ($row as $k=>$v) {
 
+			if ($k == "lev2_name") { 
+
+				$text = $v;
+
+			}
+
 			if($k == "lev2") { 
 
 				echo "\t\t\t\t\t<input type = 'radio' name = 'type' id = '" . $v . "' value = '" . $v . "' />";
-				echo "<label for='" . $v ."'>" . $v ."</label>";
+				echo "<label for='" . $v ."'>" . $text ."</label>";
 			}
 
 		}
