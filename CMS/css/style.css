@@ -536,7 +536,6 @@ hr {
     cursor: pointer;
     display: inline-block;
     padding: 7px 10px;
-    min-height: 40px;
     margin: 7px;
     background: #e1e1e1;
     -webkit-box-shadow: 0px 0px 10px #aeaeae, inset 0px 0px 3px 1px white;
@@ -544,7 +543,7 @@ hr {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border-top: 1px solid #fff;
-    font-size: .9em;
+    font-size: .7em;
     text-align: center; }
     .hierarchy span:hover {
       -webkit-box-shadow: 0px 0px 7px #676767;

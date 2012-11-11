@@ -254,7 +254,9 @@ p {
       font-family: "Franklin ITC Pro Light", sans-serif;
       font-size: 1.6em;
       margin-bottom: -20px;
-      margin-top: 25px; }
+      margin-top: 25px;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
     [data-role="header"] [role="heading"] span:last-child, [data-role="header"] h1 span:last-child {
       font-family: "Franklin ITC Pro Cond Med", sans-serif;
       margin-top: 4px;

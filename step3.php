@@ -115,7 +115,7 @@
 					
 
 					$v =  html_entity_decode($v);
-					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-d'><a>", $v);
+					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-d'><a data-transition='slidefade'>", $v);
 					$v = str_replace("</h3>", "</a></li>\n\t\t\t\t\t<div class='hidden content'>",$v);
 					//$v = str_replace("</li>", "</li>\n", $v);
 					$v = str_replace("www", "http://www", $v);

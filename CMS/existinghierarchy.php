@@ -54,7 +54,7 @@
 		 		echo '{ "name" : "' .  $condition  . '", "children": [' ;
 
 		 		while($row = $results->fetch_assoc()) { 
-
+		 			
 		 			foreach($row as $k=>$v) {
 	 
 		 				if($k == "name") { 

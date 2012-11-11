@@ -23,8 +23,6 @@
 
 .subtitle{  font-size: 14px; color: #666; margin-left: 13px }
 
-
-
 	.ui-collapsible-set-horizontal { margin: .5em -15px; }
 	.ui-collapsible-no-inset { margin-left: 0px; margin-right: 0px;}
 	.ui-collapsible-set-horizontal .ui-collapsible h3 .ui-btn { border-bottom-width: 1px; }	
@@ -181,7 +179,7 @@
  					font-size: 1.6em;
  					margin-bottom: -20px;
  					margin-top: 25px;
-
+ 					@include box-shadow(none);
 
 				}
 
