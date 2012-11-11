@@ -33,12 +33,28 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
 
 	});
 
-  $(".subtitle li ").on("click",function() { 
+    var contentCount = 0;
 
-      $(this).closest("li").next(".hidden").slideToggle();
+  $(".content").each(function() {
 
+    var header = $(this).closest("li").find("a").html();
+    console.log(header);
+    var information = "<div data-role='page' id='page" + contentCount++
+     + "'><div data-role='header'>" + header + "</div><div data-role='content'>" + $(this).html() + "</div>";
+    
+      $("body").append(information).trigger("create");
+      
+      //$(this).remove();
+  });
+
+    var contentCount = 0;
+
+  $("[data-icon='arrow-d'] a").each(function() {
+
+      $(this).attr("href","#page" + contentCount++);
 
   })
+
 
 //Thanks to MDN for all the browser specifics
 function makeRequest(url, condition,id) { 
