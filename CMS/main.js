@@ -2,19 +2,12 @@ $(document).ready(function() {
 
 		//tie consoles to textareas to allow for GUI style editing,
 		var index_count = 0;
-
-
 		//the navigation bar calls lightboxes which slide down
 		$(".fUpload, .help").on("click",function(e) {
-
 			var pair = "#" + $(this).attr("data-rel");
 			e.preventDefault();
-
 			$(pair).fadeToggle("fast").addClass("inRange");
 			$("#lander_wrap").addClass("blur");
-
-
-
 		 });
 
 		//click on the add header button to add what will become a new column in that node's sql table.
@@ -22,8 +15,8 @@ $(document).ready(function() {
 
 			$(".content").append("<div id='wrap" + index_count + "'></div>");
 			var wrapper = $("#wrap" + index_count);
-
 			var toAppend = "";
+
 			toAppend += newContent(index_count) + newConsole(index_count) + newRemove(index_count);
 			wrapper.append(toAppend);
 			wrapper.height(530);
@@ -71,19 +64,14 @@ $(document).ready(function() {
 			for (var i = 0; i < $(".infoInput").length; i++) {
 
 				var curr = $("#previewContent").html();
-			
 				var header = "<h2>" + $("#head" + i).val() + "</h2>\n";
-				
 				var text = $("#text" + i).html() + "<br />";
 				
-
 				if(header && title && text ) {
 
 					$("#previewContent").html(curr + header + text);
+				}
 			}
-		}
-
-
 		});
 		
 		//close function for lightboxes, or any parent element.
@@ -116,8 +104,6 @@ $(document).ready(function() {
 			}
 
 			else { $(this).text(show); }
-
-
 		});
 
 		var browseHierarchy = $("#browseHierarchy");
@@ -130,14 +116,13 @@ $(document).ready(function() {
 			
 		});
 
-
 		//each span they click loads its direct children via json
-		$(".hierarchy").delegate("span","click",function() { 
+		$(".hierarchy").delegate("span:not('.selected')","click",function() { 
 
 			var appendString = "<div class='block bottom'>";
 			var $this = $(this);
 			var pair = $("#" + $this.closest(".hierarchy").attr("id"));
-
+			var tableName = makeTable(pair);
 			// the selected class will determine where content is placed.
 			$this.addClass("selected").siblings().removeClass("selected");
 			
@@ -151,10 +136,9 @@ $(document).ready(function() {
 				$this.closest(".hierarchy").find(".block:gt(" + parent_index + ")").remove();
 
 				num_blocks_after = browseHierarchy.find(".block").length;
-
 			}
 
-			$.getJSON('existinghierarchy.php?id=' + $this.attr("id") + "&condition=" + $this.attr("data-condition"), function(data) { 
+			$.getJSON('existinghierarchy.php?id=' + $this.attr("id") + "&condition=" + $this.attr("data-condition") + "&table=" + tableName, function(data) { 
 
 				//test for an empty JSON set
 				if(!jQuery.isEmptyObject(data) && data.children[0] != -1) {
@@ -171,14 +155,10 @@ $(document).ready(function() {
 		
 				}
 				else { 
-
-					pair.append("<p class='block'>This node has no children, and no data associated with it. <a class='cursor' id='make'>Add Information</a></p>");
-
+					$("<p class='block'>This node has no children, and no data associated with it." +
+						" <a class='cursor' id='make'>Add Information</a></p>").appendTo(pair);
 				}
-
 			});
-
-
 		});
 
 		$("#make").live("click",function() { 
@@ -188,16 +168,12 @@ $(document).ready(function() {
 
 		});
 
-	
-
 		//when the user gets to a new level of the hierarchy, maybe they want to add a new node at that level. this is for them.
 		$(".addNode").live("click",function(){ 
 
 			var newSpan = "<span contentEditable='true' class='newNode'></span>";
 			var $this = $(this);
 			$(newSpan).appendTo($this.closest(".block"));
-
-
 		});
 
 		//in the appendix editor, this function passes the id of the entry to the php file for a removal query
@@ -205,11 +181,7 @@ $(document).ready(function() {
 
 			$(this).parent().html("loading....").load("remove_appendix.php?id=" + $(this).attr("rel"));
 			$(this).closest(".wrap").remove();
-
-
 		});
-
-
 });
 
 //instantiates a new header, whose attributes are based on the number already in play
@@ -266,7 +238,6 @@ function aggregate() {
 
 }
 
-
 //props to gclaghorn of stackoverflow for the awesome function
 function insertAtCaret(areaId,text) {
     var txtarea = document.getElementById(areaId);
@@ -302,6 +273,50 @@ function insertAtCaret(areaId,text) {
     txtarea.scrollTop = scrollPos;
 }
 
+function makeHierarchyBox(rel) { 
+
+	var $update = $(rel);
+
+	if (!$update.hasClass("activeBrowser")) {
+
+		var appendString = "<div class='block'>";
+
+			$.getJSON('existinghierarchy.php', function(data) { 
+
+					for (var i = 0; i < data.conditions.length; i++) { 
+
+						appendString += "<span id='-1' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</span>";
+
+					}
+
+				if (rel == "#makeHierarchy") { 
+
+					appendString += "<div class='addNode'>+</div>";
+
+				}
+
+				appendString += "</div>";
+				$(appendString).appendTo($update);
+				$update.addClass("activeBrowser");
+				$update.show();
+			});
+	}
+}
+
+function makeTable (id) { 
+
+	var tablename = "";
+	
+	$(id).children(".block").each(function(){ 
+
+		tablename += $(this).children(".selected").attr("id") + "_";
+		console.log(tablename);
+	});
+
+	return tablename;
+
+}
+
 $(window).scroll(function(e){
 
   $el = $('#addHeader'); 
@@ -315,29 +330,4 @@ $(window).scroll(function(e){
   	 }
 });
 
-function makeHierarchyBox(rel) { 
 
-	var $update = $(rel);
-
-	var appendString = "<div class='block'>";
-
-		$.getJSON('existinghierarchy.php', function(data) { 
-
-			for (var i = 0; i < data.conditions.length; i++) { 
-
-				appendString += "<span id='-1' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</span>";
-
-			}
-
-		if (rel == "#makeHierarchy") { 
-
-			appendString += "<div class='addNode'>+</div>";
-
-		}
-
-		appendString += "</div>";
-		$update.append(appendString);
-		$update.show();
-
-	});
-}

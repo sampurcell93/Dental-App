@@ -8,7 +8,7 @@
 		exit();
 
 	}
-
+	$fancyheader = 1;
 	require_once("header.php");
 
 	?>

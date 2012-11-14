@@ -1,5 +1,5 @@
 <?php
-
+	$base = 1;
 	require_once("header.php");
 
 	//open db connection: insecure on dev server. pass will be set when deployed

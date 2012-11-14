@@ -49,11 +49,11 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
 
     var contentCount = 0;
 
-  $("[data-icon='arrow-d'] a").each(function() {
+  $("[data-icon*='arrow'] a").each(function() {
 
       $(this).attr("href","#page" + contentCount++);
 
-  })
+  });
 
 
 //Thanks to MDN for all the browser specifics

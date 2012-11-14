@@ -9,13 +9,29 @@
 
 	}
 
-	?>
+	//boolean function
+	function table_exists($table_name) { 
 
- 	<?php
+		$query = "select table_name FROM information_schema.tables
+		WHERE table_schema = 'dental_info' AND table_name = '$table_name'";
+
+		$mysqli = new mysqli('localhost','root','','dental_info');
+
+		$results = $mysqli->query($query);
+
+		if($results->num_rows) { 
+
+			return 1;
+
+		}
+
+		return 0;
+	}
 
 	 	$id = $_GET['id'];
-	 	$json_string = "";
+	 	$tablename = $_GET['table'];
 	 	$condition = $_GET['condition'];
+	 	$json_string = "";
 	 	
 	 	if(!isset($id)) { 
 
@@ -72,8 +88,6 @@
 			 		$count++;
 
 				}
-
-
 		 			echo substr($json_string,0,-2);
 
 		 			echo "]}";
