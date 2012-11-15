@@ -17,7 +17,11 @@
 		<body>
 
 			<div data-role="page" id="bar">
-				<div data-role="header" data-theme="b">
+
+			<?php if (isset($fancyheader)) { 
+
+			?>
+				<div data-role="header" id='homeHead' data-theme="b">
 
 					<h1>
 						<span>Beginner's Guide to</span>
@@ -33,3 +37,27 @@
 					</select> 
 
 				</div>
+
+
+			<?php } 
+
+			else {
+
+			?>
+				<div data-role="header" data-theme="b">
+
+					<h1><?php if (isset($base)) { echo "Beginner's Guide to Dental Implant Prosthodontics"; } ?></h1>
+ 					<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="a">
+		            		<option value=""></option>
+		 					<option value="index.php">Procedures</option>
+							<option value="appendix.php">Appendix</option>
+							 
+					</select> 
+				</div>
+
+			<?php
+
+			 }
+
+			?>
+

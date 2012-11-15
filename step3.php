@@ -7,8 +7,8 @@
 	$case = $_GET['case'];
 	$extent = $_GET['extent'];
 	$header = $type . ", " . $case;
-	$table = $case . "_" . $type . "_" . $extent;
-
+	$table = $type . "_" . $case . "_" . $extent;
+	$base = 1;
 	require_once("header.php");
 
 	//open db connection: insecure on dev server. pass will be set when deployed
@@ -31,18 +31,17 @@
 
 		$results = $mysqli->query($query);
 
-		if(!$results->num_rows) { 
+		if($results->num_rows) { 
 
-			return true;
+			return 1;
 
 		}
 
-		return false;
-
-
-
+		return 0;
 	}
 
+	echo table_exists($table);
+	echo $table;
 
 ?>
 	
@@ -58,7 +57,7 @@
 
 	$results = $mysqli->query($query);
 
-		 if (!table_exists($table) || !isset($extent)){ ?>
+		 if (!table_exists($table) && !isset($extent)){ ?>
 
 			<h3>Extent</h3>
 
@@ -115,7 +114,7 @@
 					
 
 					$v =  html_entity_decode($v);
-					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-d'><a>", $v);
+					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-r'><a data-transition='fade'>", $v);
 					$v = str_replace("</h3>", "</a></li>\n\t\t\t\t\t<div class='hidden content'>",$v);
 					//$v = str_replace("</li>", "</li>\n", $v);
 					$v = str_replace("www", "http://www", $v);

@@ -8,6 +8,9 @@
   color: #666;
   margin-left: 13px; }
 
+[data-role="page"] {
+  border: 2px solid #000; }
+
 .ui-collapsible-set-horizontal {
   margin: 0.5em -15px; }
 
@@ -232,7 +235,7 @@ p {
 .hidden, .ajaxContent {
   display: none; }
 
-[data-role="header"] {
+#homeHead {
   background: url("images/tooth_home.jpeg") left top no-repeat, url("images/header_bg.jpeg") top repeat-x;
   height: 109px;
   border-bottom: none;
@@ -241,21 +244,23 @@ p {
   width: 100%;
   position: relative;
   padding: 0; }
-  [data-role="header"] [role="heading"], [data-role="header"] h1 {
+  #homeHead [role="heading"], #homeHead h1 {
     text-align: left;
     width: 100%;
     margin: 0; }
-    [data-role="header"] [role="heading"] span, [data-role="header"] h1 span {
+    #homeHead [role="heading"] span, #homeHead h1 span {
       display: inline-block;
       width: 100%;
       margin-left: 90px; }
-    [data-role="header"] [role="heading"] span:first-child, [data-role="header"] h1 span:first-child {
+    #homeHead [role="heading"] span:first-child, #homeHead h1 span:first-child {
       color: #f8f8f8;
       font-family: "Franklin ITC Pro Light", sans-serif;
       font-size: 1.6em;
       margin-bottom: -20px;
-      margin-top: 25px; }
-    [data-role="header"] [role="heading"] span:last-child, [data-role="header"] h1 span:last-child {
+      margin-top: 25px;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+    #homeHead [role="heading"] span:last-child, #homeHead h1 span:last-child {
       font-family: "Franklin ITC Pro Cond Med", sans-serif;
       margin-top: 4px;
       color: #300f00;

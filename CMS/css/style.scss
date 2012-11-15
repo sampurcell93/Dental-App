@@ -323,15 +323,16 @@ hr {
 	li {
 
 		cursor: pointer;	
-   		background: #472b47;background: rgb(198,35,155); /* Old browsers */
-		background: -moz-linear-gradient(top,  rgba(198,35,155,1) 0%, rgba(178,66,135,1) 50%, rgba(168,0,119,1) 51%, rgba(117,29,101,1) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(198,35,155,1)), color-stop(50%,rgba(178,66,135,1)), color-stop(51%,rgba(168,0,119,1)), color-stop(100%,rgba(117,29,101,1))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,  rgba(198,35,155,1) 0%,rgba(178,66,135,1) 50%,rgba(168,0,119,1) 51%,rgba(117,29,101,1) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,  rgba(198,35,155,1) 0%,rgba(178,66,135,1) 50%,rgba(168,0,119,1) 51%,rgba(117,29,101,1) 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  rgba(198,35,155,1) 0%,rgba(178,66,135,1) 50%,rgba(168,0,119,1) 51%,rgba(117,29,101,1) 100%); /* IE10+ */
-		background: linear-gradient(to bottom,  rgba(198,35,155,1) 0%,rgba(178,66,135,1) 50%,rgba(168,0,119,1) 51%,rgba(117,29,101,1) 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6239b', endColorstr='#751d65',GradientType=0 ); /* IE6-9 */
-   		color: #e1e1e1;
+   		background: rgb(138,187,215); /* Old browsers */
+		background: -moz-linear-gradient(top,  rgba(138,187,215,1) 0%, rgba(6,109,171,1) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(138,187,215,1)), color-stop(100%,rgba(6,109,171,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8abbd7', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
+		color: #e1e1e1;
+		//text-shadow: 0px 1px 0px #fff;
 		border-top: 1px solid #fff;
 		border-bottom: 1px solid #313131;
 		display: block;
@@ -353,7 +354,21 @@ hr {
 
 		&:active {
 
-			background: #6D004C;
+			background: rgba(6,109,171,1);
+
+		}
+
+		&:after { 
+
+			position: absolute;
+			content: "";
+			width: 93%;
+			height: 93%;
+			display: block;
+			pointer-events: none;
+			border :1px dashed rgba(0,0,0,.35);
+			top: 2.4%;
+			left: 2.4%;
 
 
 		}
@@ -366,6 +381,7 @@ hr {
 
 		li {
 			text-shadow: 0px 1px 0px #000;
+			background: red;
 		}
 
 		&:hover #H4s { display: block;  }
@@ -485,7 +501,14 @@ hr {
 		width: 70px;
 		margin: 0px auto;
 		color: #e1e1e1;
-		background: rgba(0,0,0,.7);
+		background: rgb(138,187,215); /* Old browsers */
+		background: -moz-linear-gradient(top,  rgba(138,187,215,1) 0%, rgba(6,109,171,1) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(138,187,215,1)), color-stop(100%,rgba(6,109,171,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  rgba(138,187,215,1) 0%,rgba(6,109,171,1) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8abbd7', endColorstr='#066dab',GradientType=0 ); /* IE6-9 */
 		height: 30px;
 		line-height: 30px;
 		@include box-shadow(0px 0px 4px #777);
@@ -556,13 +579,12 @@ hr {
 		cursor: pointer;
 		display: inline-block;
 		padding: 7px 10px;
-		min-height: 40px;
 		margin: 7px;
 		background: #e1e1e1;
 		@include box-shadow(0px 0px 10px #aeaeae, inset 0px 0px 3px 1px #fff);
 		@include border-radius(10px);
 		border-top: 1px solid #fff;
-		font-size: .9em;
+		font-size: .7em;
 		text-align: center;
 
 		&:hover { 
@@ -608,7 +630,7 @@ hr {
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
 	position: relative;
-	padding-left: 10px;
+	padding-left: 2%;
 	padding-right: 20px;
 	@include clearfix();
 
@@ -623,7 +645,7 @@ hr {
 .addNode { 
 
 	position: absolute;
-	line-height:55px;
+	line-height:45px;
 	top: 0;
 	right: -5.3%;
 	text-align: center;
@@ -699,6 +721,41 @@ hr {
 
 }
 
+.disabled { 
+
+	position: relative;
+
+	&:hover::after, &:hover::before { 
+
+		display: block;
+
+	}
+
+	&:after { 
+
+		position: absolute;
+		content: "Has content.";
+		display: none;
+		top: 0%;
+		left: 0%;
+		background: #212121;
+		background: rgba(0,0,0,.55);
+		text-align: center;
+		color: #f0f0f0;
+		height: 100%;
+		width: 100%;
+		font-size: 1em;
+		line-height: 33px;
+		text-shadow: none;
+		z-index: 0;
+		@include box-shadow(0px 0px 5px #aeaeae);
+		@include border-radius(10px);
+
+	}
+
+
+ }
+
 @font-face {
 
   font-family: 'icons';
@@ -710,5 +767,13 @@ hr {
 @media all and (max-width: 960px) { 
 
 	#lander_wrap { width: 95%; }
-
+	#lander { padding-top: 60px; }
+	nav, nav ul { display: block; width: 100%; }
+	h1 { margin-bottom: 11px; }
+	header { margin-bottom: 160px; }
+	.console { width: 98%; margin: 10px auto 10px auto;
+		li { display: inline-block; float: none; width: 20%;
+		}
+	}
+	.infoInput { width: 98%; margin: 10px auto; clear: both;}
 }

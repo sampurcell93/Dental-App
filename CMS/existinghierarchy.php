@@ -9,14 +9,31 @@
 
 	}
 
-	?>
+	//boolean function
+	function table_exists($table_name) { 
 
- 	<?php
+		$query = "select table_name FROM information_schema.tables
+		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
+
+		$mysqli = new mysqli('localhost','root','','dental_info');
+
+		$results = $mysqli->query($query);
+
+		if($results->num_rows) { 
+
+			return 1;
+
+		}
+
+		return 0;
+	}
 
 	 	$id = $_GET['id'];
-	 	$json_string = "";
+	 	$tablename = $_GET['table'];
 	 	$condition = $_GET['condition'];
+	 	$json_string = "";
 	 	
+	 	//if we're starting the browser, there is no parent to check yet.
 	 	if(!isset($id)) { 
 
 	 		echo '{ "conditions": [' ;
@@ -34,7 +51,7 @@
 	 		echo "]}";
 		}
 
-
+		// if we have a node, check its direct descendants and put em in json
 		else { 
 
 			$query = "select * from $condition where parent_id";
@@ -49,38 +66,48 @@
 
 			$results = $mysqli->query($query);
 
+			// if the node has direct descendants, we want to echo them.
 		 	if ($results->num_rows > 0) { 
 
 		 		echo '{ "name" : "' .  $condition  . '", "children": [' ;
 
 		 		while($row = $results->fetch_assoc()) { 
-
+		 			
+		 			$temp_table_test = $tablename;
 		 			foreach($row as $k=>$v) {
-	 
-		 				if($k == "name") { 
+	 					
+	 					if ($k == "id") { 
 
-			 				$json_string .= '"' . $v . '"], ';
+		 					$json_string .=  '{"id":' . $v . ', ';
+		 					$temp_table_test .= "_" . $v;
+		 					//echo "\n $temp_table_test";
+		 					if (table_exists($temp_table_test)) { 
+
+		 						$json_string .= '"table_exists": 1,';
+
+		 					}
+		 					else { $json_string .= '"table_exists": 0, '; }
+
+		 					$json_string .=  '"table_name": "' . $temp_table_test . '", ';
+			 			}
+
+
+		 				else if($k == "name") { 
+
+			 				$json_string .= '"childname":"' . $v . '"}, ';
 
 			 			}
 
-			 			else if ($k == "id") { 
-
-			 				$json_string .=  '["' . $v . '", ';
-			 			}
+			 			echo "\n";
 			 		}
-
-			 		$count++;
-
 				}
-
-
 		 			echo substr($json_string,0,-2);
 
 		 			echo "]}";
 		 	}
 
-		 	else { echo '{"children": [-1]}'; }
+		 	else { 
 
-
+		 		echo '{"children": [-1]}'; }
 		 }
 	 ?>

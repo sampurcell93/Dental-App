@@ -23,7 +23,7 @@
 
 .subtitle{  font-size: 14px; color: #666; margin-left: 13px }
 
-
+[data-role="page"] { border: 2px solid #000; }
 
 	.ui-collapsible-set-horizontal { margin: .5em -15px; }
 	.ui-collapsible-no-inset { margin-left: 0px; margin-right: 0px;}
@@ -150,7 +150,7 @@
 
 		.hidden { display: none; }
 
-		[data-role="header"] { 
+		#homeHead { 
 			background: url("images/tooth_home.jpeg") left top no-repeat,  url("images/header_bg.jpeg") top repeat-x;
 			height: 109px;
 			border-bottom: none;
@@ -181,7 +181,7 @@
  					font-size: 1.6em;
  					margin-bottom: -20px;
  					margin-top: 25px;
-
+ 					@include box-shadow(none);
 
 				}
 
