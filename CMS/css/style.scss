@@ -146,7 +146,6 @@ p {
  			width: 33.33%;
  			display: block;
 
-	 		&:last-child a{ @include border-radius(0px 5px 0 0 );}
  		}
 
  		li a {
@@ -623,21 +622,22 @@ hr {
 
 #browseHierarchy .block { width: 100%; }
 
-.block { 
+.child_row { 
 
-	width: 95%;
+	width: 99%;
 	display: block;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
 	position: relative;
 	padding-left: 2%;
 	padding-right: 20px;
+	position: relative;
 	@include clearfix();
 
 
 	&:first-child .addNode { @include border-radius(0px 5px 0px 0px);}
 	&:last-child { border-bottom: none; }
-	&:last-child .addNode { @include border-radius(0px 5px 5px 0px);}
+	&:last-child .addNode { @include border-radius(0px 0px 5px 0px);}
 
 
 }
@@ -647,7 +647,7 @@ hr {
 	position: absolute;
 	line-height:45px;
 	top: 0;
-	right: -5.3%;
+	right: -1%;
 	text-align: center;
 	display: block;
 	color: #aeaeae;
@@ -657,7 +657,7 @@ hr {
 	font-weight: bold;
 	text-shadow: 0px 2px 0px white;
 	height: 100%;
-	width: 6%;
+	width: 9%;
 	border-left: 1px solid #ddd;
 	@include whiteGradient();
 	font-size: 1.2em;
@@ -716,7 +716,7 @@ hr {
 	border: none;
 	cursor: auto;
 	display: none;
-	min-width: 100px;
+	min-width: 10%;
 	@include transition(all .2s ease-in-out);
 
 }
@@ -724,6 +724,7 @@ hr {
 .disabled { 
 
 	position: relative;
+	color: #aaa;
 
 	&:hover::after, &:hover::before { 
 

@@ -103,8 +103,8 @@
 				<div id="previewContent"></div>
 
 				<form action="insert.php" method="POST">
-						<input type = "text" name="info" id="passtext" style="visibility: hidden; pointer-events: none;" />
-						<input type = "text" name="headers" id="passheads" style="visibility: hidden; pointer-events: none;" />
+						<input type = "hidden" name="info" id="passtext" />
+						<input type = "hidden" name="headers" id="passheads" />
 						<input type = "hidden" value="" name="title" id="passtitle" />
 						<input class="button submitInfo" type="submit" name="submit" value="Submit (for real)" />
 				</form>

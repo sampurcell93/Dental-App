@@ -14,7 +14,7 @@
 
 <?php
 
-	$mysqli = new mysqli("localhost","root","","dental_info");
+	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 	if($mysqli->connect_errno) { 
 
@@ -23,48 +23,63 @@
 
 	}
 
-	if (isset($_POST['submit'])) { 
+	function table_exists($table_name) { 
+
+		$query = "select table_name FROM information_schema.tables
+		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
+
+		$mysqli = new mysqli('localhost','sampurce_admin','kamehameha1','sampurce_dental');
+
+		$results = $mysqli->query($query);
+
+		if($results->num_rows) { 
+			return 1;
+		}
+		return 0;
+	}
+
 
 	//get title of table
 	$title = $_POST['title'];
 	$title = utf8_encode($title);
-	$title = str_replace(" ","_",$title);
 
-	//get all text from input boxes, put into php array
-	$text = $_POST['info'];
-	$text = mysql_escape_string($text);
-	$text = explode("|",$text);
+	if (isset($_POST['submit']) && !table_exists($title)) { 
 
-	//get the comma delimeted list of headers, put into php array
-	$headers = $_POST['headers'];
-	$headers = explode("|",$headers);
+		//get all text from input boxes, put into php array
+		$text = $_POST['info'];
+		$text = mysql_escape_string($text);
+		$text = explode("|",$text);
 
-	//create a table creation string which dynamically loads all of the headers into new columns
-	$table_create_string = "CREATE TABLE $title (";
+		//get the comma delimeted list of headers, put into php array
+		$headers = $_POST['headers'];
+		$headers = explode("|",$headers);
 
-	for($i = 0; $i < count($headers); $i++) { 
+		//create a table creation string which dynamically loads all of the headers into new columns
+		$table_create_string = "CREATE TABLE $title (";
 
-			$headers[$i] = str_replace(" ","_",$headers[$i]);
+		for($i = 0; $i < count($headers); $i++) { 
 
-
-			if($i > 0) { 
-				$headers[$i] = substr($headers[$i], 1, strlen($headers[$i]));
-			}
+				$headers[$i] = str_replace(" ","_",$headers[$i]);
 
 
-			if($headers[$i] == "Procedure" || $headers[$i] == "procedure") { 
+				if($i > 0) { 
+					$headers[$i] = substr($headers[$i], 1, strlen($headers[$i]));
+				}
 
-				$headers[$i] = "Procedures";
 
-			}
+				if($headers[$i] == "Procedure" || $headers[$i] == "procedure") { 
 
-			$table_create_string .= $headers[$i] . " text, ";
-		
-	}
+					$headers[$i] = "Procedures";
+
+				}
+
+				$table_create_string .= $headers[$i] . " text, ";
+			
+		}
 
 	$table_create_string = substr($table_create_string,0,-2);
 	$table_create_string .= ")";
-
+	
 	$mysqli->query($table_create_string);
 
 	$content_addition = "INSERT INTO $title VALUES(";
@@ -88,7 +103,6 @@
 
 	}
 
-
 	$mysqli->query($content_addition);
 
 	$query = "SELECT * from $title";
@@ -97,13 +111,14 @@
 
 
 	mail("spurcell93@gmail.com","prof muftu added a node!","Get it!");
-
-	echo "<div id='lander_wrap'><p style='text-align:center'>Your submission was successful! <br />";
-	echo "<a href='index.php' class='button'>Go back</a>";
-
 	?>
 
-	<a id="showPreview" href="#">See what you created, as it exists in our databases.</a>
+	<div id='lander_wrap'>
+		<p style='text-align:center'>Your submission was successful!<br />
+			<a href='index.php' class='button'>Go back</a>
+		</p>
+
+		<p style='text-align:center'><a id="showPreview" href="#">See what you created, as it exists in our databases.</a></p>
 
 	<div id="dbPreview" style="display: none; ">
 
@@ -128,7 +143,8 @@
 		else { ?>
 
 
-		<div id='lander_wrap'><p style='text-align:center'>Your submission was a failure. You did not click the submit button! <br />
+		<div id='lander_wrap'><p style='text-align:center'>Your submission was a failure. You did not click the submit button,
+		 or the information you are trying to insert already exists. Please report this bug to Samuel.Purcell@tufts.edu! </p><br />
 		<a href='index.php' class='button'>Go back</a>
 
 

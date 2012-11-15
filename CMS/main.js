@@ -1,13 +1,13 @@
+
+		var appGlobals = { 
+
+			index_count: 0,
+			tablename: ""
+		};
+
 $(document).ready(function() { 
-
-		function proto(name, face) { 
-
-			this.name = name;
-			this.face = face;
-		}
-
 		//tie consoles to textareas to allow for GUI style editing, sorry for the global...
-		var index_count = 0;
+		
 		//the navigation bar calls lightboxes which slide down
 		$(".fUpload, .help").on("click",function(e) {
 			var pair = "#" + $(this).attr("data-rel");
@@ -19,15 +19,15 @@ $(document).ready(function() {
 		//click on the add header button to add what will become a new column in that node's sql table.
 		$("#addHeader").on("click",function() {
 
-			$(".content").append("<div id='wrap" + index_count + "'></div>");
-			var wrapper = $("#wrap" + index_count);
+			$(".content").append("<div id='wrap" + appGlobals.index_count + "'></div>");
+			var wrapper = $("#wrap" + appGlobals.index_count);
 			var toAppend = "";
 
-			toAppend += newContent(index_count) + newConsole(index_count) + newRemove(index_count);
+			toAppend += newContent(appGlobals.index_count) + newConsole(appGlobals.index_count) + newRemove(appGlobals.index_count);
 			wrapper.append(toAppend);
 			wrapper.height(530);
 			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-			index_count++;
+			appGlobals.index_count++;
 		});
 
 		//when they click the a list button, denoted by the create subclass, the proper text is 
@@ -47,7 +47,7 @@ $(document).ready(function() {
 			var pair = $(this).attr("data-rel");
 			$("#wrap" + pair).empty().remove();
 			$(this).remove();
-			index_count--;
+			appGlobals.index_count--;
 		});
 
 		//when they click the preview button, their text inputs are aggregated. 
@@ -59,7 +59,7 @@ $(document).ready(function() {
 			$("#previewBox").show();
 
 				//put the title outside the content, once. 
-				var title = "<h1>" + $("#node_title").val() + "</h1>";
+				var title = "<h1>" + appGlobals.tablename + "</h1>";
 			
 				$("#previewContent").html(title);
 
@@ -84,6 +84,7 @@ $(document).ready(function() {
 
 		//get the content of previewContent, put it into a hidden input, and pass to php for insertion.
 		$(".submitInfo").live("click",function(e) { 
+			//e.preventDefault();
 			aggregate();
 		});
 
@@ -96,11 +97,8 @@ $(document).ready(function() {
 			var hide = "Hide"
 
 			if ($(this).text() == show) { 
-
 				$(this).text(hide);
-
 			}
-
 			else { $(this).text(show); }
 		});
 
@@ -112,33 +110,33 @@ $(document).ready(function() {
 			makeHierarchyBox($(this).attr("rel"));
 		});
 
-		var tablename;
 
 		//each span they click loads its direct children via json
 		$(".hierarchy").delegate("span:not('.selected, .disabled')","click",function() { 
 
-			var appendString = "<div class='block bottom'>";
+			var appendString = "<div class='child_row bottom'>";
 			var $this = $(this);
 			var pair = $("#" + $this.closest(".hierarchy").attr("id"));
 			// the selected class will determine where content is placed.
 			$this.addClass("selected").siblings().removeClass("selected");
+			
+			//if the user clicks a block higher than the lowest block, the lower blocks must be removed.
+			if($this.closest(".child_row").index() < pair.find(".child_row").length) { 
+
+				var parent_index = $this.parent().index(),
+				num_blocks_before = pair.find(".child_row").length,
+				num_blocks_after;
+
+				$this.closest(".hierarchy").find(".child_row:gt(" + parent_index + ")").remove();
+
+				num_blocks_after = browseHierarchy.find(".child_row").length;
+			}
 			//each node needs to be checked to see if it exists as a table.
 			tableName = makeTableName(pair);
 			
-			//if the user clicks a block higher than the lowest block, the lower blocks must be removed.
-			if($this.closest(".block").index() < pair.find(".block").length) { 
-
-				var parent_index = $this.parent().index(),
-				num_blocks_before = pair.find(".block").length,
-				num_blocks_after;
-
-				$this.closest(".hierarchy").find(".block:gt(" + parent_index + ")").remove();
-
-				num_blocks_after = browseHierarchy.find(".block").length;
-			}
-			var POST = 'existinghierarchy.php?id=' + $this.attr("id") + "&condition=" + $this.attr("data-condition") + "&table=" + tableName;
-			console.log(POST);
-			$.getJSON(POST, function(data) { 
+			var GET = 'existinghierarchy.php?id=' + $this.attr("id") + "&condition=" + $this.attr("data-condition") + "&table=" + tableName;
+			console.log(GET);
+			$.getJSON(GET, function(data) { 
 
 				//test for an empty JSON set. if not empty, append row of children.
 				if(!jQuery.isEmptyObject(data) && data.children[0] != -1) {
@@ -167,11 +165,11 @@ $(document).ready(function() {
 				}
 				else { 
 					if ($(pair).attr("id") !== "makeHierarchy") { 
-						$("<p class='block isEligible'>This node has no children, and no data associated with it." +
+						$("<p class='child_row isEligible'>This node has no children, and no data associated with it." +
 						" <a class='cursor' id='make' data-tablename='" + tableName + "'>Add Information</a></p>").appendTo(pair);
 					}
 					else { 
-						$("<p class='block'><a class='cursor' id='fixNewHierarchy' data-tablename='" +  
+						$("<p class='child_row'><a class='cursor' id='fixNewHierarchy' data-tablename='" +  
 							tableName + "'>Fix your specifications in place (Make sure you're happy).</a><div class='addNode'>+</div></p>").appendTo(pair);						
 
 					}
@@ -182,7 +180,6 @@ $(document).ready(function() {
 		$("#make").live("click",function() { 
 
 			$("#addContent").slideDown("fast");
-			makeTitle();
 
 		});
 
@@ -191,7 +188,7 @@ $(document).ready(function() {
 
 			var newSpan = "<span contentEditable='true' class='newNode'></span>";
 			var $this = $(this);
-			$(newSpan).appendTo($this.closest(".block"));
+			$(newSpan).appendTo($this.closest(".child_row"));
 		});
 
 		//in the appendix editor, this function passes the id of the entry to the php file for a removal query
@@ -241,7 +238,6 @@ function aggregate() {
 
 		headers[i] = $("#head" + i).val();
 		textboxes[i] = $("#text" + i).html();
-		console.log(textboxes[i]);
 		compiledHeaders += headers[i] + "| ";
 		compiledText += textboxes[i] + "| ";
 
@@ -251,8 +247,11 @@ function aggregate() {
 	compiledHeaders = compiledHeaders.substring(0, compiledHeaders.length - 2);
 
 	$("#passheads").val(compiledHeaders);
+	console.log($("#passheads").val());
 	$("#passtext").val(compiledText);
-	$("#passtitle").attr("value",$("#node_title").val());
+	console.log($("#passtext").val());
+	$("#passtitle").val(appGlobals.tablename);
+	console.log($("#passtitle").val());
 
 }
 
@@ -299,7 +298,7 @@ function makeHierarchyBox(rel) {
 
 		$(".hierarchy:not(" + rel + ")").hide().empty().removeClass("activeBrowser");
 
-		var appendString = "<div class='block'>";
+		var appendString = "<div class='child_row'>";
 
 			$.getJSON('existinghierarchy.php', function(data) { 
 
@@ -324,16 +323,19 @@ function makeHierarchyBox(rel) {
 }
 
 function makeTableName (id) { 
-
-	var tablename = "";
 	
-	$(id).children(".block:gt(0)").not(".isEligible").each(function(){ 
-		tablename += $(this).children(".selected").attr("id") + "_";
+	appGlobals.tablename = "";	
+
+	$(id).children(".child_row:gt(0)").not(".isEligible").each(function(){ 
+		appGlobals.tablename += $(this).children(".selected").attr("id") + "_";
 	});
 
-	return tablename.substring(0,tablename.length - 1);
+	appGlobals.tablename = appGlobals.tablename.substring(0,appGlobals.tablename.length - 1)
 
+	return appGlobals.tablename;
 }
+
+
 
 $(window).scroll(function(e){
 

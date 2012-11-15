@@ -125,9 +125,6 @@ nav ul {
     height: 100%;
     width: 33.33%;
     display: block; }
-    nav ul li:last-child a {
-      -webkit-border-radius: 0px 5px 0 0;
-      border-radius: 0px 5px 0 0; }
   nav ul li a {
     cursor: pointer;
     display: block;
@@ -605,34 +602,35 @@ hr {
 #browseHierarchy .block {
   width: 100%; }
 
-.block {
-  width: 95%;
+.child_row {
+  width: 99%;
   display: block;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #ddd;
   position: relative;
   padding-left: 2%;
   padding-right: 20px;
+  position: relative;
   zoom: 1; }
-  .block:before, .block:after {
+  .child_row:before, .child_row:after {
     content: "";
     display: table; }
-  .block:after {
+  .child_row:after {
     clear: both; }
-  .block:first-child .addNode {
+  .child_row:first-child .addNode {
     -webkit-border-radius: 0px 5px 0px 0px;
     border-radius: 0px 5px 0px 0px; }
-  .block:last-child {
+  .child_row:last-child {
     border-bottom: none; }
-  .block:last-child .addNode {
-    -webkit-border-radius: 0px 5px 5px 0px;
-    border-radius: 0px 5px 5px 0px; }
+  .child_row:last-child .addNode {
+    -webkit-border-radius: 0px 0px 5px 0px;
+    border-radius: 0px 0px 5px 0px; }
 
 .addNode {
   position: absolute;
   line-height: 45px;
   top: 0;
-  right: -5.3%;
+  right: -1%;
   text-align: center;
   display: block;
   color: #aeaeae;
@@ -646,7 +644,7 @@ hr {
   font-weight: bold;
   text-shadow: 0px 2px 0px white;
   height: 100%;
-  width: 6%;
+  width: 9%;
   border-left: 1px solid #ddd;
   background: #d9d9d9;
   /* Old browsers */
@@ -708,7 +706,7 @@ hr {
   border: none;
   cursor: auto;
   display: none;
-  min-width: 100px;
+  min-width: 10%;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -ms-transition: all 0.2s ease-in-out;
@@ -716,7 +714,8 @@ hr {
   transition: all 0.2s ease-in-out; }
 
 .disabled {
-  position: relative; }
+  position: relative;
+  color: #aaa; }
   .disabled:hover::after, .disabled:hover::before {
     display: block; }
   .disabled:after {
