@@ -1,19 +1,22 @@
 
-		var appGlobals = { 
+		function globals()  {
 
-			index_count: 0,
-			tablename: ""
-		};
+			this.index_count = 0;
+			this.tablename = "";
+			this.loader= "<img src='/sam/Dental-App/CMS/images/loader.gif' />";
+
+		}
+
+		var appGlobals = new globals();
 
 $(document).ready(function() { 
-		//tie consoles to textareas to allow for GUI style editing, sorry for the global...
-		
+
 		//the navigation bar calls lightboxes which slide down
 		$(".fUpload, .help").on("click",function(e) {
 			var pair = "#" + $(this).attr("data-rel");
 			e.preventDefault();
 			$(pair).fadeToggle("fast").addClass("inRange");
-			$("#lander_wrap").addClass("blur");
+			$(".wrapper-border").addClass("blur");
 		 });
 
 		//click on the add header button to add what will become a new column in that node's sql table.
@@ -35,11 +38,8 @@ $(document).ready(function() {
 		$("[class*=create]").live("click",function() {
 			//get pairing of console to textarea
 			var pair = $(this).parent().attr("data-rel");
-			//append list item to textarea at cursor
 			//insertAtCaret(pair, $(this).attr("data-content") + "\n");
-
 			$("#" + pair).append($(this).attr("data-content"))
-			console.log($("#" + pair).html());
 		});
 
 		//.remove is a button which removes a section of the editing pane
@@ -78,8 +78,14 @@ $(document).ready(function() {
 		
 		//close function for lightboxes, or any parent element.
 		$(".close").live("click",function() { 
-			$(this).parent().hide().removeClass("inRange");
-			$("#lander_wrap").removeClass("blur");
+
+			if ($(this).attr("data-close") == "remove") { 
+				$(this).parent().remove().removeClass("inRange");
+			}
+			else { 
+				$(this).parent().hide().removeClass("inRange");
+			}
+			$(".wrapper-border").removeClass("blur");
 		});
 
 		//get the content of previewContent, put it into a hidden input, and pass to php for insertion.
@@ -111,10 +117,10 @@ $(document).ready(function() {
 		});
 
 
-		//each span they click loads its direct children via json
-		$(".hierarchy").delegate("span:not('.selected, .disabled')","click",function() { 
+		//each item they click loads its direct children via json
+		$(".hierarchy").delegate("li:not('.selected, .disabled, .newNode')","click",function() { 
 
-			var appendString = "<div class='child_row bottom'>";
+			var appendString = "<ul class='child_row bottom'>";
 			var $this = $(this);
 			var pair = $("#" + $this.closest(".hierarchy").attr("id"));
 			// the selected class will determine where content is placed.
@@ -128,13 +134,15 @@ $(document).ready(function() {
 				num_blocks_after;
 
 				$this.closest(".hierarchy").find(".child_row:gt(" + parent_index + ")").remove();
-
+				$("#addContent").hide();
 				num_blocks_after = browseHierarchy.find(".child_row").length;
 			}
 			//each node needs to be checked to see if it exists as a table.
 			tableName = makeTableName(pair);
 			
-			var GET = 'existinghierarchy.php?id=' + $this.attr("id") + "&condition=" + $this.attr("data-condition") + "&table=" + tableName;
+			var GET = 'existinghierarchy.php?id=' + $this.attr("id") + "&condition=";
+			GET += $this.attr("data-condition").charAt(0).toLowerCase() + $this.attr("data-condition").slice(1);
+			GET += "&table=" + tableName;
 			console.log(GET);
 			$.getJSON(GET, function(data) { 
 
@@ -143,58 +151,66 @@ $(document).ready(function() {
 				
 					//append each child of the span clicked in a new row
 					for (var i = 0; i < data.children.length; i++) { 
-						appendString += "<span id='" + data.children[i].id + "' data-condition='" + data.name + "'";
+						appendString += "<li id='" + data.children[i].id + "' data-condition='" + data.name + "'";
 							
 						if (data.children[i].table_exists) { 
-
 							appendString += " class='disabled'";
-
 						}
-
-						appendString += ">" + data.children[i].childname + "</span>";
+						appendString += ">" + data.children[i].childname + "</li>";
 					}	
-
 					//end the row
 					if ($(pair).attr("id") == "makeHierarchy") { 
-						appendString += "<div class='addNode'>+</div>";
+						appendString += "<span class='addNode'>+</span>";
 					}
-
-					appendString += "</div>";
+					appendString += "</ul>";
 					$(appendString).appendTo(pair);
-		
 				}
 				else { 
 					if ($(pair).attr("id") !== "makeHierarchy") { 
 						$("<p class='child_row isEligible'>This node has no children, and no data associated with it." +
-						" <a class='cursor' id='make' data-tablename='" + tableName + "'>Add Information</a></p>").appendTo(pair);
+						" <a class='cursor' id='populateNode' data-tablename='" + appGlobals.tableName + "'>Add Information</a></p>").appendTo(pair);
 					}
 					else { 
-						$("<p class='child_row'><a class='cursor' id='fixNewHierarchy' data-tablename='" +  
-							tableName + "'>Fix your specifications in place (Make sure you're happy).</a><div class='addNode'>+</div></p>").appendTo(pair);						
-
+						$("<p class='child_row'><a class='cursor' id='fixNewHierarchy'>Fix your specifications in place (Make sure you're happy).</a><div class='addNode'>+</div></p>").appendTo(pair);						
 					}
 				}
 			});
 		});
 
-		$("#make").live("click",function() { 
+		$("#populateNode").live("click",function() { 
 
 			$("#addContent").slideDown("fast");
 
 		});
 
-		//when the user gets to a new level of the hierarchy, maybe they want to add a new node at that level. this is for them.
-		$(".addNode").live("click",function(){ 
+		$("#fixNewHierarchy").live("click",function() { 
+			var addNewNodes = function($this) { 
+				var child_rows = $this.closest(".hierarchy").find(".child_row").length;
+				console.log(child_rows);
+				var to_send = "{[";
+			}($(this));
+		});
 
-			var newSpan = "<span contentEditable='true' class='newNode'></span>";
+		//add a new node at any level of the hierarchy
+		$(".addNode").live("click",function(){ 
+			//the blank node
+			var newSpan = "<li contentEditable='true' class='newNode override'>Give me a title!</li>";
 			var $this = $(this);
 			$(newSpan).appendTo($this.closest(".child_row"));
+			$this.closest(".newNode").trigger("click");
+			$this.closest(".hierarchy").append("<ul class='child_row'><span class='addNode'>+</span><li contentEditable='true' class='newNode override'>Give me a title!</li><a class='close' data-close='remove'></a></ul>");
+		});
+
+		$(".newNode").live("click",function() {
+			//select all the content for easy editing
+			document.execCommand('selectAll',false,null);
+
 		});
 
 		//in the appendix editor, this function passes the id of the entry to the php file for a removal query
 		$(".removeAppendix").on("click",function() { 
 
-			$(this).parent().html("loading....").load("remove_appendix.php?id=" + $(this).attr("rel"));
+			$(this).parent().html(appGlobals.loader).load("remove_appendix.php?id=" + $(this).attr("rel"));
 			$(this).closest(".wrap").remove();
 		});
 });
@@ -298,23 +314,23 @@ function makeHierarchyBox(rel) {
 
 		$(".hierarchy:not(" + rel + ")").hide().empty().removeClass("activeBrowser");
 
-		var appendString = "<div class='child_row'>";
+		var appendString = "<ul class='child_row'>";
 
 			$.getJSON('existinghierarchy.php', function(data) { 
 
 					for (var i = 0; i < data.conditions.length; i++) { 
 
-						appendString += "<span id='-1' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</span>";
+						appendString += "<li id='-1' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</li>";
 
 					}
 
 				if (rel == "#makeHierarchy") { 
 
-					appendString += "<div class='addNode'>+</div>";
+					appendString += "<span class='addNode'>+</span>";
 
 				}
 
-				appendString += "</div>";
+				appendString += "</ul>";
 				$(appendString).appendTo($update);
 				$update.addClass("activeBrowser");
 				$update.show();
@@ -334,8 +350,6 @@ function makeTableName (id) {
 
 	return appGlobals.tablename;
 }
-
-
 
 $(window).scroll(function(e){
 

@@ -1,8 +1,9 @@
 <?php
 	
+	$base = 1;
 	require_once("header.php");
 
-	$mysqli = new mysqli('localhost','root','','dental_info');
+	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 	if($mysqli->connect_errno) { 
 

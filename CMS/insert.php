@@ -48,10 +48,12 @@
 		//get all text from input boxes, put into php array
 		$text = $_POST['info'];
 		$text = mysql_escape_string($text);
+		$text = utf8_encode($text);
 		$text = explode("|",$text);
 
 		//get the comma delimeted list of headers, put into php array
 		$headers = $_POST['headers'];
+		$headers = utf8_encode($headers);
 		$headers = explode("|",$headers);
 
 		//create a table creation string which dynamically loads all of the headers into new columns
@@ -66,27 +68,23 @@
 					$headers[$i] = substr($headers[$i], 1, strlen($headers[$i]));
 				}
 
-
 				if($headers[$i] == "Procedure" || $headers[$i] == "procedure") { 
 
 					$headers[$i] = "Procedures";
 
 				}
 
-				$table_create_string .= $headers[$i] . " text, ";
+				$table_create_string .= "`" . $headers[$i] . "` text, ";
 			
 		}
 
 	$table_create_string = substr($table_create_string,0,-2);
 	$table_create_string .= ")";
-	
 	$mysqli->query($table_create_string);
 
 	$content_addition = "INSERT INTO $title VALUES(";
-
+	
 		for($i = 0; $i < count($text); $i++) { 
-
-				$text[$i] = mysql_real_escape_string($text[$i]);
 
 				$content_addition .= "'" . $text[$i] . "', ";
 		
@@ -96,13 +94,7 @@
 	$content_addition .= ")";
 	$content_addition  = htmlentities($content_addition);
 
-	if($mysqli->connect_errno) { 
-
-		echo $mysqli->connect_error;
-		exit();
-
-	}
-
+	$mysqli->set_charset("utf8");
 	$mysqli->query($content_addition);
 
 	$query = "SELECT * from $title";
@@ -113,7 +105,7 @@
 	mail("spurcell93@gmail.com","prof muftu added a node!","Get it!");
 	?>
 
-	<div id='lander_wrap'>
+	<div class='wrapper-border'>
 		<p style='text-align:center'>Your submission was successful!<br />
 			<a href='index.php' class='button'>Go back</a>
 		</p>
@@ -143,7 +135,7 @@
 		else { ?>
 
 
-		<div id='lander_wrap'><p style='text-align:center'>Your submission was a failure. You did not click the submit button,
+		<div class='wrapper-border'><p style='text-align:center'>Your submission was a failure. You did not click the submit button,
 		 or the information you are trying to insert already exists. Please report this bug to Samuel.Purcell@tufts.edu! </p><br />
 		<a href='index.php' class='button'>Go back</a>
 

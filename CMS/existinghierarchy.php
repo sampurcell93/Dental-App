@@ -15,7 +15,7 @@
 		$query = "select table_name FROM information_schema.tables
 		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
 
-		$mysqli = new mysqli('localhost','root','','dental_info');
+		$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 		$results = $mysqli->query($query);
 
@@ -80,7 +80,7 @@
 
 		 					$json_string .=  '{"id":' . $v . ', ';
 		 					$temp_table_test .= "_" . $v;
-		 					//echo "\n $temp_table_test";
+
 		 					if (table_exists($temp_table_test)) { 
 
 		 						$json_string .= '"table_exists": 1,';
@@ -90,15 +90,9 @@
 
 		 					$json_string .=  '"table_name": "' . $temp_table_test . '", ';
 			 			}
-
-
 		 				else if($k == "name") { 
-
 			 				$json_string .= '"childname":"' . $v . '"}, ';
-
 			 			}
-
-			 			echo "\n";
 			 		}
 				}
 		 			echo substr($json_string,0,-2);

@@ -2,6 +2,7 @@
 	<html lang="en">
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1"> 
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
@@ -12,6 +13,19 @@
 			<script src="fupload/js/jquery.fileupload.js"></script>
 			<script src="main.js" type="text/javascript"></script>		
 			<title>Add Dental Content - Tufts Dental</title>
+						<!-- the below script calls the file uploader and appends a list of names to the upload box -->
+				<script>
+				$(function () {
+				    $('#fileupload').fileupload({
+				        dataType: 'json',
+				        done: function (e, data) {
+				            $.each(data.result, function (index, file) {
+				                $('<p/>').text(file.name).appendTo(document.body);
+				            });
+				        }
+				    });
+				});
+				</script>
 		</head>
 
 		<body>
@@ -41,40 +55,43 @@
 
 				<h2>File Uploader</h2>
 
-				<p>Your files will appear in the console, so you can add them to each section as you please.</p>
+				<p>Your files will appear in the console, so you can add them to each section as you please. NOT WORKING YET</p>
 				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
 
-			<!-- the below script calls the file uploader and appends a list of names to the upload box -->
-				<script>
-				$(function () {
-				    $('#fileupload').fileupload({
-				        dataType: 'json',
-				        done: function (e, data) {
-				            $.each(data.result, function (index, file) {
-				                $('<p/>').text(file.name).appendTo(document.body);
-				            });
-				        }
-				    });
-				});
-				</script>
+
 			</div>
 
-			<div id="lander_wrap">
+			<div class="box" id="previewBox">
 
-				<div id="lander">
+				<a class="close"></a>
+
+				<div id="previewContent"></div>
+
+				<form action="insert.php" method="POST">
+						<input type = "hidden" name="info" id="passtext" />
+						<input type = "hidden" name="headers" id="passheads" />
+						<input type = "hidden" value="" name="title" id="passtitle" />
+						<input class="button submitInfo" type="submit" name="submit" value="Submit (for real)" />
+				</form>
+
+			</div>
+
+			<div class='wrapper-border'>
+
+				<div class='wrapper'>
 
 					<header>
 						<h1>Add Content<span> - Tufts Dental School</span></h1>
 						<nav>
 							<ul>
-								<li><a class="help" data-icon="*"  data-rel="helpBox">Help</a></li>
-								<li><a href="add_appendix.php" data-icon="$"  target="_blank">Appendix</a></li>
-								<li><a class="fUpload" data-icon="&" data-rel="fileUploadBox">Upload</a></li>
+								<li><a class="help" data-icon="&#42;"  data-rel="helpBox">Help</a></li>
+								<li><a href="add_appendix.php" data-icon="&#36;"  target="_blank">Appendix</a></li>
+								<li><a class="fUpload" data-icon="&#38;" data-rel="fileUploadBox">Upload</a></li>
 							</ul>
 						</nav>
 					</header>
 
-					<p>Do you want to make a new hierarchy, or add to an existing one?<br> 
+					<p>Do you want to make a new hierarchy, or add to an existing one? (New still incomplete)<br> 
 					 	<span class="button" id="newHierarchy" rel="#makeHierarchy">New Hierarchy</span>
 					 	<span class="button" id="existingHierarchy" rel="#browseHierarchy">Add to Existing</span>
 					</p>
@@ -96,20 +113,7 @@
 				</div>
 			</div>
 
-			<div class="box" id="previewBox">
-
-				<a class="close"></a>
-
-				<div id="previewContent"></div>
-
-				<form action="insert.php" method="POST">
-						<input type = "hidden" name="info" id="passtext" />
-						<input type = "hidden" name="headers" id="passheads" />
-						<input type = "hidden" value="" name="title" id="passtitle" />
-						<input class="button submitInfo" type="submit" name="submit" value="Submit (for real)" />
-				</form>
-
-			</div>
+			
 
 		</body>
 

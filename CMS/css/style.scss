@@ -41,7 +41,7 @@ body {
 
 }
 
-#lander_wrap {
+.wrapper-border {
 	margin: 100px auto;
 	width: 960px;
 	@include border-radius(5px);
@@ -52,7 +52,7 @@ body {
 
  }
 
- #lander { 
+.wrapper { 
  	width: 100%;
  	height: 100%;
 	@include border-radius(0px 0px 5px 5px);
@@ -74,7 +74,7 @@ body {
  	height: 60px;
  	@include whiteGradient();
 	@include border-radius(5px 5px 0px 0px);
-	@include box-shadow(0px 2px 10px #aeaeae);
+	@include box-shadow(0px 2px 3px #878787, inset 0px 0px 3px white);
 	position: absolute;
 	top: -60px;
  }
@@ -106,11 +106,11 @@ h2 {
 
 }
 
-h3 { padding: 3px 14px; margin: 15px 10px; }
+h3 { padding: 10px 15px; }
 
 h4 { 
 
-	margin: 10px 6px;
+	margin: 7px 23px;
 
 }
 
@@ -143,7 +143,7 @@ p {
  		li { 
  			float: left;
  			height: 100%;
- 			width: 33.33%;
+ 			width: 33.3333333333%;
  			display: block;
 
  		}
@@ -243,9 +243,9 @@ p {
 input[type="text"] { 
 
 	float: none;
-	width: 60%;
+	width: 70%;
 	height: 30px;
-	margin: 20px auto 0;
+	margin: 20px 5% 0;
 }
 
 [type="submit"] { 
@@ -376,13 +376,6 @@ hr {
 
 	.subList { 
 
-		font-size: 100%;
-
-		li {
-			text-shadow: 0px 1px 0px #000;
-			background: red;
-		}
-
 		&:hover #H4s { display: block;  }
 
 	}
@@ -403,7 +396,7 @@ hr {
 	border-bottom: 1px solid #999;
 	@include border-radius(2px);	
 	@include whiteGradient();
-	@include transition(all .3s ease-in-out);
+	@include transition(all .1s ease-in-out);
 	@include box-shadow(0px 0px 80px #313131);
 	border: 6px solid #f8f8f8; 
 	ul { 
@@ -530,12 +523,7 @@ hr {
 [id*="wrap"] { position: relative; }
 
 .remove { 
-
-		position: absolute;
-		right: 10px;
-		top: 9px;
-		width: 20%;
-		padding: 7px 8px;
+float: right;
 }
 
 #appendixAdd { top: 50px; }
@@ -565,13 +553,13 @@ hr {
 	border-left: 4px solid #55bad8;
 	border-right: 4px solid #55bad8;
 	@include transition(all .2s ease-in-out);
-	@include box-shadow(-4px 3px 10px #aeaeae);
-	@include border-radius(0px 10px 10px 0);
+	@include box-shadow(-1px 1px 2px #aeaeae);
+	@include border-radius(2px);
 	background: url(../images/subtle/cubes.png);
-	overflow: hidden;
 
 
-	span {
+
+	li {
 
 		@include transition(all .2s ease-in-out);
 		text-shadow: 0px 1px 0px #fff;
@@ -580,14 +568,14 @@ hr {
 		padding: 7px 10px;
 		margin: 7px;
 		background: #e1e1e1;
-		@include box-shadow(0px 0px 10px #aeaeae, inset 0px 0px 3px 1px #fff);
+		@include box-shadow(0px 0px 2px #aeaeae);
 		@include border-radius(10px);
 		border-top: 1px solid #fff;
 		font-size: .7em;
 		text-align: center;
 
 		&:hover { 
-			@include box-shadow(0px 0px 7px #676767 );
+			@include box-shadow(0px 0px 2px #676767 );
 			text-decoration: underline;
 		}
 	}
@@ -606,12 +594,12 @@ hr {
 		text-shadow: none;
 		position: relative;
 		overflow: hidden;
-		@include box-shadow(0px 1px 6px  #313131);
+		@include box-shadow(0px 1px 2px  #313131);
 
 		&:hover  { 
 
 			color: #fff;
-			@include box-shadow(0px 1px 6px  #313131);
+			@include box-shadow(0px 1px 4px  #313131);
 
 
 		}
@@ -619,8 +607,6 @@ hr {
 	}
 
 }
-
-#browseHierarchy .block { width: 100%; }
 
 .child_row { 
 
@@ -630,14 +616,16 @@ hr {
 	border-bottom: 1px solid #ddd;
 	position: relative;
 	padding-left: 2%;
-	padding-right: 20px;
+	padding-right: 9%;
 	position: relative;
 	@include clearfix();
 
+	.close { position: absolute; top: 0%; left: -26px; @include opacity(.5,50); @include transition(all .05s ease-in-out); }
+	.close:hover { @include opacity(.75,75); }
 
-	&:first-child .addNode { @include border-radius(0px 5px 0px 0px);}
+	&:first-child .addNode { @include border-radius(0px 2px 0px 0px);}
 	&:last-child { border-bottom: none; }
-	&:last-child .addNode { @include border-radius(0px 0px 5px 0px);}
+	&:last-child .addNode { @include border-radius(0px 0px 2px 0px);}
 
 
 }
@@ -656,8 +644,8 @@ hr {
 	font-family: helvetica, sans-serif;
 	font-weight: bold;
 	text-shadow: 0px 2px 0px white;
-	height: 100%;
-	width: 9%;
+	height: 50px;
+	min-width: 9%;
 	border-left: 1px solid #ddd;
 	@include whiteGradient();
 	font-size: 1.2em;
@@ -685,10 +673,10 @@ hr {
 		color: #f0f0f0;
 		height: 25px;
 		width: 100px;
-		font-size: .5em;
+		font-size: 12px;
 		line-height: 25px;
 		text-shadow: none;
-		z-index: 0;
+		z-index: 11;
 		@include box-shadow(0px 0px 5px #aeaeae);
 	}
 
@@ -696,7 +684,7 @@ hr {
 
 		content: "";
 		position: absolute;
-		z-index: 1;
+		z-index: 12;
 		display: none;
 		width: 0;
 		height: 0;
@@ -705,37 +693,74 @@ hr {
 		border-bottom: 7.5px solid transparent;
 		left: -10px;
 		top: 25%;
-		margin-top: 6.25px
+		margin-top: 6.25px;
 	}
 
 }
 
-.newNode { 
+.newNode.override { 
 
 	outline: none;
-	border: none;
-	cursor: auto;
-	display: none;
 	min-width: 10%;
-	@include transition(all .2s ease-in-out);
+	text-shadow: none;
+	position: relative;
+	background: rgb(205,235,142); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(205,235,142,1) 0%, rgba(165,201,86,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(205,235,142,1)), color-stop(100%,rgba(165,201,86,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(205,235,142,1) 0%,rgba(165,201,86,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(205,235,142,1) 0%,rgba(165,201,86,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(205,235,142,1) 0%,rgba(165,201,86,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(205,235,142,1) 0%,rgba(165,201,86,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#a5c956',GradientType=0 ); /* IE6-9 */
 
+
+	/*&:after { 
+		position: absolute;
+		content: "+";
+		top: -10px;
+		right: -10px;
+		display: block;
+		width: 20px;
+		height: 20px;
+		border: 2px solid #f8f8f8;
+		font-size: 1.5em;
+		line-height: 20px;
+		background: #a1d54f;
+		color: white;
+		@include border-radius(50%);
+		@include box-shadow(0px 0px 1px #aaa, inset 0px 0px 4px #ccc);
+	}
+	&:before { 
+		position: absolute;
+		content: "X";
+		top: -10px;
+		left: -10px;
+		display: block;
+		width: 20px;
+		height: 20px;
+		border: 2px solid #f8f8f8;
+		font-size: 1em;
+		line-height: 20px;
+		background: #960303;
+		color: white;
+		@include border-radius(50%);
+		@include box-shadow(0px 0px 1px #aaa, inset 0px 0px 4px #ccc);
+	}*/
 }
 
 .disabled { 
-
 	position: relative;
 	color: #aaa;
 
-	&:hover::after, &:hover::before { 
+	&:hover::after{ 
 
 		display: block;
 
 	}
 
-	&:after { 
-
+	&:after {
 		position: absolute;
-		content: "Has content.";
+		content: "√";
 		display: none;
 		top: 0%;
 		left: 0%;
@@ -745,15 +770,25 @@ hr {
 		color: #f0f0f0;
 		height: 100%;
 		width: 100%;
-		font-size: 1em;
+		font-size: 1.2em;
 		line-height: 33px;
 		text-shadow: none;
 		z-index: 0;
 		@include box-shadow(0px 0px 5px #aeaeae);
 		@include border-radius(10px);
-
 	}
 
+		/*&:before { 
+			position: absolute;
+			content: "";
+			top: 0%;
+			right: 0;
+			display: block;
+			width: 20%;
+			height: 10px;
+			background: #000;
+			@include border-radius(0 10px 0 0);
+		}*/
 
  }
 
@@ -761,20 +796,54 @@ hr {
 
   font-family: 'icons';
   src: url("../icon_fonts/fonts/icomoon.eot") format("eot"), 
-  url("../icon_fonts/fonts/icomoon.woff") format("woff"),
-   url("../icon_fonts/fonts/icomoon.ttf") format("truetype");
+ 	 url("../icon_fonts/fonts/icomoon.woff")  format("woff"),
+  	 url("../icon_fonts/fonts/icomoon.ttf")   format("truetype");
 }
 
 @media all and (max-width: 960px) { 
 
-	#lander_wrap { width: 95%; }
-	#lander { padding-top: 60px; }
+	.wrapper-border { width: 90%; margin: 60px auto; }
+	.wrapper { padding-top: 60px; }
 	nav, nav ul { display: block; width: 100%; }
 	h1 { margin-bottom: 11px; }
 	header { margin-bottom: 160px; }
 	.console { width: 98%; margin: 10px auto 10px auto;
-		li { display: inline-block; float: none; width: 20%;
+		li { 
+			display: inline-block;
+			float: none;
+			width: 33.333%; 
+			margin: 1px 0px;
+			@include box-shadow(none);
 		}
 	}
-	.infoInput { width: 98%; margin: 10px auto; clear: both;}
+	.infoInput { 
+		width: 150%;
+		margin: 10px auto;
+		clear: both;
+		float: none;
+	}
+
+	#H4s { 
+		left: 0;
+		top: 100%;
+		li, a {
+			margin: 0;
+		} 
+	}
+}
+
+@media all and (max-width: 460px) { 
+
+	nav [data-icon]:after { display: none; }
+	.hierarchy span { font-size: .9em;}
+	h1 {
+
+		font-size: 1.7em;
+
+		span { display: none; }
+	}
+
+	p .button { width: 45%; }
+	.button { width: 90%; }
+
 }

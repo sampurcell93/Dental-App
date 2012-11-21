@@ -1,6 +1,13 @@
 //first line lets things work on first page load, no need for refresh.
 $(document).delegate('.ui-page', 'pagecreate', function () {
 
+  function globals() { 
+
+    this.contentCount = 0;
+
+  }
+  var globe = new globals();
+
 //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 
 
@@ -33,25 +40,24 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
 
 	});
 
-    var contentCount = 0;
-
   $(".content").each(function() {
-
-    var header = $(this).closest("li").find("a").html();
-    console.log(header);
-    var information = "<div data-role='page' id='page" + contentCount++
-     + "'><div data-role='header'>" + header + "</div><div data-role='content'>" + $(this).html() + "</div>";
+/*$(this).closest("li").find("a").html();*/
+    var header = '<a data-rel="back" data-icon="back"   data-iconpos="notext">Back</a>'; 
+    header +=  "<h1>Beginner's Guide to Dental Implant Prosthodontics</h1>";
+    var information = "<div data-role='page' id='page" + globe.contentCount++
+     + "'><div data-role='header' data-theme='b'>" + header + "</div><div data-role='content'>" + $(this).html() + "</div>";
     
       $("body").append(information).trigger("create");
       
-      //$(this).remove();
+      //now that we have appended the page, remove the incorrectly formatted content.
+      $(this).remove();
   });
 
-    var contentCount = 0;
+    globe.contentCount = 0;
 
   $("[data-icon*='arrow'] a").each(function() {
 
-      $(this).attr("href","#page" + contentCount++);
+      $(this).attr("href","#page" + globe.contentCount++);
 
   });
 

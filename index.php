@@ -1,49 +1,67 @@
 <?php
-	
-	$mysqli = new mysqli("localhost","root","","dental_info");
+	$base = 1;
+	require_once("header.php");
 
+	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
+
+	//if it didn't work, throw error
 	if($mysqli->connect_errno) { 
 
 		echo $mysqli->connect_error;
 		exit();
 
 	}
-	$fancyheader = 1;
-	require_once("header.php");
+	$condition = "edentulism";
 
-	?>
-        
-	 	<div data-role="content">
+?>
 
-	 		<form method="GET" action="step1.php">
+	<div data-role="content">
 
-	 			<h3>Select a Condition</h3>
+		<!--pass along the original condition (edentulism to start)-->
+	 		<form method="GET" action="step3.php" >
 
-	 			<fieldset data-role="controlgroup" id="conditionList">
+	 			<h3>Case:</h3>
 
-	 	<?php
+	 			<fieldset data-role="controlgroup" data-submission="step2.php" data-condition=<?php echo "'" . $condition . "'"; ?>>
+	 				<input type="hidden" value=<?php echo "'" . $condition . "'" ?> name="condition" />
+<?php
 
-	 			$results = $mysqli->query("SELECT * FROM conditions");
+	$results = $mysqli->query("select * from edentulism where parent_id IS NULL");
 
-	 			while($row = $results->fetch_assoc()) { 
+
+		while($row = $results->fetch_assoc()) { 
 
 	 				foreach($row as $k=>$v) { 
 
-	 					if ($k == "name") {
+	 					if($k == "id") { 
 
-	 						echo "\t\t\t<input type = 'radio' name = 'condition' id = '" 
-	 							. str_replace(" ","_",$v) . "' value = '" . $v . "' />";
-
-							echo "<label for='" . str_replace(" ","_",$v) . "' >" . $v . "</label>\n";
+	 						$id = $v;
+	 						echo "\t\t\t\t\t<input type = 'radio' name = 'case' id = '" .
+	 							$v;
 	 					}
+	 					else if ($k == "name") { 
+
+	 						$name = $v;
+							echo  "' value = '" . $id . "' />";
+						
+	 					}
+
 	 				}
+							echo "<label for='" . $id . "' >" . $name . "</label>\n";
+	 		}
+?>				</fieldset>
 
-	 			}
-	 	?>
+				<div class="ajaxContent"></div>
 
-	 			</fieldset>
-	 		</form>
-<?php
+				<div data-role="controlgroup" data-type="horizontal" style="text-align:right" >
+					<a data-role="button" data-theme="b" style="display: none;" id="continue" >Continue</a>          
+				</div>
+			</form>
+	</div>
 
+
+<?php 
+	
 	require_once("footer.php");
 ?>
+	

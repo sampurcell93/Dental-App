@@ -79,8 +79,8 @@
 		margin: 3px 10px 20px 10px ;
 		text-indent: 20px;
 		@include border-radius(3px);
-		@include whiteGradient();
-		@include box-shadow (0px 0px 1px 0px #313131);
+		background: #f9f9f9;
+		@include box-shadow (0px 1px 1px 0px #aeaeae, inset 0px 0px 2px 0px #fff);
 		display: block;
 		border: 1px solid #fff;
 		padding: 10px;
@@ -159,6 +159,7 @@
 			width: 100%;
 			position: relative;
 			padding: 0;
+ 			@include box-shadow(none);
 
 
 			[role="heading"],  h1 { 
@@ -172,6 +173,7 @@
 					display: inline-block;
 					width: 100%;
 					margin-left: 90px;
+ 					@include box-shadow(none);
 				}
 
 				span:first-child { 
@@ -191,6 +193,7 @@
 					margin-top: 4px;
 					color: #300f00;
 					font-size: 1.4em;
+ 					@include box-shadow(none);
 				}
 
 			}

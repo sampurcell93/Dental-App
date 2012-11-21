@@ -1,18 +1,19 @@
-
-
 <?php
 //come back here in 6 months... and cringe.
 	$condition = $_GET['condition'];
+	$condition = lcfirst($condition);
 	$type = $_GET['type'];
 	$case = $_GET['case'];
 	$extent = $_GET['extent'];
 	$header = $type . ", " . $case;
-	$table = $type . "_" . $case . "_" . $extent;
+	$tablefull = $case . "_" . $type . "_" . $extent;
+	$tablehalf = $case . "_" . $type;
+	$tablebasic = $case;
 	$base = 1;
 	require_once("header.php");
 
 	//open db connection: insecure on dev server. pass will be set when deployed
-	$mysqli = new mysqli('localhost','root','','dental_info');
+	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 	//if it didn't work, throw error
 	if($mysqli->connect_errno) { 
@@ -22,12 +23,22 @@
 
 	}
 
+	function has_children($id, $condition)  {
+		$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
+		$query = "select * from $condition where parent_id = $id";
+		$results = $mysqli->query($query);
+		if ($results->num_rows) { 
+			return 1;
+		}
+		return 0;
+	}
+
 	function table_exists($table_name) { 
 
 		$query = "select table_name FROM information_schema.tables
-		WHERE table_schema = 'dental_info' AND table_name = '$table_name'";
+		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
 
-		$mysqli = new mysqli('localhost','root','','dental_info');
+		$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 		$results = $mysqli->query($query);
 
@@ -36,12 +47,10 @@
 			return 1;
 
 		}
-
 		return 0;
 	}
 
-	echo table_exists($table);
-	echo $table;
+
 
 ?>
 	
@@ -56,8 +65,12 @@
 		WHERE h1.id = '$type'";
 
 	$results = $mysqli->query($query);
+	$correct_table_value;
+		if (table_exists($tablefull)) { $correct_table_value = $tablefull; }
+		else if (table_exists($tablehalf)) { $correct_table_value = $tablehalf; }
+		else if (table_exists($tablebasic)) { $correct_table_value = $tablebasic; }
 
-		 if (!table_exists($table) && !isset($extent)){ ?>
+		 if (!table_exists($tablefull) && !table_exists($tablehalf) && !table_exists($tablebasic) && !isset($extent)){ ?>
 
 			<h3>Extent</h3>
 
@@ -99,10 +112,9 @@
 
 		}
 
-		else {
-
-			$table = $type . "_" . $case . "_" . $extent;
-			$query = "select * from $table";
+		else if (!has_children($type,$condition) || !has_children($extent,$condition)){
+		
+			$query = "select * from `$correct_table_value`";
 			
 			$results = $mysqli->query($query);
 
@@ -111,8 +123,7 @@
 				$count = 0;
 
 				foreach($row as $k=>$v) { 
-					
-
+					//format the html content to jquery mobile specs
 					$v =  html_entity_decode($v);
 					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-r'><a data-transition='fade'>", $v);
 					$v = str_replace("</h3>", "</a></li>\n\t\t\t\t\t<div class='hidden content'>",$v);

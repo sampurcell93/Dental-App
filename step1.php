@@ -2,8 +2,7 @@
 	$base = 1;
 	require_once("header.php");
 
-	//open db connection: insecure on dev server. pass will be set when deployed
-	$mysqli = new mysqli('localhost','root','','dental_info');
+	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
 
 	//if it didn't work, throw error
 	if($mysqli->connect_errno) { 

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* CSS Document */
 .ui-icon-menu {
   background-image: url("images/menu_icon.png"); }
@@ -143,24 +142,9 @@ p {
   text-indent: 20px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  background: #d9d9d9;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* IE10+ */
-  background: linear, to bottom, white 0%, #e5e5e5 100%;
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
-  /* IE6-9 */
-  -webkit-box-shadow: 0px 0px 1px 0px #313131;
-  box-shadow: 0px 0px 1px 0px #313131;
+  background: #f9f9f9;
+  -webkit-box-shadow: 0px 1px 1px 0px #aeaeae, inset 0px 0px 2px 0px white;
+  box-shadow: 0px 1px 1px 0px #aeaeae, inset 0px 0px 2px 0px white;
   display: block;
   border: 1px solid #fff;
   padding: 10px; }
@@ -243,7 +227,9 @@ p {
   display: block;
   width: 100%;
   position: relative;
-  padding: 0; }
+  padding: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
   #homeHead [role="heading"], #homeHead h1 {
     text-align: left;
     width: 100%;
@@ -251,7 +237,9 @@ p {
     #homeHead [role="heading"] span, #homeHead h1 span {
       display: inline-block;
       width: 100%;
-      margin-left: 90px; }
+      margin-left: 90px;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
     #homeHead [role="heading"] span:first-child, #homeHead h1 span:first-child {
       color: #f8f8f8;
       font-family: "Franklin ITC Pro Light", sans-serif;
@@ -264,7 +252,9 @@ p {
       font-family: "Franklin ITC Pro Cond Med", sans-serif;
       margin-top: 4px;
       color: #300f00;
-      font-size: 1.4em; }
+      font-size: 1.4em;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
 
 @font-face {
   font-family: "Franklin ITC Pro Cond Med";
