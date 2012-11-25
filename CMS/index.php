@@ -4,14 +4,14 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1"> 
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-			<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
+			<script src="jquery.min.js"></script>
 			<script src="fupload/js/vendor/jquery.ui.widget.js"></script>
 			<script src="fupload/js/jquery.iframe-transport.js"></script>
 			<script src="fupload/js/jquery.fileupload.js"></script>
-			<script src="main.js" type="text/javascript"></script>		
+			<script src="main2.js" type="text/javascript"></script>		
 			<title>Add Dental Content - Tufts Dental</title>
 						<!-- the below script calls the file uploader and appends a list of names to the upload box -->
 				<script>
@@ -21,6 +21,12 @@
 				        done: function (e, data) {
 				            $.each(data.result, function (index, file) {
 				                $('<p/>').text(file.name).appendTo(document.body);
+				            });
+				            $(".addMedia").each(function() { 
+				            	$(this).find("div").empty();
+				            	var media = appGlobals.getMedia();
+				            	$(media).appendTo($(this).find("div"));
+
 				            });
 				        }
 				    });
@@ -56,7 +62,7 @@
 				<h2>File Uploader</h2>
 
 				<p>Your files will appear in the console, so you can add them to each section as you please. NOT WORKING YET</p>
-				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
+				<input id="fileupload" class="button" style='padding-top: 10px;' type="file" name="files[]" data-url="fupload/server/php/" multiple>
 
 
 			</div>
@@ -99,7 +105,7 @@
 					 <div id="browseHierarchy" class="hidden relative hierarchy"></div>
 					 <div id="makeHierarchy" class="hidden relative hierarchy"></div>
 					 
-					 <div class="hidden" id="addContent">
+					 <div id="addContent">
 						<!--<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>-->
 						
 						<a class="button medShadow" id="addHeader" >Add A Section</a>
