@@ -1,13 +1,14 @@
 
 		function globals()  {
 
+
 			this.index_count = 0;
-			this.tablename = "";
-			this.loader = "<img src='/sam/Dental-App/CMS/images/loader.gif'/>";
-			this.media = "<div>";
+			//compile a table name based on the selection in existing hierarchy
+			this.tablename;
+			this.loader = "<img src='images/loader.gif'/>";
 			this.topLevel = function ($this) { 
 
-				var topHeader = "<h2>Section " + (appGlobals.index_count + 1) + "</h2> <a class='close remove' data-close='remove'></a><input type='text' id='top_head" + this.index_count + "' placeholder='Put a top-level header here.' />";
+				var topHeader = "<h2>Section " + (appGlobals.index_count + 1) + "</h2> <a class='close remove' data-close='remove'></a><input type='text' class='top_head info' placeholder='Put a top-level header here.' />";
 				var description = "<p>Add sub-divisions to this header, then either sub-divide further or add content to that subheader.</p>";
 				var newSecondButton = "<span class='addSecond'> Add Subheader</span>";
 				$(topHeader + description + newSecondButton).appendTo($this);
@@ -17,7 +18,7 @@
 			this.secondLevel = function($this) {
 
 				var secondHeader = "<div class='relative second_level_wrap w100 m20'><a class='close' data-remove='remove'></a><h3>Second level header</h3>";
-				secondHeader += "<input type='text' id='second_head" + appGlobals.index_count + "' placeholder='Put a second-level header name here.' class='second_head' />";
+				secondHeader += "<input type='text' placeholder='Put a second-level header name here.' class='second_head info' data-children='0'/>";
 				secondHeader += "<p class='center'><span class='button w25 addTertiary inline'>Add a third level</span> OR <span class='button w40 addSecondDesc inline'>Add Content without sub-divisions</span></p></div>";
 				$(secondHeader).appendTo($this);
 				secondHeader = $this.find(".descWrap:last-child");
@@ -30,16 +31,17 @@
 				var topicWrap = $this.closest(".second_level_wrap");
 				var topic = $this.parent().siblings(".second_head");
 				//make header
-				var newTitle = "<div class='third_level_wrap'><a class='close' data-remove='remove'></a><input type='text' class='third_head m10' placeholder = 'Enter a third level title.' />";
+				var newTitle = "<div class='third_level_wrap'><a class='close' data-remove='remove'></a><input type='text' class='third_head info m10' placeholder = 'Enter a third level title.' />";
 				//make input box
-				var newContent = "<div class='relative m10' ><div class='description' contentEditable='true'>Enter some content.</div></div></div>";
+				var newContent = "<div class='relative m10' ><div class='description info' contentEditable='true' placeholder='Enter some content.'></div></div></div>";
 
 				$(newTitle + newContent).appendTo(topicWrap);
-				console.log($(".third_head").eq(1).text());
 				appGlobals.editor(topicWrap.find(".relative:last-child"));
-				//in order to rended correctly in the client app, hasChildren will be necessary for hierarchy
-				topic.addClass("hasChildren").removeClass("hasNoChildren");
-
+				//in order to rendered correctly in the client app, hasChildren will be necessary for hierarchy
+				topic.addClass("hasChildren").removeClass("hasNoChildren").attr("data-children", parseInt(topic.attr("data-children"))+1);
+				// remove the option to add a simple desc. YOU MADE YOUR CHOICE
+				$this.text("Add another third-level subheader");
+				$this.parent().html($this);
 			};
 			this.editor = function($this){ 
 
@@ -87,6 +89,11 @@
 
 						makeMedia = "<video><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video>";
 					}
+					else if (extension == "pptx") { 
+
+						makeMedia = '<iframe src="http://docs.google.com/gview?url=http://www.sampurcell.net/sam/Dental-App/CMS/fupload/server/php/files/homepage.pptx&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>';
+
+					}
 					else  {
 						makeMedia = "<span class='insertMedia' data-path='CMS/fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
 					}
@@ -97,9 +104,72 @@
 				mediastr += "</ul></div>";
 				return mediastr;
 			};
+			this.compile = function() {
+
+				//this is the content array, which will be formatted by the app view later
+				var content = [];
+				var boxes   = $(".info").length;
+
+				var currentBox;
+				//loop through all top level headers
+				for (var i = 0; i < boxes; i++) {
+					//the current text box being looked at
+					currentBox = $(".info").eq(i);
+					//is the box a div or an input?
+					var tagType = currentBox.prop("tagName");
+
+					//check for empty box
+					if (tagType == "INPUT" && currentBox.val() == "") { 
+						return false;
+					}
+					else if (tagType == "DIV" && currentBox.html() == ""){
+						return false;
+					}
+
+					//if it's a content div, get the html
+					if (currentBox.hasClass("description")) {
+						content[i] = "<p>" + currentBox.html() + "</p>"; 
+					}
+					//otherwise, grab the value from the input
+					else if (currentBox.hasClass("hasChildren")) {
+
+						content[i] = "<h3 class='hasChildren'>" + currentBox.val() + "</h3>";
+
+					}
+					//if not, give another tag
+					else if (currentBox.hasClass("second_head")){ 
+
+						content[i] = "<h3>" + currentBox.val() + "</h3>";
+
+					}
+					else if (currentBox.hasClass("top_head")) {
+
+						content[i] = "<h2>" + currentBox.val() + "</h2>";
+
+					}
+					else if (currentBox.hasClass("third_head")) {
+
+						content[i] = "<h4>" + currentBox.val() + "</h4>";
+
+					}
+				}
+
+				return content.join(' \n');
+	 
+			};
+			this.titleToText = function (title) {
+
+				title = title.split("_");
+				var textString = $("#browseHierarchy").find(".selected[id=-1]").text() + ": ";
+
+				for (var i = 0; i < title.length; i++){
+					textString += $("#browseHierarchy").find("li[id=" + title[i] + "]").text() + ", ";
+				}
+				console.log(textString);
+				return textString.substring(0,textString.length - 2);
+			};
 			
 		}
-
 
 		var appGlobals = new globals();
 
@@ -176,17 +246,17 @@ $(document).ready(function() {
 		//button titled "add a third level" adds new title box and contenteditable div
 		$(".addTertiary").live("click",function() { 
 			appGlobals.thirdLevel($(this));
+
 		});
 		//adds contenteditable div and marks topic as having no children.
 		$(".addSecondDesc").live("click",function() { 
 			var topicWrap = $(this).closest(".second_level_wrap");
 			var topic = $(this).parent().siblings(".second_head");
-			var desc = "<div class='relative m10'><div class='description' contentEditable='true'></div></div>"
-
+			var desc = "<div class='relative m10'><div class='description info' contentEditable='true'></div></div>";
 			$(desc).appendTo(topicWrap);
 			appGlobals.editor(topicWrap.find(".relative:last-child"));
 			topic.removeClass("hasChildren").addClass("hasNoChildren");
-
+			$(this).parent().remove();
 		});
 
 		//.remove is a button which removes a section of the editing pane and decrements index
@@ -194,28 +264,24 @@ $(document).ready(function() {
 
 		//when they click the preview button, their text inputs are aggregated. 
 		$("#preview").on("click",function() { 
- 
+ 			var toAdd = appGlobals.compile();
+ 			if (!toAdd) { toAdd = "<p>You need to fill in all of the added fields before the content can be added. Make sure all of the text boxes have something in them.</p>"}
  			//empty the preview content of their old inputs
 			$("#previewContent").empty();
-			//show the wrapper box
+			//show the wrapper box, blur the bg, and scroll to the top
 			$("#previewBox").show();
+			$(".wrapper-border").addClass("blur");
+			$("html, body").animate({ scrollTop: 0 }, "fast");
 
 				//the title is determined by selection in the existing hierarchy tool
-				var title = "<h1>" + appGlobals.tablename + "</h1>";
+				var title = "<h1>" + appGlobals.titleToText(appGlobals.tablename) + "</h1>";
 			
 				$("#previewContent").html(title);
+				var curr = $("#previewContent").html();
 
 		//add each header followed by its text in order.
-			for (var i = 0; i < $(".infoInput").length; i++) {
-				var curr = $("#previewContent").html();
-				var header = "<h2>" + $("#head" + i).val() + "</h2>\n";
-				var text = $("#text" + i).html() + "<br />";
-				
-				if(header && title && text ) {
 
-					$("#previewContent").html(curr + header + text);
-				}
-			}
+					$("#previewContent").html(curr + toAdd);
 		});
 		
 		//close function for lightboxes, or any parent element.
@@ -232,8 +298,7 @@ $(document).ready(function() {
 
 		//get the content of previewContent, put it into a hidden input, and pass to php for insertion.
 		$(".submitInfo").live("click",function(e) { 
-			//e.preventDefault();
-			aggregate();
+			appGlobals.compile();
 		});
 
 		//insert.php: Show the submission
@@ -356,100 +421,6 @@ $(document).ready(function() {
 			$(this).closest(".wrap").remove();
 		});
 });
-
-
-
-//instantiates a new header, whose attributes are based on the number already in play
-/*
-function newContent(the_index) { 
-	
-		var header = "<hr /><input type='text' id='head" + the_index + "' placeholder='Put a header here.' />";
-		var text = "<div class='infoInput' contentEditable='true' id='text" + the_index + "' placeholder='This is where the content for this header goes.'></div>";
-
-			return header + text;
-}
-
-//same as header, but with a console for easy text editing.
-function newConsole(the_index) {
-	var bold = "<li data-content='<strong>Bold text here</strong>' class='createBold' >Bold</li>";
-	var list = "<li data-content='<ul>\n<li>List item</li>\n<li>List item</li>\n<li>List item</li>\n</ul>' class='createList'>List</li>";
-	var link = "<li data-content='<a href=\"http://yourlinkhere.com\" >Name your link</a>' class='createLink'>Link</li>";
-	var subheader = "<li class='subList'>Header<ul data-rel='text" + the_index + "' id='H4s'><li class='createBig' data-content='<h3>Header</h3>'>Big</li><li class='createSmall' data-content='<h4>Header</h4>'>Small</li></ul></li>";
-	var media = "<li>Media</li>";
-	var console = "<ul class='console' id='console" + the_index + "' data-rel='text" + the_index + "'>"
-	console +=  list + subheader + link + bold + media + "</ul>";
-
-		return console;
-}
-
-function newRemove(the_index) { 
-
-	return "<a class='button remove' data-rel='" + the_index + "' >Remove This</a>";
-
-}*/
-
-function aggregate() { 
-
-	var headers = [];
-	var textboxes = [];
-	var compiledHeaders = "";
-	var compiledText = "";
-
-	for (var i = 0; i < $("[id*=head]").length - 1; i++) { 
-
-		headers[i] = $("#head" + i).val();
-		textboxes[i] = $("#text" + i).html();
-		compiledHeaders += headers[i] + "| ";
-		compiledText += textboxes[i] + "| ";
-
-	}
-
-	compiledText = compiledText.substring(0,compiledText.length - 2);
-	compiledHeaders = compiledHeaders.substring(0, compiledHeaders.length - 2);
-
-	$("#passheads").val(compiledHeaders);
-	console.log($("#passheads").val());
-	$("#passtext").val(compiledText);
-	console.log($("#passtext").val());
-	$("#passtitle").val(appGlobals.tablename);
-	console.log($("#passtitle").val());
-
-}
-
-//props to gclaghorn of stackoverflow for the awesome function
-function insertAtCaret(areaId,text) {
-    var txtarea = document.getElementById(areaId);
-    var scrollPos = txtarea.scrollTop;
-    var strPos = 0;
-    var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ? 
-        "ff" : (document.selection ? "ie" : false ) );
-    if (br == "ie") { 
-        txtarea.focus();
-        var range = document.selection.createRange();
-        range.moveStart ('character', -txtarea.value.length);
-        strPos = range.text.length;
-    }
-    else if (br == "ff") strPos = txtarea.selectionStart;
-
-    var front = (txtarea.value).substring(0,strPos);  
-    var back = (txtarea.value).substring(strPos,txtarea.value.length); 
-    txtarea.value=front+text+back;
-    strPos = strPos + text.length;
-    if (br == "ie") { 
-        txtarea.focus();
-        var range = document.selection.createRange();
-        range.moveStart ('character', -txtarea.value.length);
-        range.moveStart ('character', strPos);
-        range.moveEnd ('character', 0);
-        range.select();
-    }
-    else if (br == "ff") {
-        txtarea.selectionStart = strPos;
-        txtarea.selectionEnd = strPos;
-        txtarea.focus();
-    }
-    txtarea.scrollTop = scrollPos;
-}
 
 function makeHierarchyBox(rel) { 
 

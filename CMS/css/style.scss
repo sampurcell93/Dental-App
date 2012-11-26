@@ -109,12 +109,14 @@ h2 {
 
 }
 
-h3 { padding: 10px 15px; }
+h3 { 
+	padding: 10px 15px;
+	border-bottom: 1px solid #ccc;
+}
 
 h4 { 
-
 	margin: 7px 23px;
-
+	border-bottom: 1px solid #ccc;
 }
 
 p {  
@@ -188,12 +190,12 @@ hr {
 
 	z-index: 100011;
 	position: fixed;
-	width: 500px;
-	left: 50%;
+	width: 90%;
+	left: 0%;
 	top: -100%;
 	padding: 17px 17px 17px 20px;
 	display: none;
-	margin-left: -250px;
+	margin-left: 5%;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #999;
 	@include border-radius(2px);	
@@ -201,6 +203,7 @@ hr {
 	@include transition(all .1s ease-in-out);
 	@include box-shadow(0px 0px 80px #313131);
 	border: 6px solid #f8f8f8; 
+
 	ul { 
 
 		font-size: 80%; 
@@ -213,7 +216,39 @@ hr {
 		top: 10px; 
 	}
 
-	h1 { width: 100%; display: block; clear: both; }
+	h1 { 
+		width: 100%;
+		display: block;
+		clear: both;
+		font-size: 1.7em;
+		@include border-radius(3px);
+		border: 1px solid #ccc;
+		@include whiteGradient();
+		line-height: 40px;
+		padding: 0px 5%;
+	}
+
+	h3 { margin-left: 8.4%;
+		& + p { 
+
+			margin-left: 9.6%;
+
+		}
+	}
+
+	h4 { margin-left: 12%;	
+		& + p { 
+
+			margin-left: 14%;
+
+		} 
+	}
+
+	p { text-align: left; }
+
+	img { 
+		max-width: 100%; 
+	}
 }
 
 .blur { 
@@ -398,11 +433,13 @@ nav {
 	margin: 10px auto 50px;
 	background: #f9f9f9;
 	@include border-radius(3px);
+	@include clearfix();
+	position: relative;
 
 	.close { 
 
-		top: -5px;
-		right: -5px;
+		top: -2px;
+		right: -2px;
 
 	}
 }
@@ -438,7 +475,7 @@ nav {
 
 	.media_icon { width: 20%; margin: 0px .5%; }
 
-	img { @include transition(all .2s ease-in-out); }
+	img { max-width: 100%;  }
 
 	&:focus { 
 
@@ -627,23 +664,17 @@ input[type="text"] {
 
 #previewBox {
 	position: absolute;
-	left: 50%;
+	left: 0%;
 	top: 100px;
-	margin-left: -350px;
-	display: none;
-	padding: 30px;
-	width: 700px;
-	@include border-radius(3px);
-	@include whiteGradient();
-	@include box-shadow(0px 0px 8px #313131);
-	font-size: 80%; 
+	margin-left: 5%;
+	width: 90%;
 
 	&:after {
 
 		position: absolute;
 		top: -50px;
-		left: -6px;
-		width: 680px;
+		left: 0;
+		width: 100%;
 		content: "Is this what you want to submit? You can still go back and change it.";
 		display: block;
 		@include border-radius(4px 4px 0px 0px);
@@ -654,13 +685,12 @@ input[type="text"] {
 	    background: -moz-linear-gradient(top, #6e5770, #472b47);
 	    background: -ms-linear-gradient(top, #6e5770, #472b47);
 	    background: -o-linear-gradient(top, #6e5770, #472b47);
-		margin-bottom: -13px;
-		height: 30px;
+		height: 50px;
 		color: #e1e1e1;
-		padding: 10px;
 		text-align: center;
 		z-index: 0;
-		font-size: 1em;
+		font-size: .85em;
+		line-height: 50px;
 	}
  }
 
@@ -675,8 +705,6 @@ input[type="text"] {
 	margin: 20px auto;
 
 }
-
-[id*="wrap"] { position: relative; @include clearfix(); }
 
 .remove { 
 float: right;
@@ -948,6 +976,13 @@ float: right;
 /* =======================================*/
 /* ==============MEDIA QUERIES FOR RESPONSIVENESS============*/
 /* =======================================*/
+@media all and (min-width: 1024px) { 
+
+	.wrapper-border { width: 90%; }
+
+}
+
+
 @media all and (max-width: 960px) { 
 
 	.wrapper-border { width: 90%; margin: 60px auto; }

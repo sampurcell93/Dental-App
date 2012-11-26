@@ -27,7 +27,7 @@
 				                //update all existing media panels
 								$(".addMedia").each(function() { 
 					            	$(this).find("div").remove();
-					            	var media = appGlobals.getMedia();
+					            	var media = appGlobals.getMedia();j
 					            	$(media).appendTo($(this));
 				          		  });
 				            });
