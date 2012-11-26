@@ -425,6 +425,7 @@ class UploadHandler
             preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
             $file_name .= '.'.$matches[1];
         }
+        /*
         while(is_dir($this->get_upload_path($file_name))) {
             $file_name = $this->upcount_name($file_name);
         }
@@ -435,7 +436,7 @@ class UploadHandler
                 break;
             }
             $file_name = $this->upcount_name($file_name);
-        }
+        }*/
         return $file_name;
     }
 

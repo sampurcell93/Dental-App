@@ -3,41 +3,58 @@
 
 			this.index_count = 0;
 			this.tablename = "";
-			this.loader = "<img src='/sam/Dental-App/CMS/images/loader.gif' />";
+			this.loader = "<img src='/sam/Dental-App/CMS/images/loader.gif'/>";
 			this.media = "<div>";
 			this.topLevel = function ($this) { 
 
-				var topHeader = "<input type='text' id='top_head" + this.index_count + "' placeholder='Put a top-level header here.' />";
-				var description = "<div class='relative m20' data-rose='ily'><div class='description' contentEditable='true'>Add subheaders</div><div class='clear'></div></div>";
-				var newSecondButton = "<span class='addSecond'> Add Subheader</span><hr />";
+				var topHeader = "<h2>Section " + (appGlobals.index_count + 1) + "</h2> <a class='close remove' data-close='remove'></a><input type='text' id='top_head" + this.index_count + "' placeholder='Put a top-level header here.' />";
+				var description = "<p>Add sub-divisions to this header, then either sub-divide further or add content to that subheader.</p>";
+				var newSecondButton = "<span class='addSecond'> Add Subheader</span>";
 				$(topHeader + description + newSecondButton).appendTo($this);
-				this.editor($this.find(".relative"));
+				this.secondLevel($this);
 
 			};
 			this.secondLevel = function($this) {
 
-				var secondHeader = "<div class='relative second_level_wrap w100 mauto'><input type='text' id='second_head" + appGlobals.index_count + "' placeholder='Put a second-level header name here.' class='second_head' /></div>";
+				var secondHeader = "<div class='relative second_level_wrap w100 m20'><a class='close' data-remove='remove'></a><h3>Second level header</h3>";
+				secondHeader += "<input type='text' id='second_head" + appGlobals.index_count + "' placeholder='Put a second-level header name here.' class='second_head' />";
+				secondHeader += "<p class='center'><span class='button w25 addTertiary inline'>Add a third level</span> OR <span class='button w40 addSecondDesc inline'>Add Content without sub-divisions</span></p></div>";
 				$(secondHeader).appendTo($this);
 				secondHeader = $this.find(".descWrap:last-child");
 				this.editor(secondHeader);
 
 			};
+			this.thirdLevel = function($this) { 
+
+				//get the wrapper, and the title of the wrapper
+				var topicWrap = $this.closest(".second_level_wrap");
+				var topic = $this.parent().siblings(".second_head");
+				//make header
+				var newTitle = "<div class='third_level_wrap'><a class='close' data-remove='remove'></a><input type='text' class='third_head m10' placeholder = 'Enter a third level title.' />";
+				//make input box
+				var newContent = "<div class='relative m10' ><div class='description' contentEditable='true'>Enter some content.</div></div></div>";
+
+				$(newTitle + newContent).appendTo(topicWrap);
+				console.log($(".third_head").eq(1).text());
+				appGlobals.editor(topicWrap.find(".relative:last-child"));
+				//in order to rended correctly in the client app, hasChildren will be necessary for hierarchy
+				topic.addClass("hasChildren").removeClass("hasNoChildren");
+
+			};
 			this.editor = function($this){ 
 
 				var list = " <ul><li>List 1</li><li>List 2</li><li>List 3</li>";
-				var underline = ' <u>Your word</u>\n Done';
-				var bold = ' <strong>Your word</strong> ';
-				var italic = ' <em>Your word</em> ';
+				var underline = ' <u>Your tessxt</u> done';
+				var bold = ' <strong>Your tssext</strong> done';
+				var italic = ' <em>Your text</em> done';
 				
 				//get all of the files currently in the media directory as array
 				var mediastring = this.getMedia();
-		
-
 				var editor = "<ul class='editor'>";
 				editor += "<li data-role='List' data-content='" + list + "' class='addList icon add'>&#xe000;</li>";
 				editor += "<li class='addImage input icon'>&#xe002;<div><input type='text' class='inline w60' placeholder='Enter image URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "<li class='addLink input icon' >&#xe001;<div><input type='text' class='inline' placeholder='Enter link URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li id='yoloniggax' class='addMedia icon' >&#xe004;" + mediastring + "</li>";
+				editor += "<li class='addMedia icon' >&#xe004;" + mediastring + "</li>";
 				editor += "<li data-content='" + bold + "' class='bold icon add' ><strong>B</strong></li>";
 				editor += "<li data-content='" + italic + "' class='italic icon add' ><em>i</em></li>";
 				editor += "<li data-content='" + underline + "' class='underline icon add' ><u>U</u></li>";
@@ -56,23 +73,24 @@
 				    media = json.files;
 				  }
 				});	
-				var mediastr = "<div><ul class='fileList'>";
-				var mediaSpan, name, extension;
+				var mediastr = "<div class='scroll'><ul class='fileList'>";
+				var makeMedia, name, extension;
 
 				for (var i = 0; i < media.length - 1; i++) { 
 					name = media[i].name;
 					extension = media[i].extension;
-					if (extension == "png" || extension =="jpg" || extension == "gif") { 
-						mediaSpan = "<br /><img src='fupload/server/php/files/" + name + "' /><br />";
+				
+					if (extension == "png" || extension =="jpg" || extension == "gif" || extension == "jpeg") { 
+						makeMedia = "<br /><img src='fupload/server/php/files/" + name + "' /><br />";
 					}
-					else if (extension == "mov" || extension =="mp4") { 
+					else if (extension == "mp4") { 
 
-
+						makeMedia = "<video><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video>";
 					}
 					else  {
-						mediaSpan = "<span class='insertMedia' data-path='CMS/fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
+						makeMedia = "<span class='insertMedia' data-path='CMS/fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
 					}
-					mediastr += '<li class="media_icon add" data-content="' + mediaSpan + '">';
+					mediastr += '<li class="media_icon add" data-content="' + makeMedia + '">';
 					mediastr += name;
 					mediastr += "</li>";
 				}
@@ -120,6 +138,7 @@ $(document).ready(function() {
 
 		});
 
+		// when clicked, the closest input box will have some content appended to it
 		$(".add").live("click",function() { 
 
 			var $this = $(this);
@@ -128,10 +147,11 @@ $(document).ready(function() {
 			//get the data to be added
 			var content = $this.attr("data-content");
 			//append data
-			pairing.append(content);
+			$(content).appendTo(pairing);
 
 		});
 
+		//console has hover options for links and images.
 		$(".editor").find(".input").live("click",function(e) {
 
 			var input = $(this).find("input");
@@ -153,14 +173,24 @@ $(document).ready(function() {
 			});
 		});
 
-
-		//.remove is a button which removes a section of the editing pane
-		$(".remove").live("click",function() { 
-			var pair = $(this).attr("data-rel");
-			$("#wrap" + pair).empty().remove();
-			$(this).remove();
-			appGlobals.index_count--;
+		//button titled "add a third level" adds new title box and contenteditable div
+		$(".addTertiary").live("click",function() { 
+			appGlobals.thirdLevel($(this));
 		});
+		//adds contenteditable div and marks topic as having no children.
+		$(".addSecondDesc").live("click",function() { 
+			var topicWrap = $(this).closest(".second_level_wrap");
+			var topic = $(this).parent().siblings(".second_head");
+			var desc = "<div class='relative m10'><div class='description' contentEditable='true'></div></div>"
+
+			$(desc).appendTo(topicWrap);
+			appGlobals.editor(topicWrap.find(".relative:last-child"));
+			topic.removeClass("hasChildren").addClass("hasNoChildren");
+
+		});
+
+		//.remove is a button which removes a section of the editing pane and decrements index
+		$(".remove").live("click",function() { appGlobals.index_count--; });
 
 		//when they click the preview button, their text inputs are aggregated. 
 		$("#preview").on("click",function() { 
@@ -471,11 +501,11 @@ $(window).scroll(function(e){
   $el = $('#addHeader'); 
 
   if ($(this).scrollTop() > 260 && !$el.hasClass("fixed")) { 
-  		$('#addHeader').addClass("fixed"); 
+  		$('#addHeader').addClass("fixed medShadow"); 
   } 
 
   if ($(this).scrollTop() < 260 && $el.hasClass("fixed")) { 
-  		$el.removeClass("fixed");
+  		$el.removeClass("fixed medShadow");
   	 }
 });
 

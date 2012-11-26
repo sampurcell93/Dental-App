@@ -13,29 +13,37 @@
 			<script src="fupload/js/jquery.fileupload.js"></script>
 			<script src="main2.js" type="text/javascript"></script>		
 			<title>Add Dental Content - Tufts Dental</title>
-						<!-- the below script calls the file uploader and appends a list of names to the upload box -->
-				<script>
+		</head>
+
+		<body>
+			<script>
 				$(function () {
 				    $('#fileupload').fileupload({
 				        dataType: 'json',
 				        done: function (e, data) {
 				            $.each(data.result, function (index, file) {
-				                $('<p/>').text(file.name).appendTo(document.body);
+				            	//add successfully uploaded file to the list of files
+				                $('<li/>').text(file.name + " uploaded successfully!").appendTo($("#files"));
+				                //update all existing media panels
+								$(".addMedia").each(function() { 
+					            	$(this).find("div").remove();
+					            	var media = appGlobals.getMedia();
+					            	$(media).appendTo($(this));
+				          		  });
 				            });
-				            $(".addMedia").each(function() { 
-				            	$(this).find("div").empty();
-				            	var media = appGlobals.getMedia();
-				            	$(media).appendTo($(this).find("div"));
+				        },
+				        fail: function(e,data) { 
+				        	$.each(data.result, function (index,file) { 
 
-				            });
+				        		$('<li/>').text(file.name + " upload failed! Bad filetype or size too large. ").appendTo($("#files"));
+
+				        	});
 				        }
+
 				    });
 				});
-				</script>
-		</head>
+			</script>
 
-		<body>
-			
 			<div class="box" id="helpBox">
 
 				<a class="close"></a>
@@ -61,9 +69,14 @@
 
 				<h2>File Uploader</h2>
 
-				<p>Your files will appear in the console, so you can add them to each section as you please. NOT WORKING YET</p>
-				<input id="fileupload" class="button" style='padding-top: 10px;' type="file" name="files[]" data-url="fupload/server/php/" multiple>
+				<p>Your files will appear in the console, so you can add them to each section as you please. Accepted filetypes:</p>
+				<ul>
+					<li>Videos: .mp4</li>
+					<li>Pictures: .gif, .jpeg, .jpg, .png</li>
+				</ul>
 
+				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
+				<ul id="files"></ul>
 
 			</div>
 
@@ -97,7 +110,7 @@
 						</nav>
 					</header>
 
-					<p>Do you want to make a new hierarchy, or add to an existing one? (New still incomplete)<br> 
+					<p>Do you want to make a new hierarchy, or add content to an existing one? (New still incomplete)<br> 
 					 	<span class="button" id="newHierarchy" rel="#makeHierarchy">New Hierarchy</span>
 					 	<span class="button" id="existingHierarchy" rel="#browseHierarchy">Add to Existing</span>
 					</p>
@@ -106,9 +119,8 @@
 					 <div id="makeHierarchy" class="hidden relative hierarchy"></div>
 					 
 					 <div id="addContent">
-						<!--<input type="text" placeholder="Title of the content" name="node_title" id="node_title"/>-->
 						
-						<a class="button medShadow" id="addHeader" >Add A Section</a>
+						<a class="button" id="addHeader" >Add A Section</a>
 
 						<div class="content"></div>
 
