@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* =======================================*/
 /* =========== GENERAL STYLES ============ */
 /* =======================================*/
@@ -12,6 +11,7 @@
 body {
   background: url(../images/blue.png);
   font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
   color: #444;
   font-size: 20px;
   position: relative;
@@ -26,10 +26,11 @@ body {
   width: 960px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  -webkit-box-shadow: inset 0px 1px 2px white, 0px 0px 3px #313131, 0px 0px 8px 0px white;
-  box-shadow: inset 0px 1px 2px white, 0px 0px 3px #313131, 0px 0px 8px 0px white;
+  -webkit-box-shadow: inset 0px 1px 2px white, 0px 0px 8px 0px white, 0px 0px 2px 1px #cccccc;
+  box-shadow: inset 0px 1px 2px white, 0px 0px 8px 0px white, 0px 0px 2px 1px #cccccc;
   background: rgba(255, 255, 255, 0.4);
   padding: 10px;
+  border: 1px solid #fff;
   position: relative; }
 
 .wrapper {
@@ -39,8 +40,8 @@ body {
   border-radius: 0px 0px 5px 5px;
   background: #f8f8f8;
   position: relative;
-  -webkit-box-shadow: inset 0px 0px 6px 5px white, 0px 0px 7px #999999;
-  box-shadow: inset 0px 0px 6px 5px white, 0px 0px 7px #999999;
+  -webkit-box-shadow: inset 0px 0px 2px 2px white, 0px 0px 7px #cccccc;
+  box-shadow: inset 0px 0px 2px 2px white, 0px 0px 7px #cccccc;
   padding-bottom: 20px;
   padding-top: 20px;
   z-index: 0; }
@@ -100,10 +101,11 @@ h2 {
   border-bottom: 1px solid #ccc; }
 
 h3 {
-  padding: 10px 15px;
+  padding: 10px 5%;
   border-bottom: 1px solid #ccc; }
 
 h4 {
+  padding: 5px 3%;
   margin: 7px 23px;
   border-bottom: 1px solid #ccc; }
 
@@ -143,6 +145,7 @@ p {
   text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
   color: #f8f8f8;
   font-size: .75em;
+  font-weight: 300;
   text-decoration: none;
   vertical-align: middle;
   width: 300px;
@@ -151,8 +154,7 @@ p {
   text-align: center;
   cursor: pointer; }
   .button:active {
-    border-top-color: #3b2040;
-    background: #3b2040; }
+    background: #356aa0; }
   .button:hover {
     color: #fff; }
 
@@ -168,12 +170,12 @@ hr {
 .box {
   z-index: 100011;
   position: fixed;
-  width: 90%;
+  width: 80%;
   left: 0%;
   top: -100%;
   padding: 17px 17px 17px 20px;
   display: none;
-  margin-left: 5%;
+  margin-left: 10%;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #999;
   -webkit-border-radius: 2px;
@@ -202,15 +204,19 @@ hr {
   -webkit-box-shadow: 0px 0px 80px #313131;
   box-shadow: 0px 0px 80px #313131;
   border: 6px solid #f8f8f8; }
-  .box ul {
-    font-size: 80%;
+  .box div.descriptor {
+    font-size: 1em; }
+  .box ul, .box ol {
+    font-size: 1em;
     padding-left: 20px;
     list-style: bullet; }
   .box .close {
     top: 10px; }
+    .box .close:after {
+      content: "Close"; }
   .box h1 {
     width: 100%;
-    display: block;
+    display: table;
     clear: both;
     font-size: 1.7em;
     -webkit-border-radius: 3px;
@@ -233,18 +239,26 @@ hr {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
     /* IE6-9 */
     line-height: 40px;
-    padding: 0px 5%; }
+    padding: 10px 5%;
+    height: auto;
+    float: none; }
+  .box h3, .box h4 {
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #f8f8f8;
+    display: table; }
   .box h3 {
     margin-left: 8.4%; }
-    .box h3 + p {
+    .box h3 + div {
       margin-left: 9.6%; }
   .box h4 {
     margin-left: 12%; }
-    .box h4 + p {
+    .box h4 + div {
       margin-left: 14%; }
   .box p {
     text-align: left; }
-  .box img {
+  .box img, .box video {
     max-width: 100%; }
 
 .blur {
@@ -434,7 +448,9 @@ nav ul {
     width: 100%;
     text-decoration: none;
     text-shadow: 0px -2px 0px black;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: .9em;
     position: relative; }
     nav ul li a:hover {
       color: #fff;
@@ -451,7 +467,7 @@ nav ul {
   font-size: 1em;
   top: 1%;
   left: 10%;
-  text-shadow: 0px 2px 0px #000;
+  text-shadow: 0px -2px 0px black;
   color: #f8f8f8; }
 
 /* =======================================*/
@@ -477,7 +493,7 @@ nav ul {
     clear: both; }
   [id*="wrap"] .close, .second_level_wrap .close {
     top: -2px;
-    right: -2px; }
+    right: 2px; }
 
 .second_level_wrap {
   background: rgba(191, 127, 236, 0.12) url("../images/6-stripe.png");
@@ -514,8 +530,9 @@ nav ul {
   .description .media_icon, textarea .media_icon, input[type="text"] .media_icon {
     width: 20%;
     margin: 0px .5%; }
-  .description img, textarea img, input[type="text"] img {
-    max-width: 100%; }
+  .description img, .description video, textarea img, textarea video, input[type="text"] img, input[type="text"] video {
+    max-width: 100%;
+    resize: none; }
   .description:focus, textarea:focus, input[type="text"]:focus {
     -webkit-box-shadow: 0px 0px 2px 0px #313131;
     box-shadow: 0px 0px 2px 0px #313131; }
@@ -576,11 +593,12 @@ input[type="text"] {
 /* =======================================*/
 .editor {
   position: absolute;
-  top: -1px;
+  top: -0.7px;
   left: -1px;
   width: 10%;
   list-style: none;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
+  border-right-color: #ccc;
   z-index: 800; }
   .editor > li {
     font-size: 18px;
@@ -633,9 +651,9 @@ input[type="text"] {
     .editor > li:last-child {
       border-bottom: none; }
 
-.fileList {
+.fileList, .listchoice {
   width: 100%; }
-  .fileList li.media_icon.add {
+  .fileList li, .fileList li.media_icon.add, .listchoice li, .listchoice li.media_icon.add {
     display: block;
     width: 100%;
     font-size: .7em;
@@ -643,7 +661,7 @@ input[type="text"] {
     line-height: 30px;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #ccc; }
-    .fileList li.media_icon.add:hover {
+    .fileList li:hover, .fileList li.media_icon.add:hover, .listchoice li:hover, .listchoice li.media_icon.add:hover {
       color: #111;
       background: #d9d9d9;
       /* Old browsers */
@@ -667,7 +685,7 @@ input[type="text"] {
   [data-role]:after {
     content: attr(data-role);
     position: absolute;
-    left: 100%;
+    right: 100%;
     top: -2px;
     color: #f8f8f8;
     background: #111;
@@ -698,7 +716,7 @@ input[type="text"] {
     top: -50px;
     left: 0;
     width: 100%;
-    content: "Is this what you want to submit? You can still go back and change it.";
+    content: "Verify the content, or modify it.";
     display: block;
     -webkit-border-radius: 4px 4px 0px 0px;
     border-radius: 4px 4px 0px 0px;
@@ -716,6 +734,8 @@ input[type="text"] {
     z-index: 0;
     font-size: .85em;
     line-height: 50px; }
+  #previewBox .close {
+    top: -43px; }
 
 #definition {
   height: 200px;
@@ -743,22 +763,7 @@ input[type="text"] {
   box-shadow: -1px 1px 2px #aeaeae;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  background: #d9d9d9;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* IE10+ */
-  background: linear, to bottom, white 0%, #e5e5e5 100%;
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
-  /* IE6-9 */ }
+  background: url("../images/subtle/cubes.png"); }
   .hierarchy li {
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -1078,8 +1083,8 @@ input[type="text"] {
   .button {
     width: 90%; }
 
-  input[type="text"] {
+  input[type="text"], .second_head {
     width: 90%; }
 
-  .second_head {
-    width: 90%; } }
+  #previewBox::after {
+    content: "Verify Content."; } }
