@@ -2,6 +2,7 @@
 //come back here in 6 months... and cringe.
 	$condition = $_GET['condition'];
 	$condition = lcfirst($condition);
+	$content_table = $condition . "_content";
 	$type = $_GET['type'];
 	$case = $_GET['case'];
 	$extent = $_GET['extent'];
@@ -28,29 +29,23 @@
 		$query = "select * from $condition where parent_id = $id";
 		$results = $mysqli->query($query);
 		if ($results->num_rows) { 
+		
 			return 1;
 		}
 		return 0;
 	}
 
-	function table_exists($table_name) { 
+	function row_exists($row_name) { 
 
-		$query = "select table_name FROM information_schema.tables
-		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
-
-		$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
-
+		$mysqli = new mysqli('localhost','sampurce_admin','kamehameha1','sampurce_dental');
+		$query = "select * from edentulism_content where tablename = '$row_name'";
 		$results = $mysqli->query($query);
-
+		
 		if($results->num_rows) { 
-
 			return 1;
-
 		}
 		return 0;
 	}
-
-
 
 ?>
 	
@@ -66,11 +61,14 @@
 
 	$results = $mysqli->query($query);
 	$correct_table_value;
-		if (table_exists($tablefull)) { $correct_table_value = $tablefull; }
-		else if (table_exists($tablehalf)) { $correct_table_value = $tablehalf; }
-		else if (table_exists($tablebasic)) { $correct_table_value = $tablebasic; }
 
-		 if (!table_exists($tablefull) && !table_exists($tablehalf) && !table_exists($tablebasic) && !isset($extent)){ ?>
+	//at each stage in the hierarchy, there's the possibility that a node has been added for that particular level. this checks all cases
+
+		if (row_exists($tablefull)) { $correct_table_value = $tablefull; }
+		else if (row_exists($tablehalf)) { $correct_table_value = $tablehalf; }
+		else if (row_exists($tablebasic)) { $correct_table_value = $tablebasic; }
+		
+		if (!isset($extent) && !row_exists($tablebasic) && !row_exists($tablefull) && !row_exists($tablehalf)){ ?>
 
 			<h3>Extent</h3>
 
@@ -111,35 +109,27 @@
 			echo "</form>";
 
 		}
-
-		else if (!has_children($type,$condition) || !has_children($extent,$condition)){
 		
-			$query = "select * from `$correct_table_value`";
+		else if (!has_children($type,$condition) || !has_children($extent,$condition)){
+			
+			$query = "select formatted from $content_table where tablename = '$correct_table_value'";
 			
 			$results = $mysqli->query($query);
 
 			while($row = $results->fetch_assoc()) { 
 
-				$count = 0;
-
 				foreach($row as $k=>$v) { 
-					//format the html content to jquery mobile specs
-					$v =  html_entity_decode($v);
-					$v = str_replace("<h3>", "\n\t\t\t\t\t</div>\n\t\t\t\t\t<li data-icon='arrow-r'><a data-transition='fade'>", $v);
-					$v = str_replace("</h3>", "</a></li>\n\t\t\t\t\t<div class='hidden content'>",$v);
-					//$v = str_replace("</li>", "</li>\n", $v);
-					$v = str_replace("www", "http://www", $v);
-
-					echo "\t\t\t<div data-role='collapsible' data-collapsed='false' data-theme='a' data-content-theme='d'>\n";
-					echo "\t\t\t\t<h2>" . str_replace("_"," ",$k) ."</h2>\n";
-            		//echo "\t\t\t<div data-role='collapsible'>\n";
-
-					echo "\t\t\t\t<ul data-role='listview' class='subtitle' data-inset='true' data-theme='d'>\n";
-					echo "\t\t\t\t\t<div>"; // so first li element doesn't close list
-					echo $v . "</div>\n\t\t\t\t</ul>\n\t\t\t</div>\n";
-					$count++;
+					if ($k == "formatted")
+						echo $v ;
+				
 				}
 			}
+		}
+
+		else { 
+
+			echo "There seems to be a problem...!";
+
 		}
 
 	

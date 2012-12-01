@@ -9,22 +9,16 @@
 
 	}
 
-	//boolean function
-	function table_exists($table_name) { 
+	//boolean function, returns true if a nde already has content
+	function row_exists($row_name) { 
 
-		$query = "select table_name FROM information_schema.tables
-		WHERE table_schema = 'sampurce_dental' AND table_name = '$table_name'";
-
-		$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
-
+		$mysqli = new mysqli('localhost','sampurce_admin','kamehameha1','sampurce_dental');
+		$query = "select * from edentulism_content where tablename = '$row_name'";
 		$results = $mysqli->query($query);
-
+		
 		if($results->num_rows) { 
-
 			return 1;
-
 		}
-
 		return 0;
 	}
 
@@ -73,22 +67,22 @@
 
 		 		while($row = $results->fetch_assoc()) { 
 		 			
-		 			$temp_table_test = $tablename;
+		 			$temp_table = $tablename;
 		 			foreach($row as $k=>$v) {
 	 					
 	 					if ($k == "id") { 
 
 		 					$json_string .=  '{"id":' . $v . ', ';
-		 					$temp_table_test .= "_" . $v;
+		 					$temp_table .= "_" . $v;
 
-		 					if (table_exists($temp_table_test)) { 
+		 					if (row_exists($temp_table)) { 
 
 		 						$json_string .= '"table_exists": 1,';
 
 		 					}
 		 					else { $json_string .= '"table_exists": 0, '; }
 
-		 					$json_string .=  '"table_name": "' . $temp_table_test . '", ';
+		 					$json_string .=  '"table_name": "' . $temp_table . '", ';
 			 			}
 		 				else if($k == "name") { 
 			 				$json_string .= '"childname":"' . $v . '"}, ';

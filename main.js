@@ -1,14 +1,79 @@
+  var format = {
+
+    //take the content of each descriptor div, and put it into a data-role=page format. simple reformatting.
+    pages: function() { 
+
+      var content = $("[data-page]");
+      var pages = content.length;
+      var pages_to_append = "";
+
+      for (var i = 0; i < pages; i++) {
+
+        pages_to_append += "<div data-role='page' id='" + content.eq(i).attr("data-page") + "'>";
+        pages_to_append += "<div data-role='header' data-theme='b'><h1>Beginner's Guide to Dental Implant Prosthodontics</h1></div>";
+        pages_to_append += "<div data-role='content'>";
+        pages_to_append += content.eq(i).html();
+        pages_to_append += "</div></div>";
+
+      }
+
+      console.log(pages_to_append);
+      return pages_to_append;
+
+    },
+
+    linkPages: function()  {
+
+      // for non accordion, get the anchor, and the find the closest page to it. append that pages number to its href
+      $("h3").find(".goToPage").each(function() {
+
+        var $this = $(this);
+        var pair = $this.closest("h3").next(".descriptor").attr("data-page");
+        $this.attr("href","#" + pair);
+
+      });
+
+      //same as above, except with accordion
+      $("li").find(".goToPage").each(function() { 
+
+        var $this = $(this);
+        var pair = $this.closest("li").next(".descriptor").attr("data-page");
+        $this.attr("href","#" + pair);
+
+        // for the last list item, the descriptor is appended after, so the lookup is slightly different
+        if ($this.closest("li").hasClass("last-li")){
+
+          pair = $this.closest("[data-role=collapsible]").next(".descriptor").attr("data-page");
+          $this.attr("href","#" + pair);          
+
+        }
+
+      });
+
+      //finally, remove the descriptor elements.
+      $(".relative.descriptor").each(function() { 
+
+        $(this).remove();
+
+      });
+
+
+    }
+};
+
 //first line lets things work on first page load, no need for refresh.
-$(document).delegate('.ui-page', 'pagecreate', function () {
+$(document).bind("mobileinit",function () {
 
-  function globals() { 
+  $.mobile.page.prototype.options.domCache = true;
 
-    this.contentCount = 0;
+}).one('pagecreate', function (event) {
 
-  }
-  var globe = new globals();
+  //make the separate page views for content
+  $(format.pages()).appendTo($("body"));
+  //lin each list item to the next content item
+  format.linkPages();
 
-//the list of conditions on the procedures page goes to that condition's specific page.
+  //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 
 
 		$(this).closest("form").submit();
@@ -16,7 +81,7 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
 
 	});
 
-//the top right select menu with procedures and appendix.
+  //the top right select menu with procedures and appendix.
 	$("#nav").live("change",function() {
 	    var page = $(this).val();
 	    window.location = page;
@@ -40,27 +105,11 @@ $(document).delegate('.ui-page', 'pagecreate', function () {
 
 	});
 
-  $(".content").each(function() {
-/*$(this).closest("li").find("a").html();*/
-    var header = '<a data-rel="back" data-icon="back"   data-iconpos="notext">Back</a>'; 
-    header +=  "<h1>Beginner's Guide to Dental Implant Prosthodontics</h1>";
-    var information = "<div data-role='page' id='page" + globe.contentCount++
-     + "'><div data-role='header' data-theme='b'>" + header + "</div><div data-role='content'>" + $(this).html() + "</div>";
-    
-      $("body").append(information).trigger("create");
-      
-      //now that we have appended the page, remove the incorrectly formatted content.
-      $(this).remove();
-  });
-
-    globe.contentCount = 0;
 
   $("[data-icon*='arrow'] a").each(function() {
 
-      $(this).attr("href","#page" + globe.contentCount++);
 
   });
-
 
 //Thanks to MDN for all the browser specifics
 function makeRequest(url, condition,id) { 

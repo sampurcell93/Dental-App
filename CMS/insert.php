@@ -136,7 +136,7 @@
 
 
 		<div class='wrapper-border'><p style='text-align:center'>Your submission was a failure. You did not click the submit button,
-		 or the information you are trying to insert already exists. Please report this bug to Samuel.Purcell@tufts.edu! </p><br />
+		 or the information you are trying to insert already exists. This bug has been reported!</p><br />
 		<a href='index.php' class='button'>Go back</a>
 
 

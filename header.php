@@ -9,8 +9,7 @@
 			<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 			<script src="main.js" type="text/javascript"></script>
 			<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-			<link rel="stylesheet" media="Screen" type="text/css" href="custom.css" />
-   
+			<link rel="stylesheet" media="screen" type="text/css" href="custom.css" />
 
 		</head>
 
@@ -46,7 +45,7 @@
 				<div data-role="header" data-theme="b">
 					<a data-rel="back" data-iconpos="notext" data-icon="back">Back</a>
 
-					<h1><?php if (isset($base)) { echo "Beginner's Guide to Dental Implant Prosthodontics"; } ?></h1>
+					<h1><?php echo "Beginner's Guide to Dental Implant Prosthodontics";  ?></h1>
  					<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="a">
 		            		<option value=""></option>
 		 					<option value="index.php">Procedures</option>

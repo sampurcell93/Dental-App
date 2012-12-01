@@ -1,11 +1,7 @@
+@charset "UTF-8";
 /* CSS Document */
 .ui-icon-menu {
   background-image: url("images/menu_icon.png"); }
-
-.subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-left: 13px; }
 
 [data-role="page"] {
   border: 2px solid #000; }
@@ -180,42 +176,6 @@ p {
   .content ul {
     margin-bottom: 30px; }
 
-.subtitle > li {
-  cursor: pointer;
-  background: #d9d9d9;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* IE10+ */
-  background: linear, to bottom, white 0%, #e5e5e5 100%;
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
-  /* IE6-9 */ }
-  .subtitle > li:hover {
-    background: white;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
-    /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
-    /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
-    /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
-    /* IE10+ */
-    background: linear, to bottom, white 0%, #f6f6f6 47%, #ededed 100%;
-    /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
-    /* IE6-9 */ }
-
 .hidden, .ajaxContent {
   display: none; }
 
@@ -255,6 +215,37 @@ p {
       font-size: 1.4em;
       -webkit-box-shadow: none;
       box-shadow: none; }
+
+video, img {
+  max-width: 95%; }
+
+.listitem.sibling {
+  width: 105%; }
+  .listitem.sibling a.ui-link {
+    display: block;
+    cursor: pointer;
+    background: #f8f8f8;
+    border: 1px solid #bbb;
+    margin: -20px 0 -20px -7px;
+    padding: 10px 0 10px 5%;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 95%;
+    color: #313131;
+    text-decoration: none;
+    font-size: .85em; }
+    .listitem.sibling a.ui-link:hover {
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e0e0e0));
+      /* Saf4+, Chrome */
+      background-image: -webkit-linear-gradient(#f6f6f6, #e0e0e0);
+      /* Chrome 10+, Saf5.1+ */
+      background-image: -moz-linear-gradient(#f6f6f6, #e0e0e0);
+      /* FF3.6 */
+      background-image: -ms-linear-gradient(#f6f6f6, #e0e0e0);
+      /* IE10 */
+      background-image: -o-linear-gradient(#f6f6f6, #e0e0e0);
+      /* Opera 11.10+ */
+      background-image: linear, top, #f6f6f6, #e0e0e0; }
 
 @font-face {
   font-family: "Franklin ITC Pro Cond Med";
