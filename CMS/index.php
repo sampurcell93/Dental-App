@@ -5,7 +5,6 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1"> 
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 			<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-			<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 			<link rel="stylesheet" media="screen" type="text/css" href="css/style.css" />
 			<script src="jquery.min.js"></script>
 			<script src="fupload/js/vendor/jquery.ui.widget.js"></script>
@@ -22,13 +21,15 @@
 				        dataType: 'json',
 				        done: function (e, data) {
 				            $.each(data.result, function (index, file) {
+
 				            	//add successfully uploaded file to the list of files
 				                $('<li/>').text(file.name + " uploaded successfully!").appendTo($("#files"));
 				                //update all existing media panels
 								$(".addMedia").each(function() { 
-					            	$(this).find("div").remove();
-					            	var media = appGlobals.getMedia();j
-					            	$(media).appendTo($(this));
+									var $this = $(this);
+					            	$this.find("div").remove();
+					            	var media = parseData.getMedia();
+					            	$(media).appendTo($this);
 				          		  });
 				            });
 				        },
@@ -48,7 +49,7 @@
 
 				<a class="close"></a>
 
-					<h3>Tips:</h3>
+					<h2>Tips:</h2>
 
 					<ul>
 						<li>If you want to add information to a section that does not exist yet, click "New Hierarchy." Create your new hierarchy
@@ -75,7 +76,7 @@
 					<li>Pictures: .gif, .jpeg, .jpg, .png</li>
 				</ul>
 
-				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
+				<input id="fileupload" class="button" type="file" name="files[]" data-url="../fupload/server/php/" multiple>
 				<ul id="files"></ul>
 
 			</div>
@@ -86,11 +87,12 @@
 
 				<div id="previewContent"></div>
 
-				<form action="insert.php" method="POST">
-						<input type = "hidden" name="info" id="passtext" />
-						<input type = "hidden" name="headers" id="passheads" />
-						<input type = "hidden" value="" name="title" id="passtitle" />
-						<input class="button submitInfo" type="submit" name="submit" value="Submit (for real)" />
+				<form action="insert_data.php" method="POST">
+						<input type = "hidden" name="title_num" id="passtitlenum" />
+						<input type = "hidden" name="title_words" id="passtitlewords" />
+						<input type = "hidden" name="formatted" id="passformatted" />
+						<input type = "hidden" name="barebones" id="passbarebones" />
+						<input class="button" id='add_data' type="submit" name="submit" value="Submit (for real)" />
 				</form>
 
 			</div>
@@ -120,7 +122,7 @@
 					 
 					 <div id="addContent">
 						
-						<a class="button" id="addHeader" >Add A Section</a>
+						<a class="button" id="addHeader" >Add a Section</a>
 
 						<div class="content"></div>
 
