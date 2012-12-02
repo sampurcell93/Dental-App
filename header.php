@@ -43,10 +43,10 @@
 
 			?>
 				<div data-role="header" data-theme="b">
-					<a data-rel="back" data-iconpos="notext" data-icon="back">Back</a>
+					<a data-rel="back" data-iconpos="notext" data-icon="back" data-theme="b">Back</a>
 
 					<h1><?php echo "Beginner's Guide to Dental Implant Prosthodontics";  ?></h1>
- 					<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="a">
+ 					<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="b">
 		            		<option value=""></option>
 		 					<option value="index.php">Procedures</option>
 							<option value="appendix.php">Appendix</option>

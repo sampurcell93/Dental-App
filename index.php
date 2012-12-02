@@ -26,7 +26,7 @@
 	 				<input type="hidden" value=<?php echo "'" . $condition . "'" ?> name="condition" />
 <?php
 
-	$results = $mysqli->query("select * from edentulism where parent_id IS NULL");
+	$results = $mysqli->query("select * from edentulism where parent_id = '11'");
 
 
 		while($row = $results->fetch_assoc()) { 

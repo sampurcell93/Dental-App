@@ -75,8 +75,7 @@
 			titleToText: function (title) {
 
 				title = title.split("_");
-				var textString = $("#browseHierarchy").find(".selected[id=-1]").text() + ": ";
-
+				textString = "";
 				for (var i = 0; i < title.length; i++){
 					textString += $("#browseHierarchy").find("li[id=" + title[i] + "]").text() + ", ";
 				}
@@ -197,11 +196,9 @@
 					content[i] = cell;
 				}
 
-				//content[len - 1] += "</div>";
-
-				console.log(content.join('\n'));
 				return content;
 			}
+
 		};
 
 		var addContent = {
@@ -303,7 +300,6 @@
 				editor += "<li data-content='" + italic + "' class='italic icon add' ><em>i</em></li>";
 				editor += "<li data-content='" + underline + "' class='underline icon add' ><u>U</u></li>";
 				editor += "</ul>";
-				console.log(editor);
 				$(editor).appendTo($this);
 			}
 		};
@@ -575,7 +571,7 @@ function makeHierarchyBox(rel) {
 
 					for (var i = 0; i < data.conditions.length; i++) { 
 
-						appendString += "<li id='-1' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</li>";
+						appendString += "<li id='" + data.conditions[i].id + "' data-condition='" + data.conditions[i].name + "'>" + data.conditions[i].name + "</li>";
 
 					}
 
@@ -593,16 +589,14 @@ function makeHierarchyBox(rel) {
 	}
 }
 
-function makeTableName (id) { 
+function makeTableName(id) { 
 	
 	appGlobals.tablename = "";	
 
 	$(id).children(".child_row:gt(0)").not(".isEligible").each(function(){ 
 		appGlobals.tablename += $(this).children(".selected").attr("id") + "_";
 	});
-
 	appGlobals.tablename = appGlobals.tablename.substring(0,appGlobals.tablename.length - 1)
-	console.log(appGlobals.tablename);
 	return appGlobals.tablename;
 }
 

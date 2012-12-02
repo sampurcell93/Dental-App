@@ -32,7 +32,7 @@
 
 	 		echo '{ "conditions": [' ;
 
-	 		$query = "SELECT * FROM conditions";
+	 		$query = "SELECT * FROM edentulism where parent_id IS NULL";
 
 	 		$results = $mysqli->query($query);
 
@@ -48,15 +48,7 @@
 		// if we have a node, check its direct descendants and put em in json
 		else { 
 
-			$query = "select * from $condition where parent_id";
-
-			if($id == -1) { 
-
-				$query .=  " IS NULL";
-
-			}
-
-			else { $query .= "= $id"; }
+			$query = "select * from $condition where parent_id = $id";
 
 			$results = $mysqli->query($query);
 

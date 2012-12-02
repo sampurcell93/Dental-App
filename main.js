@@ -8,16 +8,21 @@
       var pages_to_append = "";
 
       for (var i = 0; i < pages; i++) {
-
+        //make page
         pages_to_append += "<div data-role='page' id='" + content.eq(i).attr("data-page") + "'>";
-        pages_to_append += "<div data-role='header' data-theme='b'><h1>Beginner's Guide to Dental Implant Prosthodontics</h1></div>";
+        //put in header and back button
+        pages_to_append += "<div data-role='header' data-theme='b'>" + '<a data-rel="back" data-iconpos="notext" data-icon="back">Back</a>';
+        //title
+        pages_to_append += "<h1>Beginner's Guide to Dental Implant Prosthodontics</h1>";
+        //navigator
+        pages_to_append += '<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="b"><option value=""></option><option value="index.php">Procedures</option><option value="appendix.php">Appendix</option></select></div>';
+        //content
         pages_to_append += "<div data-role='content'>";
         pages_to_append += content.eq(i).html();
         pages_to_append += "</div></div>";
 
       }
 
-      console.log(pages_to_append);
       return pages_to_append;
 
     },
@@ -66,7 +71,7 @@ $(document).bind("mobileinit",function () {
 
   $.mobile.page.prototype.options.domCache = true;
 
-}).one('pagecreate', function (event) {
+}).bind('pagecreate', function (event) {
 
   //make the separate page views for content
   $(format.pages()).appendTo($("body"));

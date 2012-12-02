@@ -23,7 +23,7 @@
 				            $.each(data.result, function (index, file) {
 
 				            	//add successfully uploaded file to the list of files
-				                $('<li/>').text(file.name + " uploaded successfully!").appendTo($("#files"));
+				                $('<li/>').text(file.name + " uploaded successfully!").prependTo($("#files"));
 				                //update all existing media panels
 								$(".addMedia").each(function() { 
 									var $this = $(this);
@@ -77,7 +77,8 @@
 				</ul>
 
 				<input id="fileupload" class="button" type="file" name="files[]" data-url="../fupload/server/php/" multiple>
-				<ul id="files"></ul>
+				<ul id="files">
+				</ul>
 
 			</div>
 

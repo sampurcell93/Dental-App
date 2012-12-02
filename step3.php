@@ -51,6 +51,7 @@
 	
 	
 		<div data-role="content">
+			<div>
 
 <?php
 
@@ -67,7 +68,8 @@
 		if (row_exists($tablefull)) { $correct_table_value = $tablefull; }
 		else if (row_exists($tablehalf)) { $correct_table_value = $tablehalf; }
 		else if (row_exists($tablebasic)) { $correct_table_value = $tablebasic; }
-		
+			
+		//if the third level has not been checked, and none of the tables have content in them, present the third row.
 		if (!isset($extent) && !row_exists($tablebasic) && !row_exists($tablefull) && !row_exists($tablehalf)){ ?>
 
 			<h3>Extent</h3>
@@ -100,16 +102,18 @@
 
 			}
 		}
+		?>
+			</fieldset>
+		
+			<div data-role="controlgroup" data-type="horizontal" style="text-align:right" >
+				<a data-role="button" data-theme="b" id="continue" >Continue</a>          
+			</div>
+		</form>
 
-			echo "\t</fieldset>";
-			echo '
-				<div data-role="controlgroup" data-type="horizontal" style="text-align:right" >
-					<a data-role="button" data-theme="b" id="continue" >Continue</a>          
-				</div>';
-			echo "</form>";
-
+<?php
 		}
 		
+		//otherwise, if the node is a terminus, display its content
 		else if (!has_children($type,$condition) || !has_children($extent,$condition)){
 			
 			$query = "select formatted from $content_table where tablename = '$correct_table_value'";
@@ -126,6 +130,7 @@
 			}
 		}
 
+		//if the above cases fail, there was a problem..... interesting.
 		else { 
 
 			echo "There seems to be a problem...!";
