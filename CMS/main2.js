@@ -98,6 +98,9 @@
 				for (var i = 0; i < len; i++) {
 					//the current text box being looked at
 					currentBox = $(".info").eq(i);
+
+					if (currentBox.hasClass("top_head") && !currentBox.closest(".content_wrap").find(".second_level_header").has(".hasChildren"))
+						console.log("!!");
 					//is the box a div or an input?
 					var tagType = currentBox.prop("tagName");
 
@@ -115,13 +118,13 @@
 					//otherwise, grab the value from the input
 					else if (currentBox.hasClass("hasChildren")) {
 
-						content[i] = "<h3 class='hasChildren'>" + currentBox.val() + "</h3><span class='hidden children'></span>";
+						content[i] = "<h3 class='hasChildren'>" + currentBox.val() + "</h3>";
 
 					}
 					//if not, give another tag
 					else if (currentBox.hasClass("second_head")){ 
 
-						content[i] = "<h3 class='hasNoChildren'>" + currentBox.val() + "</h3><span class='hidden noChildren'></span>";
+						content[i] = "<h3 class='hasNoChildren'>" + currentBox.val() + "</h3>";
 
 					}
 					else if (currentBox.hasClass("top_head")) {
@@ -150,9 +153,9 @@
 				for (var i = 0; i < len; i++) { 
 
 					currentBox = input.eq(i);
-					console.log(currentBox.attr("class"));
 					cell = "";
-						
+				
+
 
 					if (currentBox.hasClass("description")) {
 						cell += "<div class='relative descriptor hidden' data-page='page" + i + "'><p>" + currentBox.html() + "</p></div>\n"; 
@@ -195,7 +198,7 @@
 					}
 					content[i] = cell;
 				}
-
+				console.log(content.join("\n"));
 				return content;
 			}
 
@@ -319,7 +322,7 @@ $(document).ready(function() {
 		//click on the add header button to add what will become a new column in that node's sql table.
 		$("#addHeader").on("click",function() {
 			//give the content wrapper a unique id
-			$(".content").append("<div id='wrap" + appGlobals.index_count + "'></div>");
+			$(".content").append("<div id='wrap" + appGlobals.index_count + "' class='content_wrap'></div>");
 			//get the unique wrapper object
 			var wrapper = $("#wrap" + appGlobals.index_count);
 
@@ -465,13 +468,10 @@ $(document).ready(function() {
 			//if the user clicks a block higher than the lowest block, the lower blocks must be removed.
 			if($this.closest(".child_row").index() < pair.find(".child_row").length) { 
 
-				var parent_index = $this.parent().index(),
-				num_blocks_before = pair.find(".child_row").length,
-				num_blocks_after;
-
-				$this.closest(".hierarchy").find(".child_row:gt(" + parent_index + ")").remove();
+				var parent_index = $this.parent().index();
+				$this.closest(".hierarchy").find(".child_row").slice(parent_index+1).remove();
 				$("#addContent").hide();
-				num_blocks_after = browseHierarchy.find(".child_row").length;
+				
 			}
 			//each node needs to be checked to see if it exists as a table.
 			tableName = makeTableName(pair);
