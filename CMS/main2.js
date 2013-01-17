@@ -22,8 +22,8 @@
 				  success: function (json) {
 				    media = json.files;
 				  }
-				});	
-
+				});
+					
 				var mediastr = "<div class='scroll'><ul class='fileList'>";
 				var makeMedia, name, extension;
 
@@ -31,20 +31,20 @@
 					name = media[i].name;
 					extension = media[i].extension;
 				
-					if (extension == "png" || extension == "jpg" || extension == "gif" || extension == "jpeg") { 
-						makeMedia = "<br /><img class='image' src='../fupload/server/php/files/" + name + "' /><br />";
+					if (extension == "png" || extension =="jpg" || extension == "gif" || extension == "jpeg") { 
+						makeMedia = "<br /><img class='path' src='fupload/server/php/files/" + name + "' /><br />";
 					}
 					else if (extension == "mp4") { 
 
-						makeMedia = "<br /><video controls='controls'><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video><br />";
+						makeMedia = "<video class='path'  controls='controls'><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video>";
 					}
 					else if (extension == "pptx") { 
 
-						makeMedia = '<iframe src="http://docs.google.com/gview?url=http://www.sampurcell.net/sam/Dental-App/CMS/fupload/server/php/files/homepage.pptx&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>';
+						makeMedia = '<iframe class="path" src="http://docs.google.com/gview?url="' + name + '" style="width:100%; height:500px;" frameborder="0"></iframe>';
 
 					}
 					else  {
-						makeMedia = "<span class='insertMedia' data-path='../fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
+						makeMedia = "<span class='insertMedia path' data-path='fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
 					}
 					mediastr += '<li class="media_icon add" data-content="' + makeMedia + '">';
 					mediastr += name;
@@ -148,14 +148,14 @@
 				var content = [];
 				var currentBox, cell;
 				var input = $(".info");
-				
+				var childrenMix;
+				var flag ;
 
 				for (var i = 0; i < len; i++) { 
 
 					currentBox = input.eq(i);
 					cell = "";
-				
-
+					childrenMix = currentBox.closest(".content_wrap").find(".second_level_wrap");
 
 					if (currentBox.hasClass("description")) {
 						cell += "<div class='relative descriptor hidden' data-page='page" + i + "'><p>" + currentBox.html() + "</p></div>\n"; 
@@ -169,18 +169,48 @@
 						cell += '<ul data-role="listview" data-inset="true" data-theme="d">';
 
 					}
-					else if (currentBox.hasClass("hasNoChildren")) {
+					else if (currentBox.hasClass("hasNoChildren") && flag == -1) {
 
 						cell += '<h3 class="sibling listitem"><a class="goToPage">' + currentBox.val() + '</a></h3>';
+
+					}
+					else if (currentBox.hasClass("hasNoChildren") && flag == 1) { 
+
+						cell += "<li><a class='goToPage'>" + currentBox.val() + "</a></li>";
 
 					}
 					//if not, give another tag
 		
 					else if (currentBox.hasClass("top_head")) {
 
+						if(flag == "undefined" || flag == 1) 
+							cell = "</ul>";
+						else if (flag == -1)
+							cell = "</div>";
+
+						if (childrenMix.has(".hasChildren") && childrenMix.has(".hasNoChildren")){
+							console.log("mix");
+							flag = -1;
+						}
+						else if (childrenMix.has(".hasChildren")) {
+							console.log("only kids");
+							flag = true;
+						}
+						else { flag = false; console.log("only no kids");}
+
 						cell += '</div><div data-role="collapsible" data-collapsed="false" data-theme="a" data-content-theme="d">';
 						cell += '<h2>' + currentBox.val() + "</h2>";
 
+						if (flag == 1) { 
+
+							cell += "<ul data-role='listview' data-inset='true' data-theme='d'>";
+
+						}
+						else if (flag == -1){ 
+							console.log("adding collapsible-set");
+							cell += " <div data-role='collapsible-set'>"; 
+
+						}
 					}
 					else if (currentBox.hasClass("third_head")) {
 
@@ -244,53 +274,13 @@
 				$this.text("Add another third-level subheader").addClass("w60");
 				$this.parent().html($this);
 			},
-			getMedia: function() { 
-				
-				var media = [];
-				$.ajax({
-				  url: 'mediafiles.php',
-				  async: false,
-				  dataType: 'json',
-				  success: function (json) {
-				    media = json.files;
-				  }
-				});	
-				var mediastr = "<div class='scroll'><ul class='fileList'>";
-				var makeMedia, name, extension;
-
-				for (var i = 0; i < media.length - 1; i++) { 
-					name = media[i].name;
-					extension = media[i].extension;
-				
-					if (extension == "png" || extension =="jpg" || extension == "gif" || extension == "jpeg") { 
-						makeMedia = "<br /><img src='fupload/server/php/files/" + name + "' /><br />";
-					}
-					else if (extension == "mp4") { 
-
-						makeMedia = "<video controls='controls'><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video>";
-					}
-					else if (extension == "pptx") { 
-
-						makeMedia = '<iframe src="http://docs.google.com/gview?url=http://www.sampurcell.net/sam/Dental-App/CMS/fupload/server/php/files/homepage.pptx&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>';
-
-					}
-					else  {
-						makeMedia = "<span class='insertMedia' data-path='CMS/fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
-					}
-					mediastr += '<li class="media_icon add" data-content="' + makeMedia + '">';
-					mediastr += name;
-					mediastr += "</li>";
-				}
-				mediastr += "</ul></div>";
-				return mediastr;
-			},
 			editor: function($this){ 
 
 				var unordered_list = " <ul><li>List 1</li><li>List 2</li><li>List 3</li></ul>";
 				var ordered_list = " <ol><li>List 1</li><li>List 2</li><li>List 3</li></ol>";
-				var underline = ' <u>Your tessxt</u> done';
-				var bold = ' <strong>Your tssext</strong> done';
-				var italic = ' <em>Your text</em> done';
+				var underline = '<u>Your text</u>done';
+				var bold = '<strong>Your text</strong>done';
+				var italic = '<em>Your text</em>done';
 				
 				//get all of the files currently in the media directory as array
 				var mediastring = parseData.getMedia();
@@ -352,6 +342,7 @@ $(document).ready(function() {
 			pairing = $this.closest(".editor").siblings(".description");
 			//get the data to be added
 			var content = $this.attr("data-content");
+			console.log(content);
 			//append data
 			$(content).appendTo(pairing);
 

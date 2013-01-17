@@ -19,6 +19,7 @@
 	if($mysqli->connect_errno) { 
 
 		echo $mysqli->connect_error;
+		echo "!";
 		exit();
 
 	}

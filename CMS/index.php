@@ -76,7 +76,7 @@
 					<li>Pictures: .gif, .jpeg, .jpg, .png</li>
 				</ul>
 
-				<input id="fileupload" class="button" type="file" name="files[]" data-url="../fupload/server/php/" multiple>
+				<input id="fileupload" class="button" type="file" name="files[]" data-url="fupload/server/php/" multiple>
 				<ul id="files">
 				</ul>
 

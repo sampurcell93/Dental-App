@@ -79,7 +79,7 @@ function good_file($filename) {
 }
 
 //search dir and validate each item, then put into json array
-if ($handle = opendir('../fupload/server/php/files')) {
+if ($handle = opendir('fupload/server/php/files')) {
     $json = '{"files": [';
 
     while (false !== ($entry = readdir($handle))) {

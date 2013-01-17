@@ -48,14 +48,14 @@
 		// if we have a node, check its direct descendants and put em in json
 		else { 
 
-			$query = "select * from $condition where parent_id = $id";
+			$query = "select * from edentulism where parent_id = $id";
 
 			$results = $mysqli->query($query);
 
 			// if the node has direct descendants, we want to echo them.
 		 	if ($results->num_rows > 0) { 
 
-		 		echo '{ "name" : "' .  $condition  . '", "children": [' ;
+		 		echo '{ "name" : "' .  "Edentulism" . '", "children": [' ;
 
 		 		while($row = $results->fetch_assoc()) { 
 		 			
