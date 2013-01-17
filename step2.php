@@ -15,7 +15,7 @@
 
 ?>
 
-	<h3>Type of Procedure</h3>
+	<h4 class='procedures'>Type of Procedure:</h3>
 
 	<fieldset data-role="controlgroup">
 

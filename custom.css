@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* CSS Document */
 .ui-icon-menu {
   background-image: url("images/menu_icon.png"); }
@@ -109,7 +110,8 @@
   position: absolute !important;
   left: -9999px;
   clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px); }
+  clip: rect(1px, 1px, 1px, 1px);
+  border-radius: 0px; }
 
 .ui-collapsible-heading
 .ui-collapsible-set-horizontal .ui-collapsible-heading-collapsed a .ui-btn-text {
@@ -192,9 +194,11 @@ p {
   box-shadow: none; }
   #homeHead [role="heading"], #homeHead h1 {
     text-align: left;
+    font-weight: 300;
     width: 100%;
     margin: 0; }
     #homeHead [role="heading"] span, #homeHead h1 span {
+      font-weight: 300;
       display: inline-block;
       width: 100%;
       margin-left: 90px;
@@ -203,7 +207,7 @@ p {
     #homeHead [role="heading"] span:first-child, #homeHead h1 span:first-child {
       color: #f8f8f8;
       font-family: "Franklin ITC Pro Light", sans-serif;
-      font-size: 1.6em;
+      font-size: 1.3em;
       margin-bottom: -20px;
       margin-top: 25px;
       -webkit-box-shadow: none;
@@ -212,25 +216,35 @@ p {
       font-family: "Franklin ITC Pro Cond Med", sans-serif;
       margin-top: 4px;
       color: #300f00;
+      font-weight: 400;
       font-size: 1.4em;
       -webkit-box-shadow: none;
       box-shadow: none; }
 
-video, img {
-  max-width: 95%; }
+[data-role="content"] img, video {
+  max-width: 95%;
+  margin: 10px 2%;
+  border: 1px solid #aaa;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
 
 .listitem.sibling {
-  width: 105%; }
+  max-width: 100%; }
+  .listitem.sibling:first-child a.ui-link {
+    -webkit-border-radius: 8px 8px 0 0;
+    border-radius: 8px 8px 0 0; }
+  .listitem.sibling:last-child a.ui-link {
+    -webkit-border-radius: 0 0 8px 8px;
+    border-radius: 0 0 8px 8px; }
   .listitem.sibling a.ui-link {
     display: block;
     cursor: pointer;
     background: #f8f8f8;
     border: 1px solid #bbb;
-    margin: -20px 0 -20px -7px;
-    padding: 10px 0 10px 5%;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    width: 95%;
+    margin: -20px 0 -20px -8px;
+    padding: 10px 0px 10px 13.5px;
+    text-align: center;
+    width: 100%;
     color: #313131;
     text-decoration: none;
     font-size: .85em; }
@@ -246,6 +260,10 @@ video, img {
       background-image: -o-linear-gradient(#f6f6f6, #e0e0e0);
       /* Opera 11.10+ */
       background-image: linear, top, #f6f6f6, #e0e0e0; }
+
+.procedures {
+  font-weight: 400;
+  margin-bottom: 0; }
 
 @font-face {
   font-family: "Franklin ITC Pro Cond Med";

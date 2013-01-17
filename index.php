@@ -1,5 +1,5 @@
 <?php
-	$base = 1;
+	$fancyheader= 1;
 	require_once("header.php");
 
 	$mysqli = new mysqli("localhost","sampurce_admin","kamehameha1","sampurce_dental");
@@ -17,16 +17,20 @@
 
 	<div data-role="content">
 
+		<h3>Procedures</h3>
+
 		<!--pass along the original condition (edentulism to start)-->
 	 		<form method="GET" action="step3.php" >
 
-	 			<h3>Case:</h3>
+
+	 			<h4 class='procedures'>Case:</h4>
+	 				
 
 	 			<fieldset data-role="controlgroup" data-submission="step2.php" data-condition=<?php echo "'" . $condition . "'"; ?>>
 	 				<input type="hidden" value=<?php echo "'" . $condition . "'" ?> name="condition" />
 <?php
 
-	$results = $mysqli->query("select * from edentulism where parent_id = '11'");
+	$results = $mysqli->query("select * from edentulism where parent_id = '9'");
 
 
 		while($row = $results->fetch_assoc()) { 
@@ -35,7 +39,7 @@
 
 	 					if($k == "id") { 
 
-	 						$id = $v;
+	 						$id = $v;	
 	 						echo "\t\t\t\t\t<input type = 'radio' name = 'case' id = '" .
 	 							$v;
 	 					}

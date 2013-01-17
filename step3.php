@@ -94,10 +94,13 @@
 
 				}
 
-				if($key == "lev2" && $val) { 
+				if($key == "lev2" && $val) { ?>
 
-					echo "\t\t\t\t\t<input type = 'radio' name = 'extent' id = '" . $val . "' value = '" . $id . "' />";
-					echo "<label for='" . $val ."'>" . $val ."</label>";
+					<input type = 'radio' name = 'extent' id = <?php echo '"' . $val . '"'; ?> value= <?php echo '"' .  $id . '"'; ?> />
+					<label for=<?php echo '"' . $val . '"'; ?>> <?php echo $val; ?></label>
+
+
+				<?php
 				}
 
 			}
@@ -115,20 +118,27 @@
 		
 		//otherwise, if the node is a terminus, display its content
 		else if (!has_children($type,$condition) || !has_children($extent,$condition)){
-			
-			$query = "select formatted from $content_table where tablename = '$correct_table_value'";
+			?>
+
+			<div>
+
+			<?php
+
+			$query = "select * from $content_table where tablename = '$correct_table_value'";
 			
 			$results = $mysqli->query($query);
 
 			while($row = $results->fetch_assoc()) { 
 
-				foreach($row as $k=>$v) { 
-					if ($k == "formatted")
-						echo $v ;
+				?> <h3> <?php echo $row['table_text']; ?> </h3>
+
+				 <?php
+
+				echo stripcslashes($row['formatted']);
 				
-				}
 			}
 		}
+		
 
 		//if the above cases fail, there was a problem..... interesting.
 		else { 
@@ -140,7 +150,7 @@
 	
 ?>
 
-		</div>
+		</div></div>
 <?php 
 	
 	require_once("footer.php");

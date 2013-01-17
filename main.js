@@ -17,7 +17,7 @@
         //navigator
         pages_to_append += '<select name="nav" id="nav" data-icon="menu" class="ui-btn-right" data-mini="true" data-iconpos="notext" data-theme="b"><option value=""></option><option value="index.php">Procedures</option><option value="appendix.php">Appendix</option></select></div>';
         //content
-        pages_to_append += "<div data-role='content'>";
+        pages_to_append += "<div data-role='content' id='content" + content.eq(i).attr("data-page") + "'>";
         pages_to_append += content.eq(i).html();
         pages_to_append += "</div></div>";
 
@@ -27,6 +27,7 @@
 
     },
 
+    //each list item must be linked to a data-role page as per jquery mobile specs
     linkPages: function()  {
 
       // for non accordion, get the anchor, and the find the closest page to it. append that pages number to its href
@@ -35,6 +36,8 @@
         var $this = $(this);
         var pair = $this.closest("h3").next(".descriptor").attr("data-page");
         $this.attr("href","#" + pair);
+        //console.log(pair.substring(pair.length -1 , pair.length));
+        //$($this.text()).appendTo($("#contentpage" + pair.substring(pair.length -1 , pair.length)));
 
       });
 
@@ -44,39 +47,59 @@
         var $this = $(this);
         var pair = $this.closest("li").next(".descriptor").attr("data-page");
         $this.attr("href","#" + pair);
+        $($this.text()).prependTo($("#" + pair).find("[data-role=content]"));
 
         // for the last list item, the descriptor is appended after, so the lookup is slightly different
         if ($this.closest("li").hasClass("last-li")){
 
           pair = $this.closest("[data-role=collapsible]").next(".descriptor").attr("data-page");
-          $this.attr("href","#" + pair);          
+          $this.attr("href","#" + pair);
+          $($this.text()).prependTo($("#" + pair).find("[data-role=content]"));
 
         }
-
       });
 
       //finally, remove the descriptor elements.
       $(".relative.descriptor").each(function() { 
-
         $(this).remove();
+      });
+    },
+    //in order for images to display in the cms, their path began with ../. this removes that. either way, the path had to be modified.
+    imagePaths: function()  {
+
+      $(".path").each(function(){
+
+        var $this = $(this);
+        var currpath = $this.attr("src");
+
+        if ($this.prop("tagName") == "VIDEO"){
+          var source = $this.find("source");
+          currpath = source.attr("src");
+          source.attr("src", "CMS/" + currpath);
+          source.load();
+        }
+
+        //console.log(currpath);
+        $this.attr("src", "CMS/" + currpath);
+        //console.log($this.attr("src"));
+
+       
 
       });
-
-
     }
 };
 
+$("#bar").off('pagecreate');
+
 //first line lets things work on first page load, no need for refresh.
-$(document).bind("mobileinit",function () {
-
-  $.mobile.page.prototype.options.domCache = true;
-
-}).bind('pagecreate', function (event) {
+$("#bar").live('pagecreate', function (event) {
 
   //make the separate page views for content
   $(format.pages()).appendTo($("body"));
-  //lin each list item to the next content item
+  //link each list item to the next content item
   format.linkPages();
+  //change the image paths
+  format.imagePaths();
 
   //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 
@@ -110,11 +133,6 @@ $(document).bind("mobileinit",function () {
 
 	});
 
-
-  $("[data-icon*='arrow'] a").each(function() {
-
-
-  });
 
 //Thanks to MDN for all the browser specifics
 function makeRequest(url, condition,id) { 
