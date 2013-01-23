@@ -136,32 +136,31 @@ p { margin: 0;}
 
 		span { 
 
-				font-weight: 300;
+			font-weight: 300;
 			display: inline-block;
+			text-shadow: none;
 			width: 100%;
 			margin-left: 90px;
-			@include box-shadow(none);
 		}
 
 		span:first-child { 
 
 				color: #f8f8f8;
 				font-family: "Franklin ITC Pro Light", sans-serif;
-				font-size: 1.3em;
+				font-size: 1.4em;
 				margin-bottom: -20px;
-				margin-top: 25px;
-				@include box-shadow(none);
+				margin-top: 30px;
 
 		}
 
 		span:last-child { 
 
 				font-family: "Franklin ITC Pro Cond Med", sans-serif;
-			margin-top: 4px;
+			margin-top: 10px;
 			color: #300f00;
 			font-weight: 400;
 			font-size: 1.4em;
-				@include box-shadow(none);
+			
 		}
 
 	}
