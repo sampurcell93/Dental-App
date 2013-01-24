@@ -410,6 +410,9 @@ $(document).ready(function() {
 		//add each header followed by its text in order.
 
 					$("#previewContent").html(curr + toAdd.barebones);
+
+					makeTableName("#" + $(".activeBrowser").attr("id"));
+					console.log(appGlobals.tablename);
 		});
 		
 		//close function for lightboxes, or any parent element.
@@ -505,17 +508,19 @@ $(document).ready(function() {
 		})
 		.delegate(".editable_node","click",function() {
 
-			var id = $(this).attr("id");
-			console.log(id);
+			var $this = $(this);
+			var id = $this.attr("id");
 			$.ajax({
 			  url: 'get_current_state.php?parents=' + id,
 			  async: false,
 			  dataType: 'html',
 			  success: function (html) {
 			    $("#addContent").show().append(html);
-			    console.log(html);
 			  }
 			});
+
+			$this.addClass("editing_node").siblings().removeClass("editing_node");
+
 		});
 
 		$("#populateNode").live("click",function() { 
@@ -606,7 +611,7 @@ function makeTableName(id) {
 	appGlobals.tablename = "";	
 
 	$(id).children(".child_row:gt(0)").not(".isEligible").each(function(){ 
-		appGlobals.tablename += $(this).children(".selected").attr("id") + "_";
+		appGlobals.tablename += $(this).find(".selected, .editing_node").attr("id") + "_";
 	});
 	appGlobals.tablename = appGlobals.tablename.substring(0,appGlobals.tablename.length - 1)
 	return appGlobals.tablename;
