@@ -19,7 +19,6 @@
 	if($mysqli->connect_errno) { 
 
 		echo $mysqli->connect_error;
-		echo "!";
 		exit();
 
 	}
@@ -58,21 +57,23 @@
 		$editable = mysql_escape_string($editable);
 		$editable = utf8_encode($editable);
 		
-		$result = $mysqli->query("select * from 'edentulism_content' where tablename = '$title_num");
+		$result = $mysqli->query("select * from `edentulism_content` where tablename = '$title_num'");
+		echo "select * from `edentulism_content` where tablename = '$title_num'";
 
-		if (!$result->numrows) 
-			$insert_string = "insert into edentulism_content VALUES('','$title_num','$barebones','$formatted','$title_words', '$editable')";
+		if (!$result->num_rows) 
+			$insert_string = "insert into `edentulism_content` VALUES('','$title_num','$barebones','$formatted','$title_words', '$editable')";
 		else {
 			echo "editing";
-			$insert_string = "UPDATE edentulism_content
+			$insert_string = "UPDATE `edentulism_content`
 								SET barebones = '$barebones',
-								formatted = '$formatted',
-								editable = '$editable";
+								formatted = 'ballsonya',
+								editable = '$editable'
+							WHERE tablename = '$title_num'";
 		}
 		
 		$mysqli->query($insert_string);
 
-		$query = "SELECT 'barebones' from edentulism_content where tablename = '$title'";
+		$query = "SELECT 'barebones' from `edentulism_content` where tablename = '$title'";
 		
 		$results = $mysqli->query($query);
 
