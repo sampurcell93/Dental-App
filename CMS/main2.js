@@ -1,9 +1,11 @@
 
 		function globals()  {
 
+			//gives each top level section a number
 			this.index_count = 0;
 			//compile a table name based on the selection in existing hierarchy
 			this.tablename;
+			//a loading gif for ajax calls
 			this.loader = "<img src='images/loader.gif'/>";
 					
 		};
@@ -63,13 +65,19 @@
 				var content = this.barebones(boxes);
 				//the array with content formatted specifically for the app
 				var formatted = this.formatted(boxes);
+				//the html which composes the edit boxes, so that the data can be edited more easily
+				$(".info").each(function() { 
+
+					$(this).attr("value",$(this).val());
+					console.log($(this).attr("value")) ;
+				});
+				var edited = $(".content").html();
 
 				//return both the nicely formatted jqmobile array, and the barebones array
 				return {
-
 					barebones: content.join(' \n ') + "</ul></div></div>",
-					format: formatted.join(' \n ')
-
+					format: formatted.join(' \n '),
+					editable: edited
 				};
 			},
 			titleToText: function (title) {
@@ -88,6 +96,8 @@
 				$("#passtitlewords").val($("#text_title").text());
 				$("#passformatted").val(content.format);
 				$("#passbarebones").val(content.barebones);
+				$("#passeditable").val(content.editable);
+				console.log($("#passeditable").val());
 			},
 			//format the content with only header tags, so multiple views can be generated from basic markup
 			barebones: function(len) { 
@@ -99,8 +109,6 @@
 					//the current text box being looked at
 					currentBox = $(".info").eq(i);
 
-					if (currentBox.hasClass("top_head") && !currentBox.closest(".content_wrap").find(".second_level_header").has(".hasChildren"))
-						console.log("!!");
 					//is the box a div or an input?
 					var tagType = currentBox.prop("tagName");
 
@@ -189,27 +197,21 @@
 							cell = "</div>";
 
 						if (childrenMix.has(".hasChildren") && childrenMix.has(".hasNoChildren")){
-							console.log("mix");
 							flag = -1;
 						}
 						else if (childrenMix.has(".hasChildren")) {
-							console.log("only kids");
 							flag = true;
 						}
-						else { flag = false; console.log("only no kids");}
+						else { flag = false; }
 
 						cell += '</div><div data-role="collapsible" data-collapsed="false" data-theme="a" data-content-theme="d">';
 						cell += '<h2>' + currentBox.val() + "</h2>";
 
 						if (flag == 1) { 
-
 							cell += "<ul data-role='listview' data-inset='true' data-theme='d'>";
-
 						}
 						else if (flag == -1){ 
-							console.log("adding collapsible-set");
 							cell += " <div data-role='collapsible-set'>"; 
-
 						}
 					}
 					else if (currentBox.hasClass("third_head")) {
@@ -228,7 +230,6 @@
 					}
 					content[i] = cell;
 				}
-				console.log(content.join("\n"));
 				return content;
 			}
 
@@ -342,7 +343,6 @@ $(document).ready(function() {
 			pairing = $this.closest(".editor").siblings(".description");
 			//get the data to be added
 			var content = $this.attr("data-content");
-			console.log(content);
 			//append data
 			$(content).appendTo(pairing);
 
@@ -448,7 +448,7 @@ $(document).ready(function() {
 
 
 		//each item they click loads its direct children via json
-		$(".hierarchy").delegate("li:not('.selected, .disabled, .newNode')","click",function() { 
+		$(".hierarchy").delegate("li:not('.selected, .editable_node, .newNode')","click",function() { 
 
 			var appendString = "<ul class='child_row bottom'>";
 			var $this = $(this);
@@ -481,7 +481,7 @@ $(document).ready(function() {
 						appendString += "<li id='" + data.children[i].id + "' data-condition='" + data.name + "'";
 							
 						if (data.children[i].table_exists) { 
-							appendString += " class='disabled'";
+							appendString += " class='editable_node'";
 						}
 						appendString += ">" + data.children[i].childname + "</li>";
 					}	
@@ -501,6 +501,20 @@ $(document).ready(function() {
 						$("<p class='child_row'><a class='cursor' id='fixNewHierarchy'>Fix your specifications in place (Make sure you're happy).</a><div class='addNode'>+</div></p>").appendTo(pair);						
 					}
 				}
+			});
+		})
+		.delegate(".editable_node","click",function() {
+
+			var id = $(this).attr("id");
+			console.log(id);
+			$.ajax({
+			  url: 'get_current_state.php?parents=' + id,
+			  async: false,
+			  dataType: 'html',
+			  success: function (html) {
+			    $("#addContent").show().append(html);
+			    console.log(html);
+			  }
 			});
 		});
 
@@ -543,7 +557,14 @@ $(document).ready(function() {
 
 		$("#add_data").on("click",function(e) { 
 
+			//e.preventDefault();
 			parseData.addToForm();
+
+		});
+
+		$("#fake_button").on("click",function() { 
+
+			$("#fileupload").trigger("click");
 
 		});
 });

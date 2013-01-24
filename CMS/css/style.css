@@ -425,11 +425,10 @@ hr {
 nav ul {
   display: block;
   width: 400px;
-  height: 60px;
+  height: 59px;
   float: right;
-  list-style: none;
-  -webkit-box-shadow: 0px 0px 10px #aeaeae;
-  box-shadow: 0px 0px 10px #aeaeae; }
+  border-right: 1px solid #ccc;
+  list-style: none; }
   nav ul li {
     float: left;
     height: 100%;
@@ -438,39 +437,38 @@ nav ul {
   nav ul li a {
     cursor: pointer;
     display: block;
-    background: #93cede;
+    background: white;
     /* Old browsers */
-    background: -moz-linear-gradient(top, #93cede 0%, #75bdd1 41%, #49a5bf 100%);
+    background: -moz-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #93cede), color-stop(41%, #75bdd1), color-stop(100%, #49a5bf));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(50%, #f1f1f1), color-stop(51%, #e1e1e1), color-stop(100%, #f6f6f6));
     /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #93cede 0%, #75bdd1 41%, #49a5bf 100%);
+    background: -webkit-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #93cede 0%, #75bdd1 41%, #49a5bf 100%);
+    background: -o-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #93cede 0%, #75bdd1 41%, #49a5bf 100%);
+    background: -ms-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
     /* IE10+ */
-    background: linear, to bottom, #93cede 0%, #75bdd1 41%, #49a5bf 100%;
+    background: linear, to bottom, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%;
     /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#93cede', endColorstr='#49a5bf',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
     /* IE6-9 */
     height: 100%;
     line-height: 60px;
-    color: #f0f0f0;
+    color: #222;
     text-align: center;
     padding-left: 10%;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 4px solid #ccc;
+    border-top: 1px solid #f9f9f9;
+    border-left: 1px solid #ccc;
     width: 100%;
     text-decoration: none;
-    text-shadow: 0px -2px 0px black;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: .9em;
     position: relative; }
     nav ul li a:hover {
-      color: #fff;
-      border-bottom: 4px solid #00A1FF;
+      color: #050505;
+      text-decoration: underline;
       border-top: 1px solid #fff; }
       nav ul li a:hover:after {
         color: #fff; }
@@ -483,8 +481,7 @@ nav ul {
   font-size: 1em;
   top: 1%;
   left: 10%;
-  text-shadow: 0px -2px 0px black;
-  color: #f8f8f8; }
+  color: #777; }
 
 /* =======================================*/
 /*=========== CONTENT INPUT STYLES =============== */
@@ -613,7 +610,7 @@ input[type="text"] {
 .editor {
   position: absolute;
   top: 0px;
-  left: -1px;
+  left: 0px;
   width: 100%;
   list-style: none;
   z-index: 800; }
@@ -633,12 +630,14 @@ input[type="text"] {
     border-bottom: 1px solid #ccc;
     text-shadow: 0px 1px 0px #fff;
     position: relative; }
+    .editor > li:first-child {
+      border-left: none; }
     .editor > li div {
       display: none;
       width: 200px;
       position: absolute;
-      top: -2px;
-      left: 100%;
+      top: 100%;
+      left: -1px;
       max-height: 200px;
       border: 1px solid #ccc;
       background: #f8f8f8;
@@ -1011,7 +1010,7 @@ input[type="text"] {
   	@include box-shadow(0px 0px 1px #aaa, inset 0px 0px 4px #ccc);
   }*/ }
 
-.disabled {
+.editable_node {
   position: relative;
   color: #aaa;
   /*&:before { 
@@ -1025,20 +1024,21 @@ input[type="text"] {
   	background: #000;
   	@include border-radius(0 10px 0 0);
   }*/ }
-  .disabled:hover::after {
+  .editable_node:hover::after {
     display: block; }
-  .disabled:after {
+  .editable_node:after {
     position: absolute;
-    content: "√";
+    content: "Edit";
     display: none;
     top: 0%;
     left: 0%;
     background: #212121;
-    background: rgba(0, 0, 0, 0.33);
+    background: rgba(0, 0, 0, 0.53);
     text-align: center;
     color: #f0f0f0;
     height: 100%;
     width: 100%;
+    pointer-events: none;
     font-size: 1.2em;
     line-height: 33px;
     text-shadow: none;
@@ -1115,3 +1115,6 @@ input[type="text"] {
 
   #previewBox::after {
     content: "Verify Content."; } }
+@media all and (max-width: 300px) {
+  nav li, nav li a {
+    width: 200px; } }

@@ -43,7 +43,7 @@
 	$title_words = utf8_encode($title_words);
 
 
-	if (isset($_POST['submit']) && !row_exists($title_num)) { 
+	if (isset($_POST['submit'])) { 
 
 		//get all text from input boxes, put into php array
 		$formatted = $_POST['formatted'];
@@ -53,15 +53,26 @@
 		$barebones = $_POST['barebones'];
 		$barebones = mysql_escape_string($barebones);
 		$barebones = utf8_encode($barebones);
+
+		$editable = $_POST['editable'];
+		$editable = mysql_escape_string($editable);
+		$editable = utf8_encode($editable);
 		
-		//create a table creation string which dynamically loads all of the headers into new columns
-		
-		$insert_string = "insert into edentulism_content VALUES('','$title_num','$barebones','$formatted','$title_words')";
-		
+		$result = $mysqli->query("select * from 'edentulism_content' where tablename = '$title_num");
+
+		if (!$result->numrows) 
+			$insert_string = "insert into edentulism_content VALUES('','$title_num','$barebones','$formatted','$title_words', '$editable')";
+		else {
+			echo "editing";
+			$insert_string = "UPDATE edentulism_content
+								SET barebones = '$barebones',
+								formatted = '$formatted',
+								editable = '$editable";
+		}
 		
 		$mysqli->query($insert_string);
 
-		$query = "SELECT * from edentulism_content where tablename = '$title'";
+		$query = "SELECT 'barebones' from edentulism_content where tablename = '$title'";
 		
 		$results = $mysqli->query($query);
 
@@ -82,12 +93,7 @@
 
 			while ($row = $results->fetch_assoc()) { 
 
-				foreach($row as $k=>$v) { 
-
-						echo "<h2>" . str_replace("_"," ",$k) . "</h2>";
-						echo html_entity_decode(str_replace("\n"," ",$v));
-					
-				}
+						echo html_entity_decode(str_replace("\n"," ",$row['barebones']));
 
 			}
 
