@@ -31,7 +31,7 @@
 			<div class='wrapper-border'>
 				<div class='wrapper'>
 
-					<form method="POST" action="appendixTry.php">
+					<form method="POST" action="appendix_try.php">
 
 						<label for="term"><h2>Add a term:</h2>
 							<input type="text" name="term" id="term" placeholder="Term name here." />
