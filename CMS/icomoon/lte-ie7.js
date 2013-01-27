@@ -6,11 +6,11 @@ window.onload = function() {
 		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'icon-list' : '&#xe000;',
-			'icon-link' : '&#xe001;',
-			'icon-checkbox-partial' : '&#xe002;',
-			'icon-monitor' : '&#xe003;',
-			'icon-camera' : '&#xe004;'
+			'icon-untitled' : '&#x40;',
+			'icon-untitled-2' : '&#x26;',
+			'icon-untitled-3' : '&#x2e;',
+			'icon-untitled-4' : '&#x21;',
+			'icon-untitled-5' : '&#x24;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

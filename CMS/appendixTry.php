@@ -20,7 +20,7 @@
 		$term = $_POST['term'];
 		$def = $_POST['definition'];
 
-		$mysqli = new mysqli("localhost","root","","dental_info");
+		$mysqli = new mysqli('localhost','sampurce_admin','kamehameha1','sampurce_dental');
 
 		$mysqli->query("INSERT INTO appendix VALUES ('','$term','$def')");
 
@@ -32,11 +32,13 @@
 
 		}
 
-			echo "<div id='lander_wrap'><p style='text-align:center'>Your submission of term <strong>" . $term . "</strong> <br />";
-			echo "<em>'" . $def . "'</em> was successful. Appendix updated!</p>";
-			echo "<a href='index.php' class='button'>Go back</a></div>";
+		?>
 
+			<div id='wrapper-border'><p style='text-align:center'>Your submission of term <strong> <?php echo $term; ?> </strong> - <br />
+			<em><?php echo $def; ?></em> was successful. Appendix updated!</p>
+			<a href='add_appendix.php' class='button'>Go back</a></div>
 
+		<?php
 	}
 
 	else { 

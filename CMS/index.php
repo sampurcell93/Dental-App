@@ -25,12 +25,7 @@
 				            	//add successfully uploaded file to the list of files
 				                $('<li/>').text(file.name + " uploaded successfully!").prependTo($("#files"));
 				                //update all existing media panels
-								$(".addMedia").each(function() { 
-									var $this = $(this);
-					            	$this.find("div").remove();
-					            	var media = parseData.getMedia();
-					            	$(media).appendTo($this);
-				          		  });
+								parseData.updateMedia();
 				            });
 				        },
 				        fail: function(e,data) { 
@@ -105,7 +100,7 @@
 				<div class='wrapper'>
 
 					<header>
-						<h1>Add Content<span> - Tufts Dental School</span></h1>
+						<h1>Add Content<span></span></h1>
 						<nav>
 							<ul>
 								<li><a class="help" data-icon="&#42;"  data-rel="helpBox">Help</a></li>
@@ -116,25 +111,27 @@
 					</header>
 
 					<p>Do you want to make a new hierarchy, or add content to an existing one? (New still incomplete)<br> 
-					 	<span class="button" id="newHierarchy" rel="#makeHierarchy">New Hierarchy</span>
-					 	<span class="button" id="existingHierarchy" rel="#browseHierarchy">Add to Existing</span>
+					 	<span class="button" id="newHierarchy" rel="#makeHierarchy">Make a New Hierarchy</span>
+					 	<span class="button" id="existingHierarchy" rel="#browseHierarchy">Add to Empty Node or Edit Existing</span>
 					</p>
 
 					 <div id="browseHierarchy" class="hidden relative hierarchy"></div>
 					 <div id="makeHierarchy" class="hidden relative hierarchy"></div>
 					 
-					 <div id="addContent">
-						
-						<a class="button" id="addHeader" >Add a Section</a>
 
-						<div class="content"><div id="wrap0" class="content_wrap"><h2>Section 1</h2> <a class="close remove" data-close="remove"></a><input type="text" class="top_head info" placeholder="Put a top-level header here." value="top"><p>Add sub-divisions to this header, then either sub-divide further or add content to that subheader.</p><span class="addSecond"> Add Subheader</span><div class="relative second_level_wrap w100 m20"><a class="close" data-close="remove"></a><h3>Second level header</h3><input type="text" placeholder="Put a second-level header name here." class="second_head info hasChildren" data-children="1" value="second"><p class="center"><span class="button w25 addTertiary inline w60">Add another third-level subheader</span></p><div class="third_level_wrap"><a class="close" data-close="remove"></a><input type="text" class="third_head info m10" placeholder="Enter a third level title." value="third"><div class="relative m10"><div class="description info" contenteditable="true" placeholder="Enter some content." value="">twt</div><ul class="editor"><li class="addList icon">Ã®Â€Â€<div><ul class="listchoice"><li class="add" data-content=" &lt;ul&gt;&lt;li&gt;List 1&lt;/li&gt;&lt;li&gt;List 2&lt;/li&gt;&lt;li&gt;List 3&lt;/li&gt;&lt;/ul&gt;">Unordered list</li><li class="add" data-content=" &lt;ol&gt;&lt;li&gt;List 1&lt;/li&gt;&lt;li&gt;List 2&lt;/li&gt;&lt;li&gt;List 3&lt;/li&gt;&lt;/ol&gt;">Ordered list</li></ul></div></li><li class="addImage input icon">Ã®Â€Â‚<div><input type="text" class="inline w60" placeholder="Enter image URL"><span class="url add"></span><span class="button p0 inline w30">Add</span></div></li><li class="addLink input icon">Ã®Â€Â<div><input type="text" class="inline" placeholder="Enter link URL"><span class="url add"></span><span class="button p0 inline w30">Add</span></div></li><li data-role="Media" class="addMedia icon">Ã®Â€Â„<div class="scroll"><ul class="fileList"><li class="media_icon add" data-content="&lt;video class='path'  controls='controls'&gt;&lt;source src='fupload/server/php/files/19 Thrift Shop (feat. Wanz).mp4' type='video/mp4;' &gt;&lt;/source&gt;&lt;/video&gt;">19 Thrift Shop (feat. Wanz).mp4</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/clouds.jpg' /&gt;&lt;br /&gt;">clouds.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/Contact.png' /&gt;&lt;br /&gt;">Contact.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/Conversation.png' /&gt;&lt;br /&gt;">Conversation.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/cube.jpg' /&gt;&lt;br /&gt;">cube.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/darkmenu.jpg' /&gt;&lt;br /&gt;">darkmenu.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/everest.jpeg' /&gt;&lt;br /&gt;">everest.jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/facebook.png' /&gt;&lt;br /&gt;">facebook.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/fto_prelim.jpg' /&gt;&lt;br /&gt;">fto_prelim.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/genericorp.png' /&gt;&lt;br /&gt;">genericorp.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/highup (1).jpeg' /&gt;&lt;br /&gt;">highup (1).jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/highup.jpeg' /&gt;&lt;br /&gt;">highup.jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/hotplanet_thumb.jpg' /&gt;&lt;br /&gt;">hotplanet_thumb.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/iphone.jpg' /&gt;&lt;br /&gt;">iphone.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/iphone.png' /&gt;&lt;br /&gt;">iphone.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/jumbosmash_splash_thumb.jpg' /&gt;&lt;br /&gt;">jumbosmash_splash_thumb.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/milkyeway.jpeg' /&gt;&lt;br /&gt;">milkyeway.jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/milkyeway.jpg' /&gt;&lt;br /&gt;">milkyeway.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/miniscapture.jpg' /&gt;&lt;br /&gt;">miniscapture.jpg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/purple.jpeg' /&gt;&lt;br /&gt;">purple.jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/rainbow.jpeg' /&gt;&lt;br /&gt;">rainbow.jpeg</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/warped.png' /&gt;&lt;br /&gt;">warped.png</li><li class="media_icon add" data-content="&lt;br &gt;&lt;/li&gt;&lt;img class='path' src='fupload/server/php/files/youtube.png' /&gt;&lt;br /&gt;">youtube.png</li></ul></div></li><li data-content="&lt;strong&gt;Your text&lt;/strong&gt;done" class="bold icon add"><strong>B</strong></li><li data-content="&lt;em&gt;Your text&lt;/em&gt;done" class="italic icon add"><em>i</em></li><li data-content="&lt;u&gt;Your text&lt;/u&gt;done" class="underline icon add"><u>U</u></li></ul></div></div></div></div></div>
+					 <div id="addContent" class='hidden'>
+						
+						<a class="button" id="addHeader" >Add another Section</a>
+
+						<div class="content"></div>
+
+						<div style="clear: both;"></div>
 
 						<input type="submit" class="button" value="Submit (see preview)" id="preview"/>
-					
-						<div style="clear: both;"></div>
 					</div>
 				</div>
 			</div>
+
 
 			
 

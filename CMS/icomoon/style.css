@@ -15,29 +15,36 @@
 	content: attr(data-icon);
 	speak: none;
 	font-weight: normal;
+	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
 
 /* Use the following CSS code if you want to have a class per icon */
-[class^="icon-"]:before, [class*=" icon-"]:before {
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"]:before {
+*/
+.icon-untitled:before, .icon-untitled-2:before, .icon-untitled-3:before, .icon-untitled-4:before, .icon-untitled-5:before {
 	font-family: 'icomoon';
-	font-style: normal;
 	speak: none;
+	font-style: normal;
 	font-weight: normal;
+	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
-.icon-list:before {
-	content: "\e000";
+.icon-untitled:before {
+	content: "\40";
 }
-.icon-link:before {
-	content: "\e001";
+.icon-untitled-2:before {
+	content: "\26";
 }
-.icon-checkbox-partial:before {
-	content: "\e002";
+.icon-untitled-3:before {
+	content: "\2e";
 }
-.icon-monitor:before {
-	content: "\e003";
+.icon-untitled-4:before {
+	content: "\21";
 }
-.icon-camera:before {
-	content: "\e004";
+.icon-untitled-5:before {
+	content: "\24";
 }
