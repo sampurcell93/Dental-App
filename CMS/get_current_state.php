@@ -11,8 +11,7 @@
 	}
 
 	$parents = $_GET['parents'];
-	$query = "select * from edentulism_content where tablename = '2_6'";
+	$query = "select * from `edentulism_content` where tablename = '$parents'";
 	$results = $mysqli->query($query);
 	$row = $results->fetch_assoc(); 
 	echo $row['editable'];
-	echo "!!";
