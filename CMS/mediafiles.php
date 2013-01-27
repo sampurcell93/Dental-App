@@ -1,5 +1,5 @@
 <?php
-    /**
+/*
  * Indents a flat JSON string to make it more human-readable.
  *
  * @param string $json The original JSON string to process.
@@ -57,7 +57,7 @@ function indent($json) {
 
     return $result;
 }
-//returns file extn, png, gif, jpg, mov, mp4, etc
+//returns file extension:  png, gif, jpg, mov, mp4, whatever comes after the final dot.
 function extension($file_name) {
   return substr(strrchr($file_name,'.'),1);
 }
@@ -68,10 +68,13 @@ function has_period($str) {
 
 //only certain filetypes and names are accepted, also no directories.
 function good_file($filename) { 
-    $filetypes = array("png","gif","jpg","jpeg","mov","mp4",".ppt",".pptx");
+    $filetypes = array("png","gif","jpg","jpeg","mov","mp4","ppt","pptx");
+
     if ($filename == "." || $filename == "." || $filename[0] == ".")
         return false;
+
     $t = extension($filename);
+
     if (in_array($t, $filetypes) && has_period($filename))
         return true;
     
