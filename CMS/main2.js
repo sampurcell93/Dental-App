@@ -38,12 +38,12 @@
 					}
 					else if (extension == "mp4") { 
 
-						makeMedia = "<video class='path'  controls='controls'><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video>";
+						makeMedia = "<video class='path'  controls='controls'><source src='fupload/server/php/files/" + name + "' type='video/mp4;' /></video><br />Caption here";
 					}
-					else if (extension == "pptx") { 
+					else if (extension == "pptx" || extension == 'ppt') { 
 
-						makeMedia = '<iframe class="path" src="http://docs.google.com/gview?url="' + name + '" style="width:100%; height:500px;" frameborder="0"></iframe>';
-
+						//makeMedia = '<iframe class="path" src="http://docs.google.com/gview?url="' + name + '" style="width:100%; height:500px;" frameborder="0"></iframe>';
+						makeMedia = "<span contenteditable='false' class='ppt-icon'>" + name + "</span><br />";
 					}
 					else  {
 						makeMedia = "<span class='insertMedia path' data-path='fupload/server/php/files" + name + "' data-type='" + extension + "'>" + name + "</span>";
@@ -54,6 +54,16 @@
 				}
 				mediastr += "</ul></div>";
 				return mediastr;
+			},
+			updateMedia: function() { 
+
+				$(".addMedia").each(function() { 
+					var $this = $(this);
+	            	$this.find("div").remove();
+	            	var media = parseData.getMedia();
+	            	$(media).appendTo($this);
+          		 });
+
 			},
 			//compiles the data from the textboxes into the correct format, and appends some identifiers for the view to use to present correctly
 			compile: function() {
@@ -71,7 +81,9 @@
 					$(this).attr("value",$(this).val());
 					console.log($(this).attr("value")) ;
 				});
-				var edited = $(".content").html();
+				$content = $(".content");
+				$content.find(".editor").remove();
+				var edited = $content.html();
 
 				//return both the nicely formatted jqmobile array, and the barebones array
 				return {
@@ -286,10 +298,10 @@
 				//get all of the files currently in the media directory as array
 				var mediastring = parseData.getMedia();
 				var editor = "<ul class='editor'>";
-				editor += "<li class='addList icon'>&#xe000;<div><ul class='listchoice'><li class='add' data-content='" + unordered_list + "'>Unordered list</li><li class='add' data-content='" + ordered_list + "'>Ordered list</li></ul>";
-				editor += "<li class='addImage input icon'>&#xe002;<div><input type='text' class='inline w60' placeholder='Enter image URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li class='addLink input icon' >&#xe001;<div><input type='text' class='inline' placeholder='Enter link URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li data-role='Media' class='addMedia icon' >&#xe004;" + mediastring + "</li>";
+				editor += "<li class='addList icon'>&#64;<div><ul class='listchoice'><li class='add' data-content='" + unordered_list + "'>Unordered list</li><li class='add' data-content='" + ordered_list + "'>Ordered list</li></ul>";
+				editor += "<li class='addImage input icon'>.<div><input type='text' class='inline w60' placeholder='Enter image URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='addLink input icon' >&amp;<div><input type='text' class='inline' placeholder='Enter link URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li data-role='Media' class='addMedia icon' >&#36;" + mediastring + "</li>";
 				editor += "<li data-content='" + bold + "' class='bold icon add' ><strong>B</strong></li>";
 				editor += "<li data-content='" + italic + "' class='italic icon add' ><em>i</em></li>";
 				editor += "<li data-content='" + underline + "' class='underline icon add' ><u>U</u></li>";
@@ -329,7 +341,7 @@ $(document).ready(function() {
 		//add a second level header
 		$(".addSecond").live("click",function() { 
 			//get unique wrapper parent obj
-			var wrapper = $(this).closest("[id*=wrap]");
+			var wrapper = $(this).closest(".content_wrap");
 			//add the second level box
 			addContent.secondLevel(wrapper);
 
@@ -343,8 +355,9 @@ $(document).ready(function() {
 			pairing = $this.closest(".editor").siblings(".description");
 			//get the data to be added
 			var content = $this.attr("data-content");
-			//append data
-			$(content).appendTo(pairing);
+			if (pairing.prop("tagName") == "DIV")
+				$(content).appendTo(pairing);
+			
 
 		});
 
@@ -353,7 +366,7 @@ $(document).ready(function() {
 
 			var input = $(this).find("input");
 			var go = $(this).find(".button");
-			input.focus();
+			input.first().focus();
 
 			input.keyup(function() { 
 
@@ -407,8 +420,7 @@ $(document).ready(function() {
 				$("#previewContent").html(title);
 				var curr = $("#previewContent").html();
 
-		//add each header followed by its text in order.
-
+					//add each header followed by its text in order.
 					$("#previewContent").html(curr + toAdd.barebones);
 
 					makeTableName("#" + $(".activeBrowser").attr("id"));
@@ -505,30 +517,41 @@ $(document).ready(function() {
 					}
 				}
 			});
-		})
+		})//when the user clicks on a greyed out "edit node"
 		.delegate(".editable_node","click",function() {
 
 			var $this = $(this);
-			var id = $this.attr("id");
+			$this.addClass("editing_node").siblings().removeClass("editing_node");
+			//compile a tablename based on the node and its parents, and call that content from the db
+			var parents = makeTableName("#" + $this.closest(".hierarchy").attr("id"));				
 			$.ajax({
-			  url: 'get_current_state.php?parents=' + id,
+			  url: 'get_current_state.php?parents=' + parents,
 			  async: false,
 			  dataType: 'html',
 			  success: function (html) {
-			    $("#addContent").show().append(html);
+
+			  	$("#addContent").show();
+			    $(".content").show().prepend(html);
 			  }
 			});
 
-			$this.addClass("editing_node").siblings().removeClass("editing_node");
+			//the old data may not be up to date on current media - update the medisa panels.
+			$(".relative.m10").each(function() { 
+				addContent.editor($(this));
+			});
+
 
 		});
 
+		//when the user wants to add ot an empty node, show the console and open a new section.
 		$("#populateNode").live("click",function() { 
 
-			$("#addContent").slideDown("fast");
+			$("#addContent").slideDown("fast").find(".content").empty();
+			$("#addHeader").trigger("click");
 
 		});
 
+		//
 		$("#fixNewHierarchy").live("click",function() { 
 			var addNewNodes = function($this) { 
 				var child_rows = $this.closest(".hierarchy").find(".child_row").length;
@@ -562,7 +585,6 @@ $(document).ready(function() {
 
 		$("#add_data").on("click",function(e) { 
 
-			//e.preventDefault();
 			parseData.addToForm();
 
 		});
@@ -617,19 +639,7 @@ function makeTableName(id) {
 	return appGlobals.tablename;
 }
 
-$(window).scroll(function(e){
-
-  $el = $('#addHeader'); 
-
-  if ($(this).scrollTop() > 260 && !$el.hasClass("fixed")) { 
-  		$('#addHeader').addClass("fixed medShadow"); 
-  } 
-
-  if ($(this).scrollTop() < 260 && $el.hasClass("fixed")) { 
-  		$el.removeClass("fixed medShadow");
-  	 }
-
-}).bind('beforeunload', function(){
+$(window).bind('beforeunload', function(){
 
 	if (!parseData.compile())
 		return "You've started to enter content, but you haven't submitted it yet. Are you sure you want to leave?";
