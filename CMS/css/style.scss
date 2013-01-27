@@ -198,11 +198,10 @@ p {
 
 a { 
 
-	color: purple;
+	color: rgb(73,165,191);
+	@extend .cursor;
 
-	&:hover { color: #a44ace;}
-
-
+	&:hover { text-decoration: underline; }
 }
 
 hr { 
@@ -267,7 +266,6 @@ hr {
 		border: 1px solid #ddd;
 		@include border-radius(3px);
 		background: #f8f8f8;
-		display: table;
 
 	}
 
@@ -365,6 +363,7 @@ hr {
 	}*/
 }
 
+
 .fl { 		float: left; 		}
 .fR { 		float: right; 		}
 .hidden { 	display: none;		}
@@ -388,6 +387,7 @@ hr {
 .w100 { width: 100%; }
 .mauto { margin: 0 auto; }
 .center { text-align: center; }
+.block { display: block; }
 
 
 
@@ -399,7 +399,7 @@ nav {
  	ul { 
 
  		display: block;
- 		width: 400px;
+ 		width: 500px;
  		height: 59px;
  		float: right;
 	 	border-right: 1px solid #ccc;
@@ -416,15 +416,7 @@ nav {
  		li a {
  			cursor: pointer;
  			display: block;
-	 		background: rgb(255,255,255); /* Old browsers */
-			background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
-			background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
-			background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera 11.10+ */
-			background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
-			background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
-	   		height: 100%;
+	 		  		height: 100%;
 	 		line-height: 60px;
 	 		color: #222;
 	 		text-align: center;
@@ -509,9 +501,23 @@ nav {
 	}
 }
 
+span.ppt-icon { 
+
+	display: block;
+	max-width: 30%;
+	height: 35px;
+	border: 1px solid #ccc;
+	@include border-radius(4px);
+	@include box-shadow(0px 1px 2px #bbb);
+	text-align: center;
+	line-height: 35px;
+	@include whiteGradient();
+
+}
+
 #wrap0 { margin-top: 60px; }
 
-.description,  textarea, input[type="text"] { 
+.description, input[type="text"] { 
 	display: block;
 	width: 100%;
 	@include border-radius(4px);
@@ -526,11 +532,15 @@ nav {
 	resize: vertical;
 	whitespace: pre;
 	clear: both;
-	height: 210px;
+	min-height: 210px;
 
 	.media_icon { width: 20%; margin: 0px .5%; }
 
-	img, video { max-width: 100%; resize: none; }
+	img, video { 
+		max-width: 60%;
+		resize: none;
+		padding: 10px;
+	}
 
 	&:focus { 
 
@@ -548,13 +558,18 @@ nav {
 
 	h4 { margin-left: 50px; }
 
-	li { list-style: bullet; margin-left: 10%; }
+	li { 
+		list-style: bullet;
+		margin-left: 3%;
+	}
 
 
 }
 
+
 input[type="text"] { 
 
+	min-height: 0px;
 	float: none;
 	width: 85%;
 	height: 30px;
@@ -616,9 +631,10 @@ input[type="text"] {
 		position: absolute;
 		top: 0px;
 		left: 0px;
-		width: 100%;
 		list-style:  none;
+		width: 100%;
 		z-index: 800;
+		@include box-shadow(0px 1px 2px #ddd);
 
 		
 		> li { 
@@ -629,17 +645,24 @@ input[type="text"] {
 			font-family: 'editor';
 			line-height: 27px;
 			height: 30px;
-			width: 10%;
+			width: 14.2857%;
 			cursor: pointer;
-			background: #f7f7f7;
+			@include whiteGradient();
 			border-right: 1px solid #ccc;
 			border-top: 1px solid #fff;
-			border-left: 1px solid #fff;
 			border-bottom: 1px solid #ccc;
 			text-shadow: 0px 1px 0px #fff;
 			position: relative;
+			margin: 0;
 
-			&:first-child { border-left: none;}
+			&:first-child { 
+				@include border-radius(4px 0px 0 0 );
+				border-left: none;
+			}
+			&:last-child { 
+
+				@include border-radius(0px 4px 0 0 );
+			}
 
 			div { 
 				display: none;
@@ -650,6 +673,7 @@ input[type="text"] {
 				max-height: 200px;
 				border: 1px solid #ccc;
 				background: #f8f8f8;
+				font-family: 'Lucida Grande', Arial, 'Open Sans',sans-serif;
 				@include box-shadow(0px .5px 1px #aeaeae);
 				z-index: 1000;
 
@@ -661,7 +685,7 @@ input[type="text"] {
 			}
 
 			&:hover { 
-				@include whiteGradient();
+				background: #f7f7f7;
 				color: #111;
 
 				div { display: block; }
@@ -783,6 +807,8 @@ float: right;
 
 #appendixAdd { top: 50px; }
 
+
+
 /* =======================================*/
 /* =========== Hierarchy Browser =============*/
 /* =======================================*/
@@ -849,13 +875,38 @@ float: right;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
 	position: relative;
-	padding-left: 2%;
+	padding-left: 15px;
 	padding-right: 9%;
 	position: relative;
-	@include clearfix();
 
-	.close { position: absolute; top: 0%; left: -26px; @include opacity(.5,50); @include transition(all .05s ease-in-out); }
-	.close:hover { @include opacity(.75,75); }
+	.close { 
+		position: absolute;
+		top: 0%;
+		left: -25px;
+		font-size: 1.7em;
+		@include opacity(.8,80);
+		@include transition(all .05s ease-in-out);
+		width: 40px;
+		height: 40px;
+		@include box-shadow(none);
+		@include border-radius(50%);
+
+	
+		&:hover { 
+			@include opacity(.95,95);
+
+			&::after { 
+				text-decoration: none;
+			}
+		}
+
+		&:after { 
+			font-family: 'icons';
+			content: "X";
+			line-height:40px;
+		}
+
+	}
 
 	&:first-child .addNode { @include border-radius(0px 2px 0px 0px);}
 	&:last-child { border-bottom: none; }
@@ -876,7 +927,7 @@ float: right;
 	font-family: helvetica, sans-serif;
 	font-weight: bold;
 	text-shadow: 0px 2px 0px white;
-	height: 50px;
+	height: 100%;
 	min-width: 9%;
 	border-left: 1px solid #ddd;
 	@include whiteGradient();
@@ -944,39 +995,6 @@ float: right;
 	background: linear-gradient(to bottom,  rgba(205,235,142,1) 0%,rgba(165,201,86,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#a5c956',GradientType=0 ); /* IE6-9 */
 
-
-	/*&:after { 
-		position: absolute;
-		content: "+";
-		top: -10px;
-		right: -10px;
-		display: block;
-		width: 20px;
-		height: 20px;
-		border: 2px solid #f8f8f8;
-		font-size: 1.5em;
-		line-height: 20px;
-		background: #a1d54f;
-		color: white;
-		@include border-radius(50%);
-		@include box-shadow(0px 0px 1px #aaa, inset 0px 0px 4px #ccc);
-	}
-	&:before { 
-		position: absolute;
-		content: "X";
-		top: -10px;
-		left: -10px;
-		display: block;
-		width: 20px;
-		height: 20px;
-		border: 2px solid #f8f8f8;
-		font-size: 1em;
-		line-height: 20px;
-		background: #960303;
-		color: white;
-		@include border-radius(50%);
-		@include box-shadow(0px 0px 1px #aaa, inset 0px 0px 4px #ccc);
-	}*/
 }
 
 .editable_node { 
@@ -1038,12 +1056,33 @@ float: right;
  	 url("../icomoon/fonts/icomoon.woff")  format("woff"),
   	 url("../icomoon/fonts/icomoon.ttf")   format("truetype");
 }
+
+/* ========================================= */
+/* ========= APPENDIX EDITOR =============== */
+/* ========================================= */
+
+.appendix-definition {
+	width: 97%;
+	padding: 1% 6%;
+	background: #fcfcfc;
+	display: block;
+	margin: 0 auto;
+	border-bottom: 1px solid #eee;
+	font-size: .84em;
+}
+
+.appendix-term { 
+
+	margin-left: 10px;
+
+}
+
 /* =======================================*/
-/* ==============MEDIA QUERIES FOR RESPONSIVENESS============*/
+/* == MEDIA QUERIES FOR RESPONSIVENESS====*/
 /* =======================================*/
 @media all and (min-width: 1024px) { 
 
-	.wrapper-border { width: 90%; }
+	.wrapper-border { width: 75%; }
 
 }
 
@@ -1058,9 +1097,10 @@ float: right;
 
 }
 
-@media all and (max-width: 460px) { 
+@media all and (max-width: 650px) { 
 
 	nav [data-icon]:after { display: none; }
+	nav { width: 100%; li { width: 100% ;}}
 	.hierarchy span { font-size: .9em;}
 	h1 {
 
@@ -1072,15 +1112,14 @@ float: right;
 	.second_head, .description { width: 100%; }
 	.editor li { font-size: .7em; }
 	.descWrap { padding: 1%; margin: 5px;}
-	[contentEditable="true"] { font-size: .65em; }
 	p .button { width: 45%; }
 	.button { width: 90%; }
 	input[type="text"], .second_head { width: 90%; }
 	#previewBox::after { content: "Verify Content."}
 }
 
-@media all and (max-width: 300px) { 
+@media all and (max-width: 350px) { 
 
-	nav li, nav li a { width: 200px ;}
+	nav li, nav li a { width: 200px;}
 
 }
