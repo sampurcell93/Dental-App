@@ -56,17 +56,15 @@
 		$editable = $_POST['editable'];
 		$editable = mysql_escape_string($editable);
 		$editable = utf8_encode($editable);
-		
+
 		$result = $mysqli->query("select * from `edentulism_content` where tablename = '$title_num'");
-		echo "select * from `edentulism_content` where tablename = '$title_num'";
 
 		if (!$result->num_rows) 
 			$insert_string = "insert into `edentulism_content` VALUES('','$title_num','$barebones','$formatted','$title_words', '$editable')";
 		else {
-			echo "editing";
 			$insert_string = "UPDATE `edentulism_content`
 								SET barebones = '$barebones',
-								formatted = 'ballsonya',
+								formatted = '$formatted',
 								editable = '$editable'
 							WHERE tablename = '$title_num'";
 		}
@@ -85,19 +83,10 @@
 			<a href='index.php' class='button'>Go back</a>
 		</p>
 
-		<p style='text-align:center'><a id="showPreview" href="#">See what you created, as it exists in our databases.</a></p>
-
-	<div id="dbPreview" style="display: none; ">
-
 
 		<?php
 
-			while ($row = $results->fetch_assoc()) { 
-
-						echo html_entity_decode(str_replace("\n"," ",$row['barebones']));
-
-			}
-
+		
 		}
 
 		else { ?>
