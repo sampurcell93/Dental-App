@@ -2,7 +2,7 @@
 		function globals()  {
 
 			//gives each top level section a number
-			this.index_count = 0;
+			this.index_count = 1;
 			//compile a table name based on the selection in existing hierarchy
 			this.tablename;
 			//a loading gif for ajax calls
@@ -81,15 +81,10 @@
 					$(this).attr("value",$(this).val());
 					console.log($(this).attr("value")) ;
 				});
-				$content = $(".content");
-				$content.find(".editor").remove();
-				var edited = $content.html();
-
 				//return both the nicely formatted jqmobile array, and the barebones array
 				return {
 					barebones: content.join(' \n ') + "</ul></div></div>",
-					format: formatted.join(' \n '),
-					editable: edited
+					format: formatted.join(' \n ')
 				};
 			},
 			titleToText: function (title) {
@@ -103,12 +98,17 @@
 				return textString.substring(0,textString.length - 2);
 			},
 			addToForm: function() { 
+				//compile content into formatted and barebones style
 				var content = this.compile();
+				var $content = $(".content");
+				//remove extraneous html from storage
+				$content.find(".editor").remove();
+				var edited = $content.html();
 				$("#passtitlenum").val(appGlobals.tablename);
 				$("#passtitlewords").val($("#text_title").text());
 				$("#passformatted").val(content.format);
 				$("#passbarebones").val(content.barebones);
-				$("#passeditable").val(content.editable);
+				$("#passeditable").val(edited);
 				console.log($("#passeditable").val());
 			},
 			//format the content with only header tags, so multiple views can be generated from basic markup
@@ -291,20 +291,20 @@
 
 				var unordered_list = " <ul><li>List 1</li><li>List 2</li><li>List 3</li></ul>";
 				var ordered_list = " <ol><li>List 1</li><li>List 2</li><li>List 3</li></ol>";
-				var underline = '<u>Your text</u>done';
-				var bold = '<strong>Your text</strong>done';
-				var italic = '<em>Your text</em>done';
+				var underline = '<u>Your text</u> done';
+				var bold = '<strong>Your text</strong> done';
+				var italic = '<em>Your text</em> done';
 				
 				//get all of the files currently in the media directory as array
 				var mediastring = parseData.getMedia();
 				var editor = "<ul class='editor'>";
 				editor += "<li class='addList icon'>&#64;<div><ul class='listchoice'><li class='add' data-content='" + unordered_list + "'>Unordered list</li><li class='add' data-content='" + ordered_list + "'>Ordered list</li></ul>";
-				editor += "<li class='addImage input icon'>.<div><input type='text' class='inline w60' placeholder='Enter image URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li class='addLink input icon' >&amp;<div><input type='text' class='inline' placeholder='Enter link URL' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='addImage input icon'>.<div><input type='text' class='inline w60' placeholder='http://website.com/image.jpg' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='addLink input icon' >&amp;<div><input type='text' class='inline' placeholder='http://website.com' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "<li data-role='Media' class='addMedia icon' >&#36;" + mediastring + "</li>";
-				editor += "<li data-content='" + bold + "' class='bold icon add' ><strong>B</strong></li>";
-				editor += "<li data-content='" + italic + "' class='italic icon add' ><em>i</em></li>";
-				editor += "<li data-content='" + underline + "' class='underline icon add' ><u>U</u></li>";
+				editor += "<li class='input bold'><strong>B</strong><div><input type='text' class='inline w60' placeholder='Words to be bolded' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='input italic' ><em>i</em><div><input type='text' class='inline w60' placeholder='Words to be italicized' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='input underline'><u>U</u><div><input type='text' class='inline w60' placeholder='Words to be underlined' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "</ul>";
 				$(editor).appendTo($this);
 			}
@@ -352,32 +352,39 @@ $(document).ready(function() {
 
 			var $this = $(this);
 			//choose the closest input box to add content to
-			pairing = $this.closest(".editor").siblings(".description");
+			var pairing = $this.closest(".editor").siblings(".description");
 			//get the data to be added
 			var content = $this.attr("data-content");
-			if (pairing.prop("tagName") == "DIV")
-				$(content).appendTo(pairing);
-			
+			console.log(content);
+			console.log(pairing);
+			$(content).appendTo(pairing);
+
 
 		});
 
 		//console has hover options for links and images.
 		$(".editor").find(".input").live("click",function(e) {
 
-			var input = $(this).find("input");
-			var go = $(this).find(".button");
+			var $this = $(this);
+			var input = $this.find("input");
+			var go = $this.find(".button");
+			var holder = $this.find(".url");
 			input.first().focus();
 
-			input.keyup(function() { 
-
-				if($(this).closest(".input").hasClass("addImage")) { 
-					$(this).next(".url").attr("data-content","<img src='" + $(this).val() + "' />\n");
-				}
-				else { $(this).next(".url").attr("data-content","<a href='" + $(this).val() + "' >Your link Title</a>"); }
+			//unbinding needed to stop event stack propagation
+			input.unbind("keyup").on("keyup",function() { 
+				var $this = $(this);
+				var closest = $this.closest(".input");
+				if(closest.hasClass("addImage")) 
+					$this.next(".url").attr("data-content","<img src='" + $this.val() + "' />\n");
+				else if (closest.hasClass("addLink")) 
+					$this.next(".url").attr("data-content","<a href='" + $this.val() + "' >Your link Title</a>");
+				else
+					$this.next(".url").attr("data-content",$this.val());
+				
 			});
-
-			go.live("click",function() { 
-				$(this).prev(".url").trigger("click");
+			go.unbind("click").on("click",function() { 
+				holder.trigger("click");
 			});
 		});
 
@@ -396,9 +403,6 @@ $(document).ready(function() {
 			topic.removeClass("hasChildren").addClass("hasNoChildren");
 			$(this).parent().remove();
 		});
-
-		//.remove is a button which removes a section of the editing pane and decrements index
-		$(".remove").live("click",function() { appGlobals.index_count--; });
 
 		//when they click the preview button, their text inputs are aggregated. 
 		$("#preview").on("click",function() { 
