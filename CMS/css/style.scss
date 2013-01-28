@@ -347,20 +347,13 @@ hr {
 		text-align: center;
 		pointer-events: none;
 	}
+}
 
-	/*&:before {
-		position: absolute;
-		display: none;
-		background: #212121;
-		background: rgba(0,0,0,.65);
-		color: #f8f8f8;
-		content: "Remove this item.";
-		right: 100%;
-		top: 20%;
-		font-size: .6em;
-		padding: 4px;
-		white-space: nowrap;
-	}*/
+::selection, ::-moz-selection { 
+
+	background-color: #4096ee;
+	color: #fff;
+	text-shadow: none;
 }
 
 
@@ -704,10 +697,12 @@ input[type="text"] {
 		color: #666;
 		line-height: 30px;
 		border-top: 1px solid #fff;
+		background: #f0f0f0;
 		border-bottom: 1px solid #ccc;
 
 		&:hover { 
-			color: #111;@include whiteGradient();
+			color: #111;
+			background: #f7f7f7;
 		}
 	}
 }
@@ -1111,7 +1106,6 @@ float: right;
 
 	.second_head, .description { width: 100%; }
 	.editor li { font-size: .7em; }
-	.descWrap { padding: 1%; margin: 5px;}
 	p .button { width: 45%; }
 	.button { width: 90%; }
 	input[type="text"], .second_head { width: 90%; }
