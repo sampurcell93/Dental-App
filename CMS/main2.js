@@ -97,18 +97,43 @@
 				
 				return textString.substring(0,textString.length - 2);
 			},
+			//adds the path to the images so that they may be viewed from a different dir
+			imagePaths: function()  {
+
+		      $("img, source").each(function(){
+
+		        var $this = $(this);
+		        var currpath = $this.attr("src");
+
+		        if ($this.prop("tagName") == "VIDEO"){
+		          var source = $this.find("source");
+		          currpath = source.attr("src");
+		          source.attr("src", "CMS/" + currpath);
+		          source.load();
+		        }
+
+		        console.log(currpath);
+		        $this.attr("src", "CMS/" + currpath);
+		        console.log($this.attr("src"));
+
+		      });
+    		},
+    		//called on final submission only
 			addToForm: function() { 
-				//compile content into formatted and barebones style
-				var content = this.compile();
-				var $content = $(".content");
+
+				var $edited = $(".content");
 				//remove extraneous html from storage
-				$content.find(".editor").remove();
-				var edited = $content.html();
+				$edited.find(".editor").remove();
+				$edited = $edited.html();
+				//compile content into formatted and barebones style
+				this.imagePaths();
+
+				var content = this.compile();
 				$("#passtitlenum").val(appGlobals.tablename);
 				$("#passtitlewords").val($("#text_title").text());
 				$("#passformatted").val(content.format);
 				$("#passbarebones").val(content.barebones);
-				$("#passeditable").val(edited);
+				$("#passeditable").val($edited);
 				console.log($("#passeditable").val());
 			},
 			//format the content with only header tags, so multiple views can be generated from basic markup
@@ -251,7 +276,7 @@
 
 			topLevel: function ($this) { 
 
-				var topHeader = "<h2>Section " + (appGlobals.index_count + 1) + "</h2> <a class='close remove' data-close='remove'></a><input type='text' class='top_head info' placeholder='Put a top-level header here.' />";
+				var topHeader = "<h2 class='section-num'>Section " + (appGlobals.index_count + 1) + "</h2> <a class='close remove' data-close='remove'></a><input type='text' class='top_head info' placeholder='Put a top-level header here.' />";
 				var description = "<p>Add sub-divisions to this header, then either sub-divide further or add content to that subheader.</p>";
 				var newSecondButton = "<span class='addSecond'> Add Subheader</span>";
 				$(topHeader + description + newSecondButton).appendTo($this);
@@ -302,9 +327,9 @@
 				editor += "<li class='addImage input icon'>.<div><input type='text' class='inline w60' placeholder='http://website.com/image.jpg' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "<li class='addLink input icon' >&amp;<div><input type='text' class='inline' placeholder='http://website.com' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "<li data-role='Media' class='addMedia icon' >&#36;" + mediastring + "</li>";
-				editor += "<li class='input bold'><strong>B</strong><div><input type='text' class='inline w60' placeholder='Words to be bolded' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li class='input italic' ><em>i</em><div><input type='text' class='inline w60' placeholder='Words to be italicized' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
-				editor += "<li class='input underline'><u>U</u><div><input type='text' class='inline w60' placeholder='Words to be underlined' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='input addBold'><strong>B</strong><div><input type='text' class='inline w60' placeholder='Words to be bolded' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='input addItalic' ><em>i</em><div><input type='text' class='inline w60' placeholder='Words to be italicized' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
+				editor += "<li class='input addUnderline'><u>U</u><div><input type='text' class='inline w60' placeholder='Words to be underlined' /><span class='url add'></span><span class='button p0 inline w30'>Add</span></div></li>";
 				editor += "</ul>";
 				$(editor).appendTo($this);
 			}
@@ -355,10 +380,11 @@ $(document).ready(function() {
 			var pairing = $this.closest(".editor").siblings(".description");
 			//get the data to be added
 			var content = $this.attr("data-content");
-			console.log(content);
-			console.log(pairing);
-			$(content).appendTo(pairing);
 
+			//appendTo is faster, but was throwing inexplicable errors
+			$(pairing).append(content);
+
+    document.execCommand('bold', false, null);
 
 		});
 
@@ -376,11 +402,15 @@ $(document).ready(function() {
 				var $this = $(this);
 				var closest = $this.closest(".input");
 				if(closest.hasClass("addImage")) 
-					$this.next(".url").attr("data-content","<img src='" + $this.val() + "' />\n");
+					$this.next(".url").attr("data-content","<img src='" + $this.val() + "' />&nbsp;\n");
 				else if (closest.hasClass("addLink")) 
-					$this.next(".url").attr("data-content","<a href='" + $this.val() + "' >Your link Title</a>");
-				else
-					$this.next(".url").attr("data-content",$this.val());
+					$this.next(".url").attr("data-content","<a href='" + $this.val() + "' >Your link Title</a>&nbsp;");
+				else if (closest.hasClass("addBold")) 
+					$this.next(".url").attr("data-content","<strong>" + $this.val() + "</strong>&nbsp;");
+				else if (closest.hasClass("addUnderline")) 
+					$this.next(".url").attr("data-content","<u>" + $this.val() + "</u>&nbsp;");
+				else if (closest.hasClass("addItalic")) 
+					$this.next(".url").attr("data-content","<em>" + $this.val() + "</em>&nbsp;");
 				
 			});
 			go.unbind("click").on("click",function() { 
@@ -402,6 +432,14 @@ $(document).ready(function() {
 			addContent.editor(topicWrap.find(".relative:last-child"));
 			topic.removeClass("hasChildren").addClass("hasNoChildren");
 			$(this).parent().remove();
+		});
+
+		$(".top_head").live("keyup",function() { 
+
+			var $this = $(this);
+			console.log($this.val());
+			$this.siblings(".section-num").text($this.val());
+
 		});
 
 		//when they click the preview button, their text inputs are aggregated. 
@@ -539,6 +577,8 @@ $(document).ready(function() {
 			  }
 			});
 
+			var sections = $(".content_wrap").length;
+			appGlobals.index_count = sections;
 			//the old data may not be up to date on current media - update the medisa panels.
 			$(".relative.m10").each(function() { 
 				addContent.editor($(this));
@@ -588,9 +628,7 @@ $(document).ready(function() {
 		});
 
 		$("#add_data").on("click",function(e) { 
-
 			parseData.addToForm();
-
 		});
 
 		$("#fake_button").on("click",function() { 

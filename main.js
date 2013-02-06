@@ -65,41 +65,18 @@
       });
     },
     //in order for images to display in the cms, their path began with ../. this removes that. either way, the path had to be modified.
-    imagePaths: function()  {
-
-      $(".path").each(function(){
-
-        var $this = $(this);
-        var currpath = $this.attr("src");
-
-        if ($this.prop("tagName") == "VIDEO"){
-          var source = $this.find("source");
-          currpath = source.attr("src");
-          source.attr("src", "CMS/" + currpath);
-          source.load();
-        }
-
-        //console.log(currpath);
-        $this.attr("src", "CMS/" + currpath);
-        //console.log($this.attr("src"));
-
-       
-
-      });
-    }
 };
 
-$("#bar").off('pagecreate');
-
 //first line lets things work on first page load, no need for refresh.
-$("#bar").live('pagecreate', function (event) {
+$("#main").off('pagecreate').live('pagecreate', function (event) {
+  
+  //stops media from being reloaded constantly, greatly improves performance
+  $.mobile.page.prototype.options.domCache = true;
 
   //make the separate page views for content
   $(format.pages()).appendTo($("body"));
   //link each list item to the next content item
   format.linkPages();
-  //change the image paths
-  format.imagePaths();
 
   //the list of conditions on the procedures page goes to that condition's specific page.
 	$("[name=condition]").bind("click",function() { 

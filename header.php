@@ -15,7 +15,7 @@
 
 		<body>
 
-			<div data-role="page" id="bar">
+			<div data-role="page" id="main">
 
 			<?php if (isset($fancyheader)) { 
 

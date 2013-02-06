@@ -1,6 +1,4 @@
 @import "../bourbon/bourbon";
-
-
 //======MIXINS======
 @mixin opacity($val: 1, $big: 100) { 
 
@@ -497,8 +495,7 @@ nav {
 span.ppt-icon { 
 
 	display: block;
-	max-width: 30%;
-	height: 35px;
+	max-width: 50%;
 	border: 1px solid #ccc;
 	@include border-radius(4px);
 	@include box-shadow(0px 1px 2px #bbb);
@@ -648,15 +645,6 @@ input[type="text"] {
 			position: relative;
 			margin: 0;
 
-			&:first-child { 
-				@include border-radius(4px 0px 0 0 );
-				border-left: none;
-			}
-			&:last-child { 
-
-				@include border-radius(0px 4px 0 0 );
-			}
-
 			div { 
 				display: none;
 				width: 200px;
@@ -665,9 +653,10 @@ input[type="text"] {
 				left: -1px;
 				max-height: 200px;
 				border: 1px solid #ccc;
+				border-top: none;
 				background: #f8f8f8;
 				font-family: 'Lucida Grande', Arial, 'Open Sans',sans-serif;
-				@include box-shadow(0px .5px 1px #aeaeae);
+				@include box-shadow(0px 1px 2px #aeaeae);
 				z-index: 1000;
 
 				.media_icon { width: 30%; }
@@ -677,9 +666,23 @@ input[type="text"] {
 
 			}
 
+			&:first-child { 
+				@include border-radius(4px 0px 0 0 );
+				border-left: none;
+
+				div { left: 0; }
+			}
+			&:last-child { 
+
+				@include border-radius(0px 4px 0 0 );
+
+				div { right: -1px; }
+			}
+
 			&:hover { 
 				background: #f7f7f7;
 				color: #111;
+				border-bottom: none;
 
 				div { display: block; }
 			}
