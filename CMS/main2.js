@@ -351,11 +351,8 @@ $(document).ready(function() {
 		$("#addHeader").on("click",function() {
 			//give the content wrapper a unique id
 			$(".content").append("<div id='wrap" + appGlobals.index_count + "' class='content_wrap'></div>");
-			//get the unique wrapper object
-			var wrapper = $("#wrap" + appGlobals.index_count);
-
 			//add a top level header title and description
-			addContent.topLevel(wrapper);
+			addContent.topLevel($(".content").find(".content_wrap").last());
 			//add an editor to the description box
 
 			//scroll to the botom of the page
@@ -383,9 +380,6 @@ $(document).ready(function() {
 
 			//appendTo is faster, but was throwing inexplicable errors
 			$(pairing).append(content);
-
-    document.execCommand('bold', false, null);
-
 		});
 
 		//console has hover options for links and images.
